@@ -54,6 +54,14 @@ hr {
     font-size: 3vh;
 }
 
+.input-description-admin {
+    font-family: 'sans-serif';
+    font-weight: normal;
+    font-size: 20px;
+    text-align: left;
+    margin-left: 20em;
+}
+
 .input1-user {
     display: block;
 }
@@ -65,6 +73,10 @@ hr {
 
 .input1-manage {
     display: block;
+}
+
+.input-admin {
+    margin-left: 30em;
 }
 
 span {
@@ -87,6 +99,11 @@ span {
 .address-search-hotspot {
     width: 30%;
 }
+
+.search-by-location-admin {
+    width: 30em;
+}
+
 
 .input2-user {
     margin-top: 1%;
@@ -140,6 +157,11 @@ span {
 .button-manage {
     display: block;
     margin-bottom: 1%;
+}
+
+#search-button-admin {
+    display: block;
+    margin: auto;
 }
 
 .table-user {
