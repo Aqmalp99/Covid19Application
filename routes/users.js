@@ -18,8 +18,8 @@ router.post('/login', function(req, res, next) {
             if(users[req.body.user] === req.body.pass){
                 req.session.user = req.body.user;
                 console.log("logged in");
-                //res.send(req.session.user);
-                res.redirect(302,'/homeUser.html');
+                res.send(req.session.user);
+                //res.redirect(302,'/homeUser.html');
             } else {
                 res.sendStatus(401);
             }
