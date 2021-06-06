@@ -1,0 +1,155 @@
+*{
+    box-sizing: border-box;
+}
+body
+{
+  	margin: 0;
+}
+
+.main
+{
+	  height: 100vh;
+	  background:#E0E0E0;
+}
+.covid_heading
+{
+	  background-color: rgb(49, 68, 85);
+    position:fixed;
+    z-index:100;
+    width:100%;
+    font-size: 5vmin;
+    color: white;
+    margin: 0%;
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px;
+}
+
+
+
+
+.container
+{
+  width:100%;
+  height:100%;
+
+}
+.map_buttons
+{
+    height:100%;
+    width:84%;
+    float:left;
+}
+
+/*---------------MAP AND BUTTONS-----------*/
+
+/*.map*/
+/*{*/
+/*    margin: 100px 90px 0px 160px ;*/
+/*}*/
+/*.map_heading*/
+/*{*/
+/*    margin: 0px 10px 0px ;*/
+/*    border-radius: 20px 20px 0px 0px;*/
+/*    border: 2px solid white;*/
+/*    font: Helvetica;*/
+/*    font-size: 5vmin;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*    font-weight: bold;*/
+/*    padding: 5px;*/
+
+/*}*/
+
+
+
+/*.map_api*/
+/*{*/
+/*    height:40%;*/
+/*  font: Helvetica;*/
+/*  text-align: center;*/
+/*  color: white;*/
+/*  border: 2px solid white;*/
+/*  border-radius:0px 0px 20px 20px ;*/
+/*  background-color: black;*/
+/*}*/
+
+
+
+
+/*.manage_venue*/
+/*{*/
+/*  float: right;*/
+/*  font: Helvetica;*/
+/*  font-size: 4vmin;*/
+  /*text-align: center;*/
+/*  border: 2px solid white;*/
+/*  text-align: center;*/
+/*  margin: 60px 150px 0px;*/
+/*  background-color: salmon;*/
+/*  padding: 10px;*/
+/*  height: 5%;*/
+/*}*/
+
+
+/*.manage_venue:hover*/
+/*{*/
+/*  background: linear-gradient(to left, #003366 50%, salmon  50%) right;*/
+/*    background-size: 200%;*/
+/*    transition: .5s ease-out;*/
+/*}*/
+
+
+/*--------------FAQ STYLES---------------------*/
+.faq
+{
+    height:100%;
+    width:16%;
+    float:right;
+    flex: 1 0 auto;
+    position: relative;
+    overflow:auto;
+}
+.faq
+{
+    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 20%);
+}
+.faq_heading
+{
+    margin: 150px 10px 0px;
+    text-align:center;
+    font-size:4vmin;
+    border-left:4px solid red;
+    padding: 0;
+    list-style: none;
+}
+
+.faq_list
+{
+    margin-top: 10px;
+    margin-right:5px;
+    margin-left:5px;
+    padding: 0;
+    list-style: none;
+}
+
+.faq_list_button
+{
+  	width: 100%;
+	  margin-top: 20px;
+    padding: 0;
+}
+
+
+
+.faq_button
+{
+    background: rgb(200, 200, 200);
+    width: 100%;
+    height:100px;
+
+    display:block;
+    border: none;
+
+}
