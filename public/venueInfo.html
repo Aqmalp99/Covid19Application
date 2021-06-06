@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>Venue Information</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+    <div class= "dashboard">
+        </div>
     <div id="venueInfo">
         <h1>Edit Venue Information</h1><hr><br>
         <div class="venueName">
@@ -24,7 +28,7 @@
             <label class="input-description">Venue Capacity:</label>
             <input class="input" type="text" placeholder="50"><br><br>
         </div>
-        
+
         <div id="venueAddress">
             <label class="input-description">Street no:</label>
             <input class="input" type="text" placeholder="12"><br><br>
@@ -49,3 +53,11 @@
 
 
 </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
+
+    });
+
+</script>
+</html>

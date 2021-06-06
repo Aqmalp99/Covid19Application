@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <title>Manage Hotspots</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+    <div class= "dashboard">
+        </div>
     <main>
         <h1>Manage Hotspots</h1>
         <hr>
@@ -265,5 +269,11 @@
         </section>
     </main>
 </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
 
+    });
+
+</script>
 </html>

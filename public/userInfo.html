@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>Personal Information</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+    <div class= "dashboard">
+        </div>
     <div class="toggles">
         <h1>Edit Personal Information</h1><hr><br>
         <div class="name">
@@ -52,3 +56,11 @@
 
     </div>
 </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
+
+    });
+
+</script>
+</html>

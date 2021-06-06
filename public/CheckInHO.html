@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Check In History (Admin)</title>
 <<<<<<< HEAD
@@ -9,6 +11,8 @@
 =======
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css"> </head> <body>
 >>>>>>> f6006fff88d2625ee6a85eb0789f5d7bb3b5a14a
+    <div class= "dashboard">
+        </div>
     <main>
         <h1>Check-In History</h1>
         <hr>
@@ -54,5 +58,11 @@
 >>>>>>> f6006fff88d2625ee6a85eb0789f5d7bb3b5a14a
     </main>
     </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
 
+    });
+
+</script>
 </html>

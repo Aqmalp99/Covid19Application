@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>Venue Check-in History</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+    <div class= "dashboard">
+        </div>
     <h1>Check-In History</h1>
     <hr>
     <section class="toggles-venue">
@@ -152,5 +156,11 @@
         </table>
     </section>
 </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
 
+    });
+
+</script>
 </html>
