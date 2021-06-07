@@ -1,8 +1,6 @@
 body {
     background-image: url(images/bg2_sml.jpg);
     background-repeat: no-repeat;
-    background-width: 100%;
-    background-height: auto;
     background-size: cover;
     margin: 0;
 }
