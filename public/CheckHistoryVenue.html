@@ -5,152 +5,176 @@
     <meta charset="UTF-8">
     <title>Venue Check-in History</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
 </head>
 
 <body>
     <h1>Check-In History</h1>
-    <hr>
-    <section class="toggles-venue">
-        <div class="input1-venue">
-            <span>Given Name: </span>
-            <input type="search" placeholder="Given name..." name="fname">
-            <span class="surname-input-spacing-venue">Surname: </span>
-            <input class="surname-input-venue" type="search" placeholder="Surname..." name="sname">
+    <div class="content-venue">
+        <section class="toggles-venue">
+            <div>
+                <label>Given Name: </label>
+            </div>
+            <div>
+                <input type="search" placeholder="Given Name..." name="fname">
+            </div>
+            <div></div>
+            <div>
+                <label>Date of Check-In: </label>
+            </div>
+            <div>
+                <input type="date" name="date">
+            </div>
+            <div>
+                <label for="sname">Surname: </label>
+            </div>
+            <div>
+                <input type="search" name="sname" placeholder="Surname...">
+            </div>
+            <div></div>
+            <div>
+                <label>Start of Timeframe: </label>
+            </div>
+            <div>
+                <input type="time" name="startTime">
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>
+                <label>End of Timeframe: </label>
+            </div>
+            <div>
+                <input type="time" name="endTime">
+            </div>
+        </section>
+        <div class="button-div-venue">
+            <button class="button-venue" name="refine-button" onclick="">Refine Search</button>
         </div>
-        <div class="input2-venue">
-            <span>Date: </span>
-            <input type="date" name="date">
-            <span class="input-description-spacing">Start of timeframe: </span>
-            <input type="time" name="start-time">
-            <span class="input-description-spacing">End of timeframe: </span>
-            <input type="time" name="end-time">
-        </div>
-        <br>
-        <button class="button-venue" name="button">Refine Search</button>
-    </section>
-    <section class="table-venue">
-        <table>
-            <thead>
-                <th>Given Name</th>
-                <th>Surname</th>
-                <th>Mobile Number</th>
-                <th>Check-in Date</th>
-                <th>Check-in Time</th>
-            </thead>
-            <tr>
-                <td>Anthony</td>
-                <td>McDonald-Tipungwuti</td>
-                <td>0468585053</td>
-                <td>12/05/2021</td>
-                <td>2:55pm</td>
-            </tr>
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--    <td>Anthony</td>-->
-            <!--    <td>McDonald-Tipungwuti</td>-->
-            <!--    <td>0468585053</td>-->
-            <!--    <td>12/05/2021</td>-->
-            <!--    <td>2:55pm</td>-->
-            <!--</tr>-->
-        </table>
-    </section>
+        <section class="table-venue">
+            <table>
+                <thead>
+                    <th>Given Name</th>
+                    <th>Surname</th>
+                    <th>Mobile Number</th>
+                    <th>Check-in Date</th>
+                    <th>Check-in Time</th>
+                </thead>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+                <tr>
+                    <td>Anthony</td>
+                    <td>McDonald-Tipungwuti</td>
+                    <td>0468585053</td>
+                    <td>12/05/2021</td>
+                    <td>2:55pm</td>
+                </tr>
+            </table>
+        </section>
+    </div>
 </body>
 
 </html>
