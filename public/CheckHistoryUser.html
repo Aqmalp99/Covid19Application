@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <h1>Check-In History</h1>
+    <header>Check-In History</header>
     <div class="content-user">
         <section class="toggles-user">
             <div>
                 <label>Venue Name: </label>
             </div>
             <div>
-                <input type="search" placeholder="Venue Name..." name="fname">
+                <input type="search" placeholder="Venue Name..." name="vname">
             </div>
             <div></div>
             <div>
@@ -29,7 +29,7 @@
                 <label>Venue Address: </label>
             </div>
             <div>
-                <input type="search" name="sname" placeholder="Street number, name, suburb, postcode...">
+                <input type="search" name="vaddress" placeholder="Street number, name, suburb, postcode...">
             </div>
             <div></div>
             <div>
@@ -39,7 +39,7 @@
                 <input type="time" name="startTime">
             </div>
             <div>
-                <label>State: </label>
+                <label for="state">State: </label>
             </div>
             <div>
                 <input type="search" name="state" placeholder="Enter state...">
@@ -53,7 +53,7 @@
             </div>
         </section>
         <div class="button-div-user">
-            <button class="button-user" name="refine-button" onclick="">Refine Search</button>
+            <button class="button-user" name="refine-button" onclick="refineSearchUser()">Refine Search</button>
         </div>
         <section class="table-user">
             <table>
@@ -178,6 +178,7 @@
             </table>
         </section>
     </div>
+    <script src="javascripts/filter.js"></script>
 </body>
 
 </html>
