@@ -4,6 +4,19 @@ body {
     background-width: 100%;
     background-height: auto;
     background-size: cover;
+    margin: 0;
+}
+
+header {
+    background-color: rgba(163, 183, 198, 0.3);
+    margin: 0 0 4vh 0;
+    padding: 1%;
+    text-align: center;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-weight: 800;
+    color: #5d5e68;
+    font-size: 3vw;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
 }
 
 h1 {
@@ -12,85 +25,6 @@ h1 {
     font-weight: 800;
     color: #5d5e68;
     font-size: 3vw;
-}
-
-.content-user {
-    max-width: 70vw;
-    margin: auto;
-    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
-}
-
-.toggles-user {
-    display: grid;
-    grid-template-columns: 14.5% 30% 8%  17.5% 30% ;
-    grid-template-rows: 25% 25% 25%;
-    grid-row-gap: 20%;
-    background-color: rgba(163, 183, 198, 0.6);
-    padding: 4% 1% 3% 1%;
-}
-
-.toggles-user label {
-    margin: auto;
-    float: left;
-    color: #5d5e68;
-    font-family: "mr-eaves-modern", sans-serif;
-    font-size: 1.5vw;
-    font-weight: normal;
-}
-
-.toggles-user input{
-    margin: auto;
-    width: 100%;
-    float: right;
-    font-family: "mr-eaves-modern", sans-serif;
-    font-style: italic;
-    font-size: 1.5vw;
-    color: #5d5e68;
-}
-
-.button-div-user {
-    width: 100%;
-    box-sizing: border-box;
-    /*border-bottom: 0.5px solid #DBD3BA;*/
-    /*border-left: 0.5px solid #DBD3BA;*/
-    /*border-right: 0.5px solid #DBD3BA;*/
-    background-color: rgba(163, 183, 198, 0.6);
-    padding: 1%;
-    padding-bottom: 2%;
-}
-
-.button-user {
-    display: block;
-    margin: auto;
-    padding: 1% 2% 1% 2%;
-    border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
-    font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
-    font-size: 1.5vw;
-}
-
-span {
-    font-family: "mr-eaves-modern", sans-serif;
-    font-weight: 300;
-}
-
-.address-search-hotspot {
-    width: 30%;
-}
-
-.table-user {
-    margin: auto;
-    max-height: 45vh;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: white;
-    border-left: 0.25px solid #b1c5d2;
-    border-right: 0.25px solid #b1c5d2;
-    border-bottom: 0.25px solid #b1c5d2;
-    box-sizing: border-box;
 }
 
 tr:nth-of-type(odd) {
@@ -133,15 +67,70 @@ td {
     font-size: 1.2vw;
 }
 
-.smallFont
-{
-    margin-left: 30em;
+/*Check In History - USER*/
+
+.content-user {
+    max-width: 70vw;
+    margin: auto;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
 }
 
-.OccupationDropBox
-{
-    width: 13%;
-    padding: 1px;
+.toggles-user {
+    display: grid;
+    grid-template-columns: 14.5% 30% 8%  17.5% 30% ;
+    grid-template-rows: 25% 25% 25%;
+    grid-row-gap: 20%;
+    background-color: rgba(163, 183, 198, 0.6);
+    padding: 4% 1% 3% 1%;
+}
+
+.toggles-user label {
+    color: #5d5e68;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-size: 1.5vw;
+    font-weight: normal;
+}
+
+.toggles-user input{
+    width: 100%;
+    float: right;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-style: italic;
+    font-size: 1.5vw;
+    color: #5d5e68;
+}
+
+.button-div-user {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgba(163, 183, 198, 0.6);
+    padding: 1%;
+    padding-bottom: 2%;
+}
+
+.button-user {
+    display: block;
+    margin: auto;
+    padding: 1% 2% 1% 2%;
+    border: 0.5px solid #5d5e68;
+    border-radius: 1em;
+    background-color: #DBD3BA;
+    font-family: "mr-eaves-modern", sans-serif;
+    color: #5d5e68;
+    font-size: 1.5vw;
+}
+
+.table-user {
+    margin: auto;
+    max-height: 45vh;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: white;
+    border-left: 0.25px solid #b1c5d2;
+    border-right: 0.25px solid #b1c5d2;
+    border-bottom: 0.25px solid #b1c5d2;
+    box-sizing: border-box;
 }
 
 /*VENUE MANAGERS*/
@@ -170,8 +159,6 @@ td {
 .toggles-venue label {
     max-width: 100%;
     max-height: 100%;
-    margin: auto;
-    float: left;
     color: #5d5e68;
     font-family: "mr-eaves-modern", sans-serif;
     font-size: 1.5vw;
@@ -179,27 +166,19 @@ td {
 }
 
 .toggles-venue input{
-    display: flex;
-    justify-content: center;
-    margin: auto;
     width: 100%;
     float: right;
     font-family: "mr-eaves-modern", sans-serif;
     font-style: italic;
     font-size: 1.5vw;
     color: #5d5e68;
-    max-width: 100%;
     max-height: 100%;
 }
 
 .button-div-venue {
-    width: 100%;
-    max-height: 100%;
     box-sizing: border-box;
     background-color: rgba(163, 183, 198, 0.6);
     padding: 4%;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .button-venue {
@@ -247,8 +226,6 @@ td {
 }
 
 .toggles-manage label {
-    margin: auto;
-    float: left;
     color: #5d5e68;
     font-family: "mr-eaves-modern", sans-serif;
     font-size: 1.5vw;
@@ -256,7 +233,6 @@ td {
 }
 
 .toggles-manage input{
-    margin: auto;
     width: 100%;
     float: right;
     font-family: "mr-eaves-modern", sans-serif;
@@ -266,11 +242,7 @@ td {
 }
 
 .button-div-manage {
-    width: 100%;
     box-sizing: border-box;
-    /*border-bottom: 0.5px solid #DBD3BA;*/
-    /*border-left: 0.5px solid #DBD3BA;*/
-    /*border-right: 0.5px solid #DBD3BA;*/
     background-color: rgba(163, 183, 198, 0.6);
     padding: 1%;
     padding-bottom: 2%;
@@ -312,7 +284,6 @@ td button {
 
 /*ADMIN HISTORY*/
 .content-admin {
-    display: block;
     max-width: 40vw;
     max-height: 90vh;
     margin: auto;
@@ -321,7 +292,6 @@ td button {
 .toggles-admin {
     display: grid;
     width: 100%;
-    max-height: 100%;
     grid-template-columns: 15vw 15vw;
     grid-template-rows: 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh;
     grid-column-gap: 1.5vw;
@@ -334,7 +304,6 @@ td button {
 .toggles-admin label {
     max-width: 100%;
     max-height: 100%;
-    margin: auto;
     color: #5d5e68;
     font-family: "mr-eaves-modern", sans-serif;
     font-size: 1.5vw;
@@ -343,7 +312,6 @@ td button {
 }
 
 .toggles-admin input {
-    margin: auto;
     width: 100%;
     height: 4vh;
     font-family: "mr-eaves-modern", sans-serif;
@@ -361,7 +329,8 @@ td button {
     padding : 2% 1% 0% 1%
 }
 
-button {
+.button-admin {
+    width: 100%;
     padding: 5% 5% 5% 5%;
     border: 0.5px solid #5d5e68;
     border-radius: 1em;
@@ -369,4 +338,17 @@ button {
     font-family: "mr-eaves-modern", sans-serif;
     color: #5d5e68;
     font-size: 1.2vw;
+}
+
+/*??*/
+
+.smallFont
+{
+    margin-left: 30em;
+}
+
+.OccupationDropBox
+{
+    width: 13%;
+    padding: 1px;
 }
