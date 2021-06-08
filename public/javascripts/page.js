@@ -40,7 +40,45 @@ function login(){
 
 }
 
+function checklogin(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("body").style.display = "block";
+
+        }
+        else if (this.readyState == 4 && this.status >= 400) {
+            window.location.replace('/index.html');
+            alert("Login Failed");
+        }
+    };
+
+    xmlhttp.open("POST","/users/checkuser", true);
+    xmlhttp.send();
+
+}
+
+function logout(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "/users/logout", true);
+    xmlhttp.send();
+
+}
+
 function signup() {
+
+            var terms_cond = document.getElementById("terms_cond");
+            if(terms_cond.checked==false)
+            {
+                alert("Please agree to the Terms & Conditions!");
+                return;
+            }
+
 
             var first_name = document.getElementById("first_name").value;
             var last_name = document.getElementById("last_name").value;

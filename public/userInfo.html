@@ -6,15 +6,20 @@
     <title>Personal Information</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascripts/page.js"></script>
+
 </head>
 
-<body>
+<body id="body" onload="checklogin()" style="display:none;">
+    <div class= "dashboard">
+        </div>
     <header>Edit Personal Information</header>
     <div class="content-userinfo">
         <section class="toggles-userinfo">
             <div>
                 <label for="gname">Given name:</label>
-                
+
             </div>
             <div><label for="lname">Last name:</label></div>
             <div><input id="gname" type="text" placeholder="Given Name"></div>
@@ -26,12 +31,12 @@
             <label for="dob">Date Of Birth:</label>
         </div>
         <div><label for="connumber">Contact Number:</label></div>
-        
-        <div><input id="dob" type="text" placeholder="15/12/1999"></div>
+
+        <div><input id="dob" type="date"></div>
         <div >
             <input id="connumber" type="text" placeholder="0435753189">
         </div>
-        
+
 
         <div class="span-2-columns">
             <label for="email">Email:</label>
@@ -53,7 +58,7 @@
         <div>
             <label for="suburb">Suburb:</label>
         </div>
-        
+
         <div class="span-2-columns">
             <input  id="suburb" type="text" placeholder="Seaford Meadows">
         </div>
@@ -64,15 +69,23 @@
         <div>
             <input  id="postcode" type="text" placeholder="5169">
         </div>
-        
+
         <div>
             <input  id="state" type="text" placeholder="SA">
         </div><div></div>
-        
+
         <div class="span-2-columns">
             <button class="button-userinfo">Submit</button>
         </div>
         <div></div><div></div>
         </section>
     </div>
+    <script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
+
+    });
+
+</script>
 </body>
+

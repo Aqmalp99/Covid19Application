@@ -555,4 +555,58 @@ td button {
     cursor: pointer;
 }
 
+/* signupHO */
+
+.toggles-signupHO {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 16vw 16vw;
+    grid-template-rows: 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh;
+    grid-column-gap: 1.5vw;
+    grid-row-gap: 2vh;
+    background-color: rgba(163, 183, 198, 0.6);
+    box-sizing: border-box;
+    padding-top: 5%;
+    padding-left: 9%;
+    padding-right: 9%;
+    padding-bottom: 5%;
+}
+
+.toggles-signupHO label {
+    max-width: 100%;
+    max-height: 100%;
+    color: #5d5e68;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-size: 1.5vw;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+.toggles-signupHO input {
+    width: 100%;
+    height: 4vh;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-style: italic;
+    font-size: 1.5vw;
+    color: #5d5e68;
+    box-sizing: border-box;
+}
+.content-signupHO {
+    max-width: 40vw;
+    max-height: 110vh;
+    margin: auto;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
+}
+
+.button-signupHO {
+    width: 100%;
+    padding: 3% 5% 3% 5%;
+    border: 0.5px solid #5d5e68;
+    background-color: rgb(49, 68, 85);
+    font-family: "mr-eaves-modern", sans-serif;
+    color: white;
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+
 
