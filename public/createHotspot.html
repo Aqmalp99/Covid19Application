@@ -6,8 +6,12 @@
     <title>Create Hotspot</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
+    <div class= "dashboard">
+        </div>
     <header>Create Hotspot</header>
     <div class="content-create">
         <section class="toggles-create">
@@ -32,21 +36,21 @@
             <div>
                 <label for="starttime">Enter Start of Timeframe:</label>
             </div>
-            
+
             <div>
                 <input id="starttime" type="time">
             </div>
-            
+
             <div>
                 <label for="endtime">Enter End of Timeframe:</label>
             </div>
-            
+
             <div>
                 <input id="endtime" type="time">
             </div>
-            
-            
-            
+
+
+
             <div class="button-admin-div">
                 <button class="button-admin">Create Hotspot</button>
             </div>
@@ -57,3 +61,10 @@
 
 
 </body>
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
+
+    });
+
+</script>
