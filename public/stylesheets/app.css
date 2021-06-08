@@ -111,11 +111,12 @@ td {
     margin: auto;
     padding: 1% 2% 1% 2%;
     border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
+    /*border-radius: 1em;*/
+    background-color: rgb(49, 68, 85);
     font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
+    color: white;
     font-size: 1.5vw;
+    cursor: pointer;
 }
 
 .table-user {
@@ -187,11 +188,11 @@ td {
     padding-top: 1%;
     padding-bottom: 1%;
     border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
+    background-color: rgb(49, 68, 85);
     font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
+    color: white;
     font-size: 1.5vw;
+    cursor: pointer;
 }
 
 .table-venue {
@@ -251,11 +252,11 @@ td {
     margin: auto;
     padding: 1% 2% 1% 2%;
     border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
+    background-color: rgb(49, 68, 85);
     font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
-    font-size: 1.2vw;
+    color: white;
+    font-size: 1.5vw;
+    cursor: pointer;
 }
 
 .table-manage {
@@ -273,11 +274,11 @@ td button {
     margin: auto;
     padding: 5% 5% 5% 5%;
     border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
+    background-color: rgb(49, 68, 85);
     font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
+    color: white;
     font-size: 1.2vw;
+    cursor: pointer;
 }
 
 /*ADMIN HISTORY*/
@@ -331,11 +332,11 @@ td button {
     width: 100%;
     padding: 5% 5% 5% 5%;
     border: 0.5px solid #5d5e68;
-    border-radius: 1em;
-    background-color: #DBD3BA;
+    background-color: rgb(49, 68, 85);
     font-family: "mr-eaves-modern", sans-serif;
-    color: #5d5e68;
+    color: white;
     font-size: 1.2vw;
+    cursor: pointer;
 }
 
 /*??*/
