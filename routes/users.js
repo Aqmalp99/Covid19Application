@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource');
+// });
 
 router.post('/login', function(req, res, next) {
 req.pool.getConnection(function(err,connection)
@@ -43,32 +43,27 @@ req.pool.getConnection(function(err,connection)
               res.sendStatus(500);
               return;
           }
-          req.session.user = req.body.user;
+
 
             // res.send(req.session.user);
             if(rows.length===0)
             {
-                res.sendStatus(500);
+                res.sendStatus(401);
                 return;
             }
+            req.session.user = rows[0];
             console.log("logged in");
             res.json(rows);
       });
   });
-    // if( 'user' in req.body ) {
-    //     if(req.body.user in users){
-    //         if(users[req.body.user] === req.body.pass){
-    //             req.session.user = req.body.user;
-    //             console.log("logged in");
-    //             res.send(req.session.user);
-    //             //res.redirect(302,'/homeUser.html');
-    //         } else {
-    //             res.sendStatus(401);
-    //         }
-    //     } else {
-    //         res.sendStatus(401);
-    //     }
-    // }
+
+});
+
+router.post('/logout', function(req, res, next) {
+
+    delete req.session.user;
+    res.send();
+
 });
 
 router.post('/signup', function(req, res, next) {
@@ -110,4 +105,15 @@ router.post('/signup', function(req, res, next) {
   });
 });
 
+router.use(function(req, res, next) {
+    if('user' in req.session){
+        next();
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+router.post('/checkuser', function(req, res, next) {
+  res.send('respond with a resource');
+});
 module.exports = router;
