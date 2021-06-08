@@ -2,19 +2,25 @@
 function refineSearchUser()
 {
     var xhttp = new XMLHttpRequest;
-    var venueName = document.getElementsByName("vname")[0].value;
-    var state = document.getElementsByName("state")[0].value;
-    var checkinDate = document.getElementsByName("date")[0].value;
-    var startTime = document.getElementsByName("startTime")[0].value;
-    var endTime = document.getElementsByName("endTime")[0].value;
-    var queryString = `/checkInsUser?vName=${encodeURIComponent(venueName)}&state${encodeURIComponent(state)}&date=${encodeURIComponent(checkinDate)}&sTime=${encodeURIComponent(startTime)}&eTime=${encodeURIComponent(endTime)}`;
-    console.log(queryString);
+
+    var venueName = document.getElementById("vname").value;
+    var date = document.getElementById("date").value;
+    var startTime = document.getElementById("startTime").value;
+    var endTime = document.getElementById("endTime").value;
+    var streetNumber = document.getElementById("stNum").value;
+    var streetName = document.getElementById("stName").value;
+    var suburb = document.getElementById("suburb").value;
+    var postcode = document.getElementById("postcode").value;
+    var state = document.getElementById("states").value;
+
+    var queryString = `/checkInsUser?vname=${venueName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
 
     xhttp.onreadystatechange = function()
           {
             if (this.readyState == 4 && this.status == 200)
             {
               console.log("great success");
+
             }
           };
 
@@ -25,4 +31,42 @@ function refineSearchUser()
 //filter checkin history results - venue
 
 //filter hotspots
+
+//hide toggles
+function showHideToggles(){
+  var addressToggles = document.getElementsByClassName("hidden")[0];
+  var toggles = document.getElementsByClassName("not-hidden")[0];
+
+  if (addressToggles.style.display == "none")
+  {
+      toggles.style.display = "none";
+      addressToggles.style.display = "block";
+      document.getElementById("toggle-button").innerHTML = "Search by Name";
+  }
+  else
+  {
+      toggles.style.display = "block";
+      addressToggles.style.display = "none";
+      document.getElementById("toggle-button").innerHTML = "Search by Address";
+  }
+}
+
+function showHideTogglesAdmin(){
+  var addressToggles = document.getElementsByClassName("hidden")[0];
+  var toggles = document.getElementsByClassName("not-hidden")[0];
+
+  if (addressToggles.style.display == "none")
+  {
+      toggles.style.display = "none";
+      addressToggles.style.display = "block";
+      document.getElementById("toggle-button").innerHTML = "Search by Name";
+  }
+  else
+  {
+      toggles.style.display = "block";
+      addressToggles.style.display = "none";
+      document.getElementById("toggle-button").innerHTML = "Search by Address";
+  }
+}
+
 

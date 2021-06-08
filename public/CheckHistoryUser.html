@@ -11,49 +11,90 @@
 <body>
     <header>Check-In History</header>
     <div class="content-user">
-        <section class="toggles-user">
-            <div>
-                <label>Venue Name: </label>
-            </div>
-            <div>
-                <input type="search" placeholder="Venue Name..." name="vname">
-            </div>
-            <div></div>
-            <div>
-                <label>Date of Check-In: </label>
-            </div>
-            <div>
-                <input type="date" name="date">
-            </div>
-            <div>
-                <label>Venue Address: </label>
-            </div>
-            <div>
-                <input type="search" name="vaddress" placeholder="Street number, name, suburb, postcode...">
-            </div>
-            <div></div>
-            <div>
-                <label>Start of timeframe: </label>
-            </div>
-            <div>
-                <input type="time" name="startTime">
-            </div>
-            <div>
-                <label for="state">State: </label>
-            </div>
-            <div>
-                <input type="search" name="state" placeholder="Enter state...">
-            </div>
-            <div></div>
-            <div>
-                <label>End of timeframe: </label>
-            </div>
-            <div>
-                <input type="time" name="endTime">
-            </div>
-        </section>
+        <div class="hidden">
+            <section class="address-toggles">
+                <div>
+                    <label for="stNum">Street Number: </label>
+                </div>
+                <div>
+                    <input type="search" placeholder="(Unit Number/)Street No.." id="stNum">
+                </div>
+                <div></div>
+                <div>
+                    <label for="stName">Street Name: </label>
+                </div>
+                <div>
+                    <input type="search" id="stName" placeholder="Street Name...">
+                </div>
+                <div>
+                    <label for="suburb">Suburb: </label>
+                </div>
+                <div>
+                    <input type="search" id="suburb" placeholder="Suburb">
+                </div>
+                <div></div>
+                <div>
+                    <label for="postcode">Postcode: </label>
+                </div>
+                <div>
+                    <input type="search" id="postcode" placeholder="Postcode...">
+                </div>
+                <div>
+                    <label for="states">State: </label>
+                </div>
+                <div class="span-2-users">
+                    <select id="states">
+                      <option>Please Select an Option: </option>
+                      <option>South Australia</option>
+                      <option>Victoria</option>
+                      <option>Queensland</option>
+                      <option>Western Australia</option>
+                      <option>Northern Territory</option>
+                      <option>Tasmania</option>
+                      <option>Australian Capital Territory</option>
+                      <option>New South Wales</option>
+                    </select>
+                </div>
+            </section>
+        </div>
+        <div class="not-hidden">
+            <section class="toggles-user">
+                <div>
+                    <label for="vname">Venue Name: </label>
+                </div>
+                <div>
+                    <input type="search" placeholder="Venue Name..." id="vname">
+                </div>
+                <div></div>
+                <div>
+                    <label for="vname">Date of Check-In: </label>
+                </div>
+                <div>
+                    <input type="date" id="date">
+                </div>
+                <div>
+                    <label for="startTime">Start of timeframe: </label>
+                </div>
+                <div>
+                    <input type="time" id="startTime">
+                </div>
+                <div></div>
+                <div>
+                    <label for="endTime">End of timeframe: </label>
+                </div>
+                <div>
+                    <input type="time" id="endTime">
+                </div>
+            </section>
+        </div>
         <div class="button-div-user">
-            <button class="button-user" name="refine-button" onclick="refineSearchUser()">Refine Search</button>
+            <div></div>
+            <div>
+                <button onclick="refineSearchUser()">Refine Search</button>
+            </div>
+            <div class="address-toggle-button">
+                <button id="toggle-button" onclick="showHideToggles()">Search by Address</button>
+            </div>
         </div>
         <section class="table-user">
             <table>

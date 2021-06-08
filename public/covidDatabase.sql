@@ -40,7 +40,6 @@ CREATE TABLE hotspots (
 	venueID INT,
 	start_date DATE,
 	end_date DATE,
-	venueID int,
 	PRIMARY KEY (hotspotID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
