@@ -13,55 +13,65 @@
     <div class="content-userinfo">
         <section class="toggles-userinfo">
             <div>
-                <label>Given name:</label>
+                <label for="gname">Given name:</label>
+                
             </div>
+            <div><label for="lname">Last name:</label></div>
+            <div><input id="gname" type="text" placeholder="Given Name"></div>
             <div>
-                <label>Last name:</label>
-            </div>
-            <div>
-                <input type="text" placeholder="Given Name">
-            </div>
-            <div>
-                <input type="text" placeholder="Last Name">
+                <input id="lname" type="text" placeholder="Last Name">
             </div>
 
         <div>
-            <label >Date Of Birth:</label>
-            <input type="text" placeholder="15/12/1999">
+            <label for="dob">Date Of Birth:</label>
         </div>
-        <div></div>
+        <div><label for="connumber">Contact Number:</label></div>
+        
+        <div><input id="dob" type="text" placeholder="15/12/1999"></div>
+        <div >
+            <input id="connumber" type="text" placeholder="0435753189">
+        </div>
+        
 
+        <div class="span-2-columns">
+            <label for="email">Email:</label>
+        </div>
+        <div class="span-2-columns">
+            <input id="email" type="text" placeholder="aqmal.pulle@gmail.com">
+        </div>
+
+        <div >
+            <label for="streetnum">Street no:</label>
+        </div>
+        <div><label for="streetname">Street Name:</label></div>
         <div>
-            <label >Email:</label>
-            <input  type="text" placeholder="aqmal.pulle@gmail.com">
+            <input  id="streetnum" type="text" placeholder="10">
+        </div>
+        <div>
+            <input  id="streetname" type="text" placeholder="Pelagic Street">
+        </div>
+        <div>
+            <label for="suburb">Suburb:</label>
+        </div>
+        <div><label for="postcode">Post code:</label></div>
+        <div>
+            <input  id="suburb" type="text" placeholder="Seaford Meadows">
+        </div>
+        <div>
+            <input  id="postcode" type="text" placeholder="5169">
+        </div>
+        <div>
+            <label for="state">State:</label>
         </div>
         <div></div>
-
-        <div >
-            <label >Contact Number:</label>
-            <input type="text" placeholder="0435753189">
-        </div>
-        <div></div>
-
-        <div >
-            <label >Street no:</label>
-            <input  type="text" placeholder="10">
-            <label>Street Name:</label>
-            <input  type="text" placeholder="Pelagic Street">
-            <label >Suburb:</label>
-            <input  type="text" placeholder="Seaford Meadows">
-            <label >Post code:</label>
-            <input  type="text" placeholder="5169">
-            <label >State:</label>
-            <input  type="text" placeholder="SA">
-            <label >Country:</label>
-            <input  type="text" placeholder="Australia">
-            <small class="smallFont">Edit Required changes and click "Submit"</small>
-        </div>
-
-        <div class="button-admin-div">
+        <div>
+            <input  id="state" type="text" placeholder="SA">
+        </div><div></div>
+        
+        <div class="span-2-columns">
             <button class="button-admin">Submit</button>
         </div>
+        <div></div><div></div>
         </section>
     </div>
 </body>

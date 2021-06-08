@@ -340,10 +340,7 @@ td button {
 
 /*??*/
 
-.smallFont
-{
-    margin-left: 30em;
-}
+
 
 .OccupationDropBox
 {
@@ -385,7 +382,7 @@ td button {
 }
 .content-create {
     max-width: 20vw;
-    max-height: 80vh;
+    max-height: 100vh;
     margin: auto;
     box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
 }
@@ -401,7 +398,8 @@ td button {
     grid-row-gap: 2vh;
     background-color: rgba(163, 183, 198, 0.6);
     box-sizing: border-box;
-    padding: 12%;
+    padding-top: 5%;
+    padding-left: 12%;
 }
 
 .toggles-userinfo label {
@@ -425,7 +423,9 @@ td button {
 }
 .content-userinfo {
     max-width: 40vw;
-    max-height: 90vh;
+    max-height: 110vh;
     margin: auto;
     box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
 }
+
+
