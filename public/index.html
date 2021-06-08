@@ -25,21 +25,21 @@
                 </div>
 
                 <div class="login_area">
-                    <label for="email">EMAIL OR USERNAME</label>
+                    <label for="email">Email</label>
                     <br>
                     <input class="info_input" type="text" id="email" placeholder="Enter your email or username" required>
 
                     <br>
 
-                    <label for="password">PASSWORD</label>
+                    <label for="password">Password</label>
                     <br>
                     <input class="password_input" type="password" id="password" placeholder="Enter your password" required>
                     <a href="https://iforgot.apple.com/password/verify/appleid">Forgot your password?</a>
 
                     <div class="radio_buttons">
-                        <input class="radio_css" id="radio_select" type="radio" name="user_type" value="user" checked> User
-                        <input class="radio_css" id="radio_select" type="radio" name="user_type" value="venue_manager"> Venue Manager
-                        <input class="radio_css" id="radio_select" type="radio" name="user_type" value="health_official"> Health Official
+                        <input class="radio_css" id="radiouser" type="radio" name="user_type" value="user" checked> User
+                        <input class="radio_css" id="radiovenue" type="radio" name="user_type" value="venue_manager"> Venue Manager
+                        <input class="radio_css" id="radioho" type="radio" name="user_type" value="health_official"> Health Official
                     </div>
 
                     <hr>
@@ -87,40 +87,40 @@
                     <div></div>
                     <div></div>
 
-                    <div class="signup_labels"><label for="first_name">FIRST NAME</label></div>
+                    <div class="signup_labels"><label for="first_name">First Name</label></div>
                     <div></div>
-                    <div class="signup_labels"><label for="last_name">LAST NAME</label></div>
+                    <div class="signup_labels"><label for="last_name">Last Name</label></div>
                     <div></div>
 
                     <div class="left_input_span"><input class="info_input" type="text" id="first_name" placeholder="First Name" required></div>
                     <div class="right_input_span"><input class="info_input" type="text" id="last_name" placeholder="Last Name" required></div>
 
-                    <div class="signup_labels"><label for="dob">DATE OF BIRTH</label></div>
+                    <div class="signup_labels"><label for="dob">Date Of Birth</label></div>
                     <div></div>
-                    <div class="signup_labels"><label for="ph">PHONE NUMBER</label></div>
+                    <div class="signup_labels"><label for="ph">Phone Number</label></div>
                     <div></div>
 
                     <div class="left_input_span"><input class="info_input" type="date" id="dob" placeholder="" required></div>
                     <div class="right_input_span"><input class="info_input" type="tel" id="ph" placeholder="Enter your phone number" required></div>
 
-                    <div class="signup_labels"><label for="email">EMAIL</label></div>
+                    <div class="signup_labels"><label for="email">Email</label></div>
                     <div></div>
                     <div></div>
                     <div></div>
 
-                    <div class="email_input_span"><input class="info_input" type="text" id="email" placeholder="Enter your email" required></div>
+                    <div class="email_input_span"><input class="info_input" type="text" id="signup_email" placeholder="Enter your email" required></div>
 
-                    <div class="signup_labels"><label for="address">ADDRESS</label></div>
+                    <div class="signup_labels"><label for="address">Address</label></div>
                     <div></div>
                     <div></div>
-                    <div></div>
-
-                    <div class="str_num_input_span"><input class="info_input" type="text" id="address" placeholder="Street number" required></div>
-                    <div class="str_name_input_span"><input class="info_input" type="text" id="address" placeholder="Street name" required></div>
                     <div></div>
 
-                    <div class="suburb_input_span"><input class="info_input" type="text" id="address" placeholder="Suburb" required></div>
-                    <div class="postcode_input_span"><input class="info_input" type="number" id="address" placeholder="Postcode" required></div>
+                    <div class="str_num_input_span"><input class="info_input" type="text" id="streetnum" placeholder="Street number" required></div>
+                    <div class="str_name_input_span"><input class="info_input" type="text" id="streetname" placeholder="Street name" required></div>
+                    <div></div>
+
+                    <div class="suburb_input_span"><input class="info_input" type="text" id="suburb" placeholder="Suburb" required></div>
+                    <div class="postcode_input_span"><input class="info_input" type="number" id="postcode" placeholder="Postcode" required></div>
                     <div class="state_input_span">
                         <select name="state" id="state" required>
                         <option value="" disabled selected hidden>State</option>
@@ -132,26 +132,26 @@
                         <option value="TAS">TAS</option>
                       </select></div>
 
-                    <div class="signup_labels"><label for="password">PASSWORD</label></div>
+                    <div class="signup_labels"><label for="signup_password">Password</label></div>
                     <div></div>
-                    <div class="signup_labels"><label for="repeat_password">REPEAT PASSWORD</label></div>
+                    <div class="signup_labels"><label for="repeat_password">Repeat Password</label></div>
                     <div></div>
 
-                    <div class="left_input_span"><input class="info_input" type="password" id="password" placeholder="Enter password" required></div>
+                    <div class="left_input_span"><input class="info_input" type="password" id="signup_password" placeholder="Enter password" required></div>
                     <div class="right_input_span"><input class="info_input" type="password" id="repeat_password" placeholder="Enter password again" required></div>
 
 
                     <label class="tANDc_label">
                         <input class="checkbox" type="checkbox"><a href="https://www.apple.com/au/legal/internet-services/terms/site.html">Agree to Terms & Conditions</a>
                     </label>
-                    <div class="checkbox_class"><input id="sign_up_as_vm" type="checkbox" name="venue_manager value="venue_manager"> Sign up as a venue manager</div>
+                    <div class="checkbox_class"><input id="sign_up_as_vm" type="checkbox" name="venue_manager" value="venue_manager"> Sign up as a venue manager</div>
 
                     <div></div>
                     <div></div>
                     <div></div>
                     <div></div>
 
-                    <div class="submit_button"> <button>Submit</button></div>
+                    <div class="submit_button"> <button onclick="signup()">Submit</button></div>
 
 
                 </div>

@@ -1,8 +1,19 @@
 function login(){
 
+    var logintype="user";
+
+    if(document.getElementById('radiovenue').checked)
+        {
+            logintype="venuemanager";
+        }
+    else if (document.getElementById('radioho').checked)
+    {
+        logintype="healthofficial";
+    }
     let user = {
         user: document.getElementById('email').value,
-        pass: document.getElementById('password').value
+        pass: document.getElementById('password').value,
+        type: logintype
     };
 
     // Create AJAX Request
@@ -11,7 +22,10 @@ function login(){
     // Define function to run on response
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert("Welcome "+this.responseText);
+            var name=JSON.parse(this.responseText);
+
+            alert("Welcome "+name[0].given_name);
+
             window.location.replace('/homeUser.html');
         } else if (this.readyState == 4 && this.status >= 400) {
             alert("Login failed");
@@ -25,3 +39,40 @@ function login(){
     xmlhttp.send(JSON.stringify(user));
 
 }
+
+function signup() {
+
+            var first_name = document.getElementById("first_name").value;
+            var last_name = document.getElementById("last_name").value;
+            var dob=document.getElementById("dob").value;
+            var phone_num=document.getElementById("ph").value;
+            var email=document.getElementById("signup_email").value;
+            var streetnum=document.getElementById("streetnum").value;
+            var streetname=document.getElementById("streetname").value;
+            var suburb=document.getElementById("suburb").value;
+            var postcode=document.getElementById("postcode").value;
+            var state=document.getElementById("state").value;
+            var password=document.getElementById("signup_password").value;
+            var repeat_password=document.getElementById("repeat_password").value;
+
+
+            if(!(password===repeat_password))
+            {
+                alert("Passwords do not match");
+                return;
+            }
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                alert("Welcome "+first_name);
+
+                window.location.replace('/homeUser.html');
+                }
+            };
+            xhttp.open("POST", "users/signup", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password }));
+
+        }
