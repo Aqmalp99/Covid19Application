@@ -37,17 +37,19 @@ CREATE TABLE `users` (
   `street_number` varchar(15) DEFAULT NULL,
   `street_name` varchar(30) DEFAULT NULL,
   `surburb` varchar(30) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
   `state` varchar(30) DEFAULT NULL,
   `postcode` varchar(15) DEFAULT NULL,
   `contact_number` varchar(20) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `password` varchar(40) DEFAULT NULL,
+  `password` varchar(260) DEFAULT NULL,
+  `isUser` tinyint(1) DEFAULT NULL,
   `isVenueManager` tinyint(1) DEFAULT NULL,
   `isHealthOfficial` tinyint(1) DEFAULT NULL,
-  `isUser` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +58,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'aqmal','pulle','10','pelagic rd','seaford meadows','SA','5169','0435753189','1999-12-15','aqmal.pulle@gmail.com','pulle',1,1,0),(7,'Shae','Haggis','10','lmao','nice','VIC','5169','04884883','2021-05-31','shae@uni.com','aqmalisthebest',0,0,0);
+INSERT INTO `users` VALUES (1,'Aqmal','Pulle','10','damn','lol',NULL,'TAS','16666','0435753189','1999-12-15',NULL,'aqmal.pulle@gmail.com','090b235e9eb8f197f2dd927937222c570396d971222d9009a9189e2b6cc0a2c1',0,0,0),(2,'yes','yws','w','1','1',NULL,'WA','22','0222','2021-06-10',NULL,'lmao','6959097001d10501ac7d54c0bdb8db61420f658f2922cc26e46d536119a31126',0,1,0),(3,'2','1','s','s','d',NULL,'SA','2','3','2021-06-08',NULL,'d','8693873cd8f8a2d9c7c596477180f851e525f4eaf55a4f637b445cb442a5e340',0,0,0),(4,'a','h','s','d','s',NULL,'SA','1','e','2021-06-04',NULL,'s','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb',0,0,0),(5,'aq','aq','10','yes','no',NULL,'WA','22','hi','2021-06-08',NULL,'aqmal12@gmail.com','090b235e9eb8f197f2dd927937222c570396d971222d9009a9189e2b6cc0a2c1',0,1,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -69,4 +71,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-08  8:18:54
+-- Dump completed on 2021-06-08 13:42:22
