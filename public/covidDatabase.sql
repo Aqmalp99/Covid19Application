@@ -28,7 +28,7 @@ CREATE TABLE venue (
 	suburb varchar(30),
 	city varchar(30),
 	state varchar(20),
-	postcode varchar(15),
+    postcode varchar(15),
 	contact_number varchar(20),
 	userID int,
 	PRIMARY KEY (venueID),
@@ -37,7 +37,7 @@ CREATE TABLE venue (
 
 CREATE TABLE hotspots (
     hotspotID INT NOT NULL AUTO_INCREMENT,
-	venue INT,
+	venueID INT,
 	start_date DATE,
 	end_date DATE,
 	venueID int,
