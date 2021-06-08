@@ -10,50 +10,107 @@
 <body>
     <header>Check-In History</header>
     <div class="content-admin">
-        <section class="toggles-admin">
-            <div class="span-2-columns">
-                <label>Search by given name, surname, or both:</label>
-            </div>
-            <div>
-                <input type="text" placeholder="Given Name">
-            </div>
-            <div>
-                <input type="text" placeholder="Last Name">
-            </div>
-            <div class="span-2-columns">
-                <label>Search by Venue Name or Location Information:</label>
-            </div>
-            <div class="span-2-columns">
-                <input type="search" placeholder="Venue name, venue address, suburb, city, or state...">
-            </div>
-            <div>
-                <label>Enter date:</label>
-            </div>
-            <div></div>
-            <div>
-                <input type="date">
-            </div>
-            <div></div>
-            <div>
-                <label>Enter Start of Timeframe:</label>
-            </div>
-            <div></div>
-            <div>
-                <input type="time">
-            </div>
-            <div></div>
-            <div>
-                <label>Enter End of Timeframe:</label>
-            </div>
-            <div></div>
-            <div>
-                <input type="time">
-            </div>
-            <div></div>
-            <div class="button-admin-div">
-                <button class="button-admin">Get Check-in History</button>
-            </div>
-        </section>
+        <div class="hidden">
+            <section class="address-toggles-admin">
+                <div>
+                    <label for="stNum-admin">Street Number:</label>
+                </div>
+                <div>
+                    <label for="stName-admin">Street Name:</label>
+                </div>
+                <div>
+                    <input id="stNum-admin" type="text" placeholder="Street Number...">
+                </div>
+                <div>
+                    <input id="stName-admin" type="text" placeholder="Street Name...">
+                </div>
+                <div>
+                    <label for="suburb-admin">Suburb:</label>
+                </div>
+                <div></div>
+                <div class="span-2-columns">
+                    <input id="suburb-admin" type="text" placeholder="Suburb...">
+                </div>
+                <div>
+                    <label for="states-admin">State:</label>
+                </div>
+                <div>
+                    <label for="postcode-admin">Postcode:</label>
+                </div>
+                <div>
+                    <select id="states-admin">
+                      <option>Please Select an Option: </option>
+                      <option>South Australia</option>
+                      <option>Victoria</option>
+                      <option>Queensland</option>
+                      <option>Western Australia</option>
+                      <option>Northern Territory</option>
+                      <option>Tasmania</option>
+                      <option>Australian Capital Territory</option>
+                      <option>New South Wales</option>
+                    </select>
+                </div>
+                <div>
+                    <input id="postcode-admin" type="text" placeholder="Postcode...">
+                </div>
+                <div class="button-admin-div">
+                    <button class="button-admin">Get Check-in History</button>
+                </div>
+                <div class="address-toggle-button-admin">
+                    <button onclick="showHideTogglesAdmin()">Search by Address</button>
+                </div>
+            </section>
+        </div>
+        <div class="not-hidden">
+            <section class="toggles-admin">
+                <div class="span-2-columns">
+                    <label>Search by given name, surname, or both:</label>
+                </div>
+                <div>
+                    <input type="text" placeholder="Given Name">
+                </div>
+                <div>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="span-2-columns">
+                    <label>Search by Venue Name:</label>
+                </div>
+                <div class="span-2-columns">
+                    <input type="text" placeholder="Venue Name...">
+                </div>
+                <div>
+                    <label>Enter date:</label>
+                </div>
+                <div></div>
+                <div>
+                    <input type="date">
+                </div>
+                <div></div>
+                <div>
+                    <label>Enter Start of Timeframe:</label>
+                </div>
+                <div></div>
+                <div>
+                    <input type="time">
+                </div>
+                <div></div>
+                <div>
+                    <label>Enter End of Timeframe:</label>
+                </div>
+                <div></div>
+                <div>
+                    <input type="time">
+                </div>
+                <div></div>
+                <div class="button-admin-div">
+                    <button class="button-admin">Get Check-in History</button>
+                </div>
+                <div class="address-toggle-button-admin">
+                    <button id="toggle-button-admin" onclick="showHideTogglesAdmin()">Search by Address</button>
+                </div>
+            </section>
+        </div>
     </div>
+    <script src="javascripts/filter.js"></script>
 </body>
 </html>
