@@ -10,42 +10,64 @@
 </head>
 
 <body>
-    <div id="venueInfo">
-        <h1>Edit Venue Information</h1><hr><br>
-        <div class="venueName">
-            <label class="input-description">Venue Name:</label>
-            <input class="input" type="text" placeholder="Hungry jacks"><br><br>
+    <header>Edit Venue Information</header>
+    <div class="content-venueinfo">
+        <section class="toggles-venueinfo">
+        <div class="span-2-columns">
+            <label for="vname">Venue Name:</label>
+        </div>
+        <div class="span-2-columns">
+            <input id="vname" class="input" type="text" placeholder="Hungry jacks">
         </div>
 
-        <div class="venueNumber">
-            <label class="input-description">Venue Number:</label>
-            <input class="input" type="text" placeholder="8823 8282"><br><br>
+        <div >
+            <label for="vcontactnum">Venue Number:</label>
+        </div>
+        <div><label for="vcapacity">Venue Capacity:</label></div>
+        <div>
+            <input id="vcontactnum" class="input" type="text" placeholder="8823 8282">
         </div>
 
-        <div class="venueCapacity">
-            <label class="input-description">Venue Capacity:</label>
-            <input class="input" type="text" placeholder="50"><br><br>
+        <div >
+            
+            <input id="vcapacity" class="input" type="text" placeholder="50">
         </div>
         
-        <div id="venueAddress">
-            <label class="input-description">Street no:</label>
-            <input class="input" type="text" placeholder="12"><br><br>
-            <label class="input-description">Street Name:</label>
-            <input class="input" type="text" placeholder="Anzac HWY"><br><br>
-            <label class="input-description">Suburb:</label>
-            <input class="input" type="text" placeholder="Everard Park"><br><br>
-            <label class="input-description">Post code:</label>
-            <input class="input" type="text" placeholder="5035"><br><br>
-            <label class="input-description">State:</label>
-            <input class="input" type="text" placeholder="SA"><br><br>
-            <label class="input-description">Country:</label>
-            <input class="input" type="text" placeholder="Australia"><br><br><br><br>
-            <small class="smallFont">Edit Required changes and click "Submit"</small>
+        <div >
+            <label for="vstreetnum">Street no:</label>
         </div>
-        <button id="search-button">Submit</button>
+        <div><label for="vstreetname">Street Name:</label></div>
+        <div>
+            <input  id="vstreetnum" type="text" placeholder="12">
+        </div>
+        <div>
+            <input  id="vstreetname" type="text" placeholder="Anzac HWY">
+        </div>
+        <div>
+            <label for="vsuburb">Suburb:</label>
+        </div>
+        
+        <div class="span-2-columns">
+            <input  id="vsuburb" type="text" placeholder="Everard Park">
+        </div>
+        <div><label for="vpostcode">Post code:</label></div>
+        <div>
+            <label for="vstate">State:</label>
+        </div>
+        <div>
+            <input  id="vpostcode" type="text" placeholder="5035">
+        </div>
+        
+        <div>
+            <input  id="vstate" type="text" placeholder="SA">
+        </div><div></div>
+        
+        <div class="span-2-columns">
+            <button class="button-venueinfo">Submit</button>
+        </div>
 
 
-
+    </section>
     </div>
 
 
