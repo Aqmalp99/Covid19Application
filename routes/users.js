@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -20,16 +21,16 @@ req.pool.getConnection(function(err,connection)
       var typeLogin=req.body.type;
       var isHOorVenman=0;
 
-      var query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isUser=?;`;
+      var query=`SELECT userID, given_name,isVenueManager,isHealthOfficial  FROM users WHERE email= ? AND  password=SHA2(?,256) AND isUser=?;`;
       if(typeLogin=="venuemanager")
       {
         isHOorVenman=1;
-        query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isVenueManager=?`;
+        query=`SELECT userID, given_name,isVenueManager,isHealthOfficial FROM users WHERE email= ? AND  password=SHA2(?,256) AND isVenueManager=?`;
       }
       else if(typeLogin=="healthofficial")
       {
         isHOorVenman=1;
-        query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isHealthOfficial=?`;
+        query=`SELECT userID, given_name,isVenueManager,isHealthOfficial FROM users WHERE email= ? AND  password=SHA2(?,256) AND isHealthOfficial=?`;
 
       }
 
@@ -86,12 +87,15 @@ router.post('/signup', function(req, res, next) {
       var postcode=req.body.postcode;
       var state=req.body.state;
       var password=req.body.password;
+      var venman=req.body.venMan;
+      var HO=0;
+
 
       var query=`INSERT INTO users
                  (given_name,surname,street_number,street_name,surburb,state,postcode,
                  contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser)
-                 VALUES (?,?,?,?,?,?,?,?,?,?,?,0,0,0);`;
-      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password],function(err,rows,fields)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,SHA2(?,256),?,?,0);`;
+      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password,venman,HO],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -100,6 +104,9 @@ router.post('/signup', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
+          req.session.user = first_name[0];
+          console.log("logged in");
+          res.json(rows);
           res.end();
       });
   });
@@ -107,6 +114,7 @@ router.post('/signup', function(req, res, next) {
 
 router.use(function(req, res, next) {
     if('user' in req.session){
+      console.log(req.session.user);
         next();
     } else {
         res.sendStatus(401);

@@ -25,8 +25,17 @@ function login(){
             var name=JSON.parse(this.responseText);
 
             alert("Welcome "+name[0].given_name);
-
+            if(name[0].isVenueManager==1)
+            {
+                window.location.replace('/homeManager.html');
+            }
+            else if(name[0].isHealthOfficial==1)
+            {
+                window.location.replace('/homeHealth.html');
+            }
+            else{
             window.location.replace('/homeUser.html');
+            }
         } else if (this.readyState == 4 && this.status >= 400) {
             alert("Login failed");
         }
@@ -92,6 +101,15 @@ function signup() {
             var state=document.getElementById("state").value;
             var password=document.getElementById("signup_password").value;
             var repeat_password=document.getElementById("repeat_password").value;
+            var venMan=document.getElementById("sign_up_as_vm");
+            if(venMan.checked==false)
+            {
+                venMan=0;
+            }
+            else
+            {
+                venMan=1;
+            }
 
 
             if(!(password===repeat_password))
@@ -104,13 +122,18 @@ function signup() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                alert("Welcome "+first_name);
-
-                window.location.replace('/homeUser.html');
+                    alert("Welcome "+first_name);
+                    if(venMan.checked==false){
+                        window.location.replace('/homeUser.html');
+                    }
+                    else
+                    {
+                        window.location.replace('/homeManager.html');
+                    }
                 }
             };
             xhttp.open("POST", "users/signup", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password }));
+            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password,venMan }));
 
         }

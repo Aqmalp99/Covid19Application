@@ -12,7 +12,7 @@ CREATE TABLE users (
     date_of_birth DATE,
     gender char,
     email varchar(50),
-    password varchar(40),
+    password varchar(260),
     isUser BOOL,
     isVenueManager BOOL,
     isHealthOfficial BOOL,
