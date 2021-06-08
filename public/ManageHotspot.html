@@ -5,9 +5,11 @@
     <title>Manage Hotspots</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>Manage Hotspots</header>
+    <div class= "dashboard"></div>
     <div class="content-manage">
         <div class="hidden">
             <section class="address-toggles">
@@ -230,6 +232,11 @@
         </section>
     </div>
     <script src="javascripts/filter.js"></script>
+    <script type = "text/javascript">
+        $(function (){
+            $(".dashboard").load("dashboardTemplate.html");
+        });
+    </script>
 </body>
 
 </html>

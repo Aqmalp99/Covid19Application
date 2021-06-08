@@ -41,13 +41,13 @@ function showHideToggles(){
   {
       toggles.style.display = "none";
       addressToggles.style.display = "block";
-      document.getElementById("toggle-button").innerHTML = "Search by Name";
+      document.getElementById("toggle-button").innerText = "Search by Name";
   }
   else
   {
       toggles.style.display = "block";
       addressToggles.style.display = "none";
-      document.getElementById("toggle-button").innerHTML = "Search by Address";
+      document.getElementById("toggle-button").innerText = "Search by Address";
   }
 }
 
@@ -59,13 +59,13 @@ function showHideTogglesAdmin(){
   {
       toggles.style.display = "none";
       addressToggles.style.display = "block";
-      document.getElementById("toggle-button").innerHTML = "Search by Name";
+      document.getElementById("toggle-button-admin").innerText = "Search by Name";
   }
   else
   {
       toggles.style.display = "block";
       addressToggles.style.display = "none";
-      document.getElementById("toggle-button").innerHTML = "Search by Address";
+      document.getElementById("toggle-button-admin").innerText = "Search by Address";
   }
 }
 
