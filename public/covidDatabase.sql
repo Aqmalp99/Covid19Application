@@ -13,6 +13,7 @@ CREATE TABLE users (
     gender char,
     email varchar(50),
     password varchar(40),
+    isUser BOOL,
     isVenueManager BOOL,
     isHealthOfficial BOOL,
     PRIMARY KEY (userID)
