@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="stylesheets/dashboard.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="javascripts/page.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="446524906437-lhb7qotm0adcd8j891vm50ol8t1p0u5h.apps.googleusercontent.com">
 	<title></title>
 
 </head>
@@ -64,6 +67,7 @@
                 			<div class="dashboard_list_text">
                   				LOGOUT
                 			</div>
+
               			</button>
             		</li>
 				</ul>
@@ -72,15 +76,4 @@
 
 
 </body>
-<script>
-function myFunction() {
-  var txt;
-  if (confirm("Please confirm for LOGOUT!")) {
-    txt = "You pressed OK!";
-  } else {
-    txt = "You pressed Cancel!";
-  }
-  document.getElementById("demo").innerHTML = txt;
-}
-</script>
 </html>

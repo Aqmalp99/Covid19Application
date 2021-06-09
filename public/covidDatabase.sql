@@ -30,9 +30,8 @@ CREATE TABLE venue (
 	state varchar(20),
     postcode varchar(15),
 	contact_number varchar(20),
-	userID int,
 	PRIMARY KEY (venueID),
-	FOREIGN KEY (userID) REFERENCES users(userID)
+	FOREIGN KEY (venue_manager) REFERENCES venue_managers(venue_manager_ID)
 );
 
 CREATE TABLE hotspots (
