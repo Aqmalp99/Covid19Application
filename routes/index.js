@@ -45,7 +45,7 @@ router.get('/checkInsUser', function (req, res, next) {
             var endTime = req.query.eTime;
         }
 
-        var query = `SELECT venue.venue_name, venue.contact_number, checkins.checkindate, checkins.checkintime
+        var query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM venue
                     INNER JOIN checkins
                     ON venue.venueID = checkins.venueID
