@@ -73,6 +73,7 @@ router.post('/signup', function(req, res, next) {
 
       if(err)
       {
+        console.log(err);
           res.sendStatus(500);
           return;
       }
@@ -104,7 +105,7 @@ router.post('/signup', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          req.session.user = first_name[0];
+          req.session.user = first_name;
           console.log("logged in");
           res.json(rows);
           res.end();

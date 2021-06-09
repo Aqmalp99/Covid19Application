@@ -122,6 +122,7 @@ function signup() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+
                     alert("Welcome "+first_name);
                     if(venMan.checked==false){
                         window.location.replace('/homeUser.html');
@@ -137,3 +138,18 @@ function signup() {
             xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password,venMan }));
 
         }
+
+function get_coordinates() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText);
+                        } else
+                        {
+                            console.log("not working");
+                        }
+                    };
+
+    xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/Adelaide.json?access_token=pk.eyJ1IjoiYTE3OTcxNjMiLCJhIjoiY2twbnp4eWZlNDc4czJybGFidGhxaGR3cCJ9.OkcuJRBHebRqUA-INN110g", true);
+    xmlhttp.send();
+}

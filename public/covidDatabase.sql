@@ -10,7 +10,6 @@ CREATE TABLE users (
     postcode varchar(15),
     contact_number varchar(20),
     date_of_birth DATE,
-    gender char,
     email varchar(50),
     password varchar(260),
     isUser BOOL,
