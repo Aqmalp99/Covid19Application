@@ -13,14 +13,13 @@ function refineSearchUser()
     var postcode = document.getElementById("postcode").value;
     var state = document.getElementById("states").value;
 
-    var queryString = `/checkInsUser?vname=${venueName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
+    var queryString = `users/checkInsUser?vname=${venueName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
 
     xhttp.onreadystatechange = function()
           {
             if (this.readyState == 4 && this.status == 200)
             {
               console.log("great success");
-
             }
           };
 
