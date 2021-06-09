@@ -5,60 +5,108 @@
     <meta charset="UTF-8">
     <title>Sign up Admin/Health Official</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+    <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascripts/page.js"></script>
+
 </head>
 
-<body>
-    <div class="toggles">
-        <h1>Sign up Admin/Health Official</h1><hr><br>
-        <div class="name">
-            <label class="input-description">First Name:</label>
-            <input class="input" type="text" placeholder="First Name"><br><br>
-            <label class="input-description">Given Name:</label>
-            <input class="input" type="text" placeholder="Given Name"><br><br>
+<body id="body" onload="checklogin()" style="display:none;">
+    <div class= "dashboard">
+        </div>
+    <header>Sign up Admin/Health Official</header>
+    <div class="content-signupHO">
+    <section class="toggles-signupHO">
+        <div>
+            <label >First Name:</label>
+        </div>
+        <div>
+            <label class="input-description">Last Name:</label>
+        </div>
+        <div>
+            <input id="first_name" class="input" type="text" placeholder="First Name">
+        </div>
+        <div>
+            <input id="last_name" class="input" type="text" placeholder="Given Name">
         </div>
 
-        <div id="DOB">
-            <label class="input-description">Date Of Birth:</label>
-            <input class="input" type="text" placeholder="DD/MM/YYYY"><br><br>
+        <div>
+            <label>Date Of Birth:</label>
+        </div>
+            <label>Contact Number:</label>
+        <div>
+            <input id="dob" class="input" type="date">
         </div>
 
-        <div id="email">
-            <label class="input-description">Email:</label>
-            <input class="input" type="text" placeholder="Please enter your email"><br><br>
+        <div>
+            <input id="ph" class="input" type="text" placeholder="contact number">
         </div>
 
-        <div id="contactNum">
-            <label class="input-description">Contact Number:</label>
-            <input class="input" type="text" placeholder="Please enter your contact number"><br><br>
+        <div class="span-2-columns">
+            <label >Email:</label>
+        </div>
+        <div class="span-2-columns">
+            <input id="email" class="input" type="text" placeholder="Please enter your email">
         </div>
 
-        <div id="address">
-            <label class="input-description" >Street no:</label>
-            <input class="input" type="text" placeholder="Please enter your street number"><br><br>
-            <label class="input-description" >Street Name:</label>
-            <input class="input" type="text" placeholder="Please enter your street name"><br><br>
-            <label class="input-description" >Suburb:</label>
-            <input class="input" type="text" placeholder="Please enter your suburb"><br><br>
-            <label class="input-description" >Post code:</label>
-            <input class="input" type="text" placeholder="Please enter your post code"><br><br>
-            <label class="input-description" >State:</label>
-            <input class="input" type="text" placeholder="Please enter your state"><br><br>
-            <label class="input-description" >Country:</label>
-            <input class="input" type="text" placeholder="Please enter your country"><br><br>
-            <label class="input-description" >Occupation:</label>
-            <select name="Occupation" class="OccupationDropBox">
-                <option value="HO">Health Official</option>
-                <option value="admin">Admin</option>
-            </select><br><br><br><br>            
-            <label class="input-description" >Password:</label>
-            <input class="input" type="text" placeholder="Please enter your password"><br><br>
-            <label class="input-description" >Re-enter Password:</label>
-            <input class="input" type="text" placeholder="Please re-enter your password"><br><br>
-            <small class="smallFont">Complete all fields and click "Submit"</small>
+
+
+        <div >
+            <label for="streetnum">Street no:</label>
+        </div>
+        <div><label for="streetname">Street Name:</label></div>
+        <div>
+            <input  id="streetnum" type="text" placeholder="10">
+        </div>
+        <div>
+            <input  id="streetname" type="text" placeholder="Pelagic Street">
+        </div>
+        <div>
+            <label for="suburb">Suburb:</label>
         </div>
 
-        <button id="search-button">Sign up</button>
+        <div class="span-2-columns">
+            <input  id="suburb" type="text" placeholder="Seaford Meadows">
+        </div>
+        <div><label for="postcode">Post code:</label></div>
+        <div>
+            <label for="state">State:</label>
+        </div>
+        <div>
+            <input  id="postcode" type="text" placeholder="5169">
+        </div>
 
+        <div>
+            <input  id="state" type="text" placeholder="SA">
+        </div>
+
+        <div>
+            <label >Password:</label>
+        </div>
+        <div>
+            <label >Re-enter Password:</label>
+        </div>
+        <div>
+            <input id="signup_password" type="text" placeholder="Please enter your password"><br><br>
+        </div>
+        <div>
+            <input id="repeat_password" class="input" type="text" placeholder="Please re-enter your password"><br><br>
+        </div>
+        <label class="tANDc_label">
+                <input class="checkbox" type="checkbox" id="terms_cond"><a href="https://www.apple.com/au/legal/internet-services/terms/site.html">Agree to Terms & Conditions</a>
+        </label>
+        <div class="span-2-columns">
+            <button class="button-signupHO" onclick="signup()">Sign up</button>
+        </div>
+    </section>
     </div>
-    <script  src="signupadmin.js"></script>
+
+    <script src="javascripts/page.js"></script>
+    <script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
+
+    });
+
+</script>
 </body>

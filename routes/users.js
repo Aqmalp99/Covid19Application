@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource');
+// });
 
 router.post('/login', function(req, res, next) {
 req.pool.getConnection(function(err,connection)
@@ -20,16 +21,16 @@ req.pool.getConnection(function(err,connection)
       var typeLogin=req.body.type;
       var isHOorVenman=0;
 
-      var query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isUser=?;`;
+      var query=`SELECT userID, given_name,isVenueManager,isHealthOfficial  FROM users WHERE email= ? AND  password=SHA2(?,256) AND isUser=?;`;
       if(typeLogin=="venuemanager")
       {
         isHOorVenman=1;
-        query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isVenueManager=?`;
+        query=`SELECT userID, given_name,isVenueManager,isHealthOfficial FROM users WHERE email= ? AND  password=SHA2(?,256) AND isVenueManager=?`;
       }
       else if(typeLogin=="healthofficial")
       {
         isHOorVenman=1;
-        query=`SELECT given_name FROM users WHERE email= ? AND  password=? AND isHealthOfficial=?`;
+        query=`SELECT userID, given_name,isVenueManager,isHealthOfficial FROM users WHERE email= ? AND  password=SHA2(?,256) AND isHealthOfficial=?`;
 
       }
 
@@ -43,32 +44,27 @@ req.pool.getConnection(function(err,connection)
               res.sendStatus(500);
               return;
           }
-          req.session.user = req.body.user;
+
 
             // res.send(req.session.user);
             if(rows.length===0)
             {
-                res.sendStatus(500);
+                res.sendStatus(401);
                 return;
             }
+            req.session.user = rows[0];
             console.log("logged in");
             res.json(rows);
       });
   });
-    // if( 'user' in req.body ) {
-    //     if(req.body.user in users){
-    //         if(users[req.body.user] === req.body.pass){
-    //             req.session.user = req.body.user;
-    //             console.log("logged in");
-    //             res.send(req.session.user);
-    //             //res.redirect(302,'/homeUser.html');
-    //         } else {
-    //             res.sendStatus(401);
-    //         }
-    //     } else {
-    //         res.sendStatus(401);
-    //     }
-    // }
+
+});
+
+router.post('/logout', function(req, res, next) {
+
+    delete req.session.user;
+    res.send();
+
 });
 
 router.post('/signup', function(req, res, next) {
@@ -77,6 +73,7 @@ router.post('/signup', function(req, res, next) {
 
       if(err)
       {
+        console.log(err);
           res.sendStatus(500);
           return;
       }
@@ -91,12 +88,15 @@ router.post('/signup', function(req, res, next) {
       var postcode=req.body.postcode;
       var state=req.body.state;
       var password=req.body.password;
+      var venman=req.body.venMan;
+      var HO=0;
+
 
       var query=`INSERT INTO users
                  (given_name,surname,street_number,street_name,surburb,state,postcode,
                  contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser)
-                 VALUES (?,?,?,?,?,?,?,?,?,?,?,0,0,0);`;
-      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password],function(err,rows,fields)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,SHA2(?,256),?,?,0);`;
+      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password,venman,HO],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -105,9 +105,24 @@ router.post('/signup', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
+          req.session.user = first_name;
+          console.log("logged in");
+          res.json(rows);
           res.end();
       });
   });
 });
 
+router.use(function(req, res, next) {
+    if('user' in req.session){
+      console.log(req.session.user);
+        next();
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+router.post('/checkuser', function(req, res, next) {
+  res.send('respond with a resource');
+});
 module.exports = router;

@@ -6,10 +6,15 @@
     <title>Venue Information</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascripts/page.js"></script>
+
 
 </head>
 
-<body>
+<body id="body" onload="checklogin()" style="display:none;">
+     <div class= "dashboard">
+        </div>
     <header>Edit Venue Information</header>
     <div class="content-venueinfo">
         <section class="toggles-venueinfo">
@@ -29,10 +34,10 @@
         </div>
 
         <div >
-            
+
             <input id="vcapacity" class="input" type="text" placeholder="50">
         </div>
-        
+
         <div >
             <label for="vstreetnum">Street no:</label>
         </div>
@@ -46,7 +51,7 @@
         <div>
             <label for="vsuburb">Suburb:</label>
         </div>
-        
+
         <div class="span-2-columns">
             <input  id="vsuburb" type="text" placeholder="Everard Park">
         </div>
@@ -57,11 +62,11 @@
         <div>
             <input  id="vpostcode" type="text" placeholder="5035">
         </div>
-        
+
         <div>
             <input  id="vstate" type="text" placeholder="SA">
         </div><div></div>
-        
+
         <div class="span-2-columns">
             <button class="button-venueinfo">Submit</button>
         </div>
@@ -71,5 +76,11 @@
     </div>
 
 
+<script type = "text/javascript">
+    $(function (){
+       $(".dashboard").load("dashboardTemplate.html");
 
+    });
+
+</script>
 </body>

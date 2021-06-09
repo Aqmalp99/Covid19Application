@@ -25,8 +25,17 @@ function login(){
             var name=JSON.parse(this.responseText);
 
             alert("Welcome "+name[0].given_name);
-
+            if(name[0].isVenueManager==1)
+            {
+                window.location.replace('/homeManager.html');
+            }
+            else if(name[0].isHealthOfficial==1)
+            {
+                window.location.replace('/homeHealth.html');
+            }
+            else{
             window.location.replace('/homeUser.html');
+            }
         } else if (this.readyState == 4 && this.status >= 400) {
             alert("Login failed");
         }
@@ -40,7 +49,45 @@ function login(){
 
 }
 
+function checklogin(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("body").style.display = "block";
+
+        }
+        else if (this.readyState == 4 && this.status >= 400) {
+            window.location.replace('/index.html');
+            alert("Login Failed");
+        }
+    };
+
+    xmlhttp.open("POST","/users/checkuser", true);
+    xmlhttp.send();
+
+}
+
+function logout(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("POST", "/users/logout", true);
+    xmlhttp.send();
+
+}
+
 function signup() {
+
+            var terms_cond = document.getElementById("terms_cond");
+            if(terms_cond.checked==false)
+            {
+                alert("Please agree to the Terms & Conditions!");
+                return;
+            }
+
 
             var first_name = document.getElementById("first_name").value;
             var last_name = document.getElementById("last_name").value;
@@ -54,6 +101,15 @@ function signup() {
             var state=document.getElementById("state").value;
             var password=document.getElementById("signup_password").value;
             var repeat_password=document.getElementById("repeat_password").value;
+            var venMan=document.getElementById("sign_up_as_vm");
+            if(venMan.checked==false)
+            {
+                venMan=0;
+            }
+            else
+            {
+                venMan=1;
+            }
 
 
             if(!(password===repeat_password))
@@ -66,13 +122,34 @@ function signup() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                alert("Welcome "+first_name);
 
-                window.location.replace('/homeUser.html');
+                    alert("Welcome "+first_name);
+                    if(venMan.checked==false){
+                        window.location.replace('/homeUser.html');
+                    }
+                    else
+                    {
+                        window.location.replace('/homeManager.html');
+                    }
                 }
             };
             xhttp.open("POST", "users/signup", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password }));
+            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password,venMan }));
 
         }
+
+function get_coordinates() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText);
+                        } else
+                        {
+                            console.log("not working");
+                        }
+                    };
+
+    xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/Adelaide.json?access_token=pk.eyJ1IjoiYTE3OTcxNjMiLCJhIjoiY2twbnp4eWZlNDc4czJybGFidGhxaGR3cCJ9.OkcuJRBHebRqUA-INN110g", true);
+    xmlhttp.send();
+}

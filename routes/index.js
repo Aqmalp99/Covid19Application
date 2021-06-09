@@ -8,6 +8,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
+
 router.get('/checkInsUser', function (req, res, next) {
     req.pool.getConnection(function (err, connection) {
         if (err) {
