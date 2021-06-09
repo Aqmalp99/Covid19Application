@@ -10,6 +10,9 @@
 
         <link rel="stylesheet" href="stylesheets/login-signup.css">
         <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="446524906437-lhb7qotm0adcd8j891vm50ol8t1p0u5h.apps.googleusercontent.com">
+
     </head>
 
     <body>
@@ -53,10 +56,8 @@
 
                 </div>
 
-
                 <div class="socials_area">
-                    <button class="facebook_button">Login with Facebook</button>
-                    <button class="google_button">Login with Google</button>
+                   <button class="g-signin2" data-onsuccess="onSignIn">Login with Google</button>
                 </div>
 
             </div>
@@ -162,6 +163,8 @@
         </div>
     <script src="javascripts/login-signup.js"></script>
     <script src="javascripts/page.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
     </body>
 
 </html>
