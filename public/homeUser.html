@@ -6,10 +6,29 @@
 	<link href="stylesheets/home.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="javascripts/page.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
 	<title>Home-User</title>
+    <style>
 
+    #map {
+        position:absolute;
+        top: 15vh;
+        bottom: 30vh;
+        left:33vh;
+        right:15vh;
+        width: 50%;
+        /*margin: 30vh 20vh 30vh 20vh;*/
+
+    }
+    #test
+    {
+        border: solid black 10px;
+    }
+    </style>
 </head>
-<body id="body" onload="checklogin()" style="display:none;">
+<!--onload="checklogin()" style="display:none;"-->
+<body id="body" >
     <div class='main'>
         <header class="covid_heading">
             COVID-19 TRACER
@@ -17,21 +36,33 @@
         <div class= "dashboard">
         </div>
         <div class = "container">
-            <div class = "map_buttons">
-                <!--<div class="map">-->
-                <!--    <div class="map_heading">-->
-                <!--        <h>CURRENT HOTSPOT MAP</h>-->
-                <!--    </div>-->
-                <!--    <div class="map_api">-->
-                <!--         <img src="stylesheets/images/hotspots.png" style="width: 100%; height: 100%; border-radius: 0px 0px 20px 20px ;">-->
-                <!--    </div>-->
-                <!--    <div class="_button">-->
-                <!--        <div class="manage_venue" >-->
-                <!--              Manage Venue-->
-                <!--        </div>-->
-                <!--    </div>-->
-                <!--</div>-->
-            </div>
+
+                <div id="map"></div>
+                <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+            <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+            <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYXFtYWxwIiwiYSI6ImNrcHA1Y2VuZzAwNGIycG1vdnF3OXpwODgifQ.ZeE-1i6huxUHpYEtlhs_IQ';
+            var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+            var address = ["Adelaide", "Victoria"];
+            var coordinates = Array();
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [138.5999, -34.9274],
+                zoom: 10
+                });
+            var i=0;
+        for(;address[i];){
+            mapGeo(address[i],i);
+            i++;
+        }
+
+
+            </script>
+
+
+
             <div class = "faq">
                 <div class="faq_heading">
                     <h>FAQS</h>

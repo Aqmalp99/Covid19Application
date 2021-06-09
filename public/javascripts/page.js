@@ -278,4 +278,27 @@ function onSignIn(googleUser) {
 
 }
 
+function mapGeo(address, i) {
+
+        mapboxClient.geocoding
+
+        .forwardGeocode({
+                query: address,
+                autocomplete: false,
+                limit: 1 })
+
+        .send()
+        .then(function (response) {
+            if (response && response.body && response.body.features && response.body.features.length)
+            {
+                var feature = response.body.features[0];
+                coordinates[i] = response.body.features[0].center;
+                console.log(coordinates);
+
+                new mapboxgl.Marker().setLngLat(coordinates[i]).addTo(map);
+
+                }
+            });
+}
+
 

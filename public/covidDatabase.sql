@@ -5,7 +5,6 @@ CREATE TABLE users (
     street_number varchar(15),
     street_name varchar(30),
     surburb varchar(30),
-    city varchar(30),
     state varchar(30),
     postcode varchar(15),
     contact_number varchar(20),
