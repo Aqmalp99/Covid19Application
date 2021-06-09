@@ -12,14 +12,65 @@ function refineSearchUser()
     var suburb = document.getElementById("suburb").value;
     var postcode = document.getElementById("postcode").value;
     var state = document.getElementById("states").value;
+    var address = "";
+    var convertedDate;
+    var table = document.getElementsByTagName("table")[0];
 
-    var queryString = `users/checkInsUser?vname=${venueName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
+    var queryString = `users/checkInsUser?vname=${venueName}&date=${date}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
 
     xhttp.onreadystatechange = function()
           {
             if (this.readyState == 4 && this.status == 200)
             {
-              console.log("great success");
+              var checkinHistoryUser = JSON.parse(this.responseText);
+              console.log(checkinHistoryUser[0]);
+              address += checkinHistoryUser[0].street_number + " " + checkinHistoryUser[0].street_name + ", " + checkinHistoryUser[0].suburb + ", " + checkinHistoryUser[0].state + ", " + checkinHistoryUser[0].postcode;
+              convertedDate = checkinHistoryUser[0].checkindate.toString();
+
+              for (let i=0; i < checkinHistoryUser.length; i++){
+                let tr = document.createElement("tr");
+
+                for (let j = 0; j < 5; j++)
+                {
+                  let td = document.createElement("td");
+                  if (j === 0)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[0].venue_name);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 1)
+                  {
+                    let data = document.createTextNode(address);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 2)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[0].contact_number);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 3)
+                  {
+                    let data = document.createTextNode(convertedDate);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 4)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[0].checkintime);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+                }
+
+                table.appendChild(tr);
+              }
             }
           };
 
