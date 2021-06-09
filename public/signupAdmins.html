@@ -24,10 +24,10 @@
             <label class="input-description">Last Name:</label>
         </div>
         <div>
-            <input class="input" type="text" placeholder="First Name">
+            <input id="first_name" class="input" type="text" placeholder="First Name">
         </div>
         <div>
-            <input class="input" type="text" placeholder="Given Name">
+            <input id="last_name" class="input" type="text" placeholder="Given Name">
         </div>
 
         <div>
@@ -35,18 +35,18 @@
         </div>
             <label>Contact Number:</label>
         <div>
-            <input class="input" type="date">
+            <input id="dob" class="input" type="date">
         </div>
 
         <div>
-            <input class="input" type="text" placeholder="contact number">
+            <input id="ph" class="input" type="text" placeholder="contact number">
         </div>
 
         <div class="span-2-columns">
             <label >Email:</label>
         </div>
         <div class="span-2-columns">
-            <input class="input" type="text" placeholder="Please enter your email">
+            <input id="email" class="input" type="text" placeholder="Please enter your email">
         </div>
 
 
@@ -87,14 +87,16 @@
             <label >Re-enter Password:</label>
         </div>
         <div>
-            <input type="text" placeholder="Please enter your password"><br><br>
+            <input id="signup_password" type="text" placeholder="Please enter your password"><br><br>
         </div>
         <div>
-            <input class="input" type="text" placeholder="Please re-enter your password"><br><br>
+            <input id="repeat_password" class="input" type="text" placeholder="Please re-enter your password"><br><br>
         </div>
-
+        <label class="tANDc_label">
+                <input class="checkbox" type="checkbox" id="terms_cond"><a href="https://www.apple.com/au/legal/internet-services/terms/site.html">Agree to Terms & Conditions</a>
+        </label>
         <div class="span-2-columns">
-            <button class="button-signupHO" onclick="signupHO()">Sign up</button>
+            <button class="button-signupHO" onclick="signup()">Sign up</button>
         </div>
     </section>
     </div>
