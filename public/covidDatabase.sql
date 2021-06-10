@@ -25,37 +25,43 @@ CREATE TABLE venue (
 	street_number varchar(15),
 	street_name varchar(30),
 	suburb varchar(30),
-	city varchar(30),
 	state varchar(20),
     postcode varchar(15),
 	contact_number varchar(20),
 	PRIMARY KEY (venueID),
-	FOREIGN KEY (venue_manager) REFERENCES venue_managers(venue_manager_ID)
+	FOREIGN KEY (venue_manager) REFERENCES users(userID)
 );
+UPDATE venue
+SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
+WHERE venue_manager=?;
+
 
 CREATE TABLE hotspots (
     hotspotID INT NOT NULL AUTO_INCREMENT,
 	venueID INT,
 	start_date DATE,
 	end_date DATE,
+	start_time TIME,
+	end_time TIME,
 	PRIMARY KEY (hotspotID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
+INSERT INTO ()
 
-CREATE TABLE venue_managers (
-    venue_manager_ID INT NOT NULL AUTO_INCREMENT,
-    userID int,
-	PRIMARY KEY (venue_manager_ID),
-	FOREIGN KEY (userID) REFERENCES venue(userID)
-);
+-- CREATE TABLE venue_managers (
+--     venue_manager_ID INT NOT NULL AUTO_INCREMENT,
+--     userID int,
+-- 	PRIMARY KEY (venue_manager_ID),
+-- 	FOREIGN KEY (userID) REFERENCES venue(userID)
+-- );
 
-CREATE TABLE health_official (
-    adminID INT NOT NULL AUTO_INCREMENT,
-    userID int,
-    role varchar(50),
-	PRIMARY KEY (adminID),
-	FOREIGN KEY (userID) REFERENCES users(userID)
-);
+-- CREATE TABLE health_official (
+--     adminID INT NOT NULL AUTO_INCREMENT,
+--     userID int,
+--     role varchar(50),
+-- 	PRIMARY KEY (adminID),
+-- 	FOREIGN KEY (userID) REFERENCES users(userID)
+-- );
 
 CREATE TABLE checkins (
     checkinID int NOT NULL AUTO_INCREMENT,

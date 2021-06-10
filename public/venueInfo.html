@@ -11,8 +11,8 @@
 
 
 </head>
-
-<body id="body" onload="checklogin()" style="display:none;">
+ <!--onload="checklogin()" style="display:none;"-->
+<body id="body">
      <div class= "dashboard">
         </div>
     <header>Edit Venue Information</header>
@@ -22,7 +22,7 @@
             <label for="vname">Venue Name:</label>
         </div>
         <div class="span-2-columns">
-            <input id="vname" class="input" type="text" placeholder="Hungry jacks">
+            <input id="vname" class="input" type="text" placeholder="Venue Name">
         </div>
 
         <div >
@@ -30,12 +30,12 @@
         </div>
         <div><label for="vcapacity">Venue Capacity:</label></div>
         <div>
-            <input id="vcontactnum" class="input" type="text" placeholder="8823 8282">
+            <input id="vcontactnum" class="input" type="text" placeholder="08xxxxxxxx">
         </div>
 
         <div >
 
-            <input id="vcapacity" class="input" type="text" placeholder="50">
+            <input id="vcapacity" class="input" type="text" placeholder="Capacity">
         </div>
 
         <div >
@@ -43,32 +43,39 @@
         </div>
         <div><label for="vstreetname">Street Name:</label></div>
         <div>
-            <input  id="vstreetnum" type="text" placeholder="12">
+            <input  id="vstreetnum" type="text" placeholder="Street No.">
         </div>
         <div>
-            <input  id="vstreetname" type="text" placeholder="Anzac HWY">
+            <input  id="vstreetname" type="text" placeholder="Street Name">
         </div>
         <div>
             <label for="vsuburb">Suburb:</label>
         </div>
 
         <div class="span-2-columns">
-            <input  id="vsuburb" type="text" placeholder="Everard Park">
+            <input  id="vsuburb" type="text" placeholder="Suburb">
         </div>
         <div><label for="vpostcode">Post code:</label></div>
         <div>
             <label for="vstate">State:</label>
         </div>
         <div>
-            <input  id="vpostcode" type="text" placeholder="5035">
+            <input  id="vpostcode" type="text" placeholder="Postcode">
         </div>
 
-        <div>
-            <input  id="vstate" type="text" placeholder="SA">
-        </div><div></div>
+        <div class="state_input_span">
+                        <select name="state" id="state" required>
+                        <option value="" disabled selected hidden>State</option>
+                        <option value="SA">SA</option>
+                        <option value="VIC">VIC</option>
+                        <option value="NSW">NSW</option>
+                        <option value="QLD">QLD</option>
+                        <option value="WA">WA</option>
+                        <option value="TAS">TAS</option>
+                      </select></div><div></div>
 
         <div class="span-2-columns">
-            <button class="button-venueinfo">Submit</button>
+            <button class="button-venueinfo" onclick="submitVenueInfo()">Submit</button>
         </div>
 
 

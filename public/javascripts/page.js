@@ -34,17 +34,18 @@ function login(){
             var name=JSON.parse(this.responseText);
 
             alert("Welcome "+name[0].given_name);
-            if(name[0].isVenueManager==1)
+            if(logintype=="user"){
+            window.location.replace('/homeUser.html');
+            }
+            else if(name[0].isVenueManager==1 && logintype=="venuemanager")
             {
                 window.location.replace('/homeManager.html');
             }
-            else if(name[0].isHealthOfficial==1)
+            else if(name[0].isHealthOfficial==1 && logintype=="healthofficial")
             {
                 window.location.replace('/homeHealth.html');
             }
-            else{
-            window.location.replace('/homeUser.html');
-            }
+
         } else if (this.readyState == 4 && this.status >= 400) {
             alert("Login failed");
         }
@@ -181,8 +182,9 @@ function loginforSignup(){
             var name=JSON.parse(this.responseText);
 
             alert("Welcome "+name[0].given_name);
-            if(name[0].isVenueManager==1)
+            if(name[0].isVenueManager==1 && venMan==1)
             {
+                addVenue();
                 window.location.replace('/homeManager.html');
             }
             else if(name[0].isHealthOfficial==1)
@@ -206,11 +208,77 @@ function loginforSignup(){
 }
 
 
+function addVenue()
+{
+     // Create AJAX Request
+    var xmlhttp = new XMLHttpRequest();
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+        }
+    };
+
+    // Open connection to server & send the post data using a POST request
+    // We will cover POST requests in more detail in week 8
+    xmlhttp.open("POST", "/users/addVenue", true);
+    xmlhttp.send();
+
+
+
+}
+
+function submitVenueInfo()
+{
+     // Create AJAX Request
+     let venueInfo = {
+             venueName : document.getElementById("vname").value,
+             contactNum :document.getElementById("vcontactnum").value,
+             capacity: parseInt(document.getElementById("vcapacity").value),
+             streetnum: document.getElementById("vstreetnum").value,
+             streetname: document.getElementById("vstreetname").value,
+             suburb: document.getElementById("vsuburb").value,
+             postcode: document.getElementById("vpostcode").value,
+             state: document.getElementById("state").value
+        };
+    var xmlhttp = new XMLHttpRequest();
+
+
+            // if(venueName===undefined || contactNum=="" || capacity=="" || streetnum=="" || streetname=="" || suburb=="" || postcode=="" || state=="")
+            // {
+            //     alert("please enter all fields");
+            //     return;
+            // }
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+        }
+        else
+        {
+            window.location.replace('/homeUser.html');
+            alert("Your Venue Information Has Been Updated!");
+        }
+    };
+
+    // Open connection to server & send the post data using a POST request
+    // We will cover POST requests in more detail in week 8
+    xmlhttp.open("POST", "/users/updateVenue", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify(venueInfo));
+
+}
+
+
 function get_coordinates() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText);
+
                         } else
                         {
                             console.log("not working");
@@ -255,11 +323,11 @@ function onSignIn(googleUser) {
         if (this.readyState == 4 && this.status == 200) {
             var userObject=JSON.parse(this.responseText);
             alert("Welcome "+userObject[0].given_name);
-            if(userObject[0].isVenueManager==1)
+            if(userObject[0].isVenueManager==1 && logintype=="venuemanager")
             {
                 window.location.replace('/homeManager.html');
             }
-            else if(userObject[0].isHealthOfficial==1)
+            else if(userObject[0].isHealthOfficial==1 && logintype=="healthofficial")
             {
                 window.location.replace('/homeHealth.html');
             }
