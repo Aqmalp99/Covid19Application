@@ -16,9 +16,7 @@ function refineSearchUser()
       state = "";
     }
 
-    var address = "";
-    var convertedDate;
-    var table = document.getElementsByTagName("table")[0];
+    var table = document.getElementsByTagName("tbody")[0];
     var queryString = "";
 
 
@@ -81,13 +79,10 @@ function refineSearchUser()
       queryString = `users/checkInsUser?date=${date}&sTime=${startTime}&eTime=${endTime}&postcode=${postcode}`;
     }
     else {
-      console.log("No results found");
 
       if (document.getElementById("no-results") !== null){
         let nrRow = document.getElementById("no-results-row");
         nrRow.remove();
-        // let nr = document.getElementById("no-results");
-        // nr.remove();
       }
 
       let tr = document.createElement("tr");
@@ -108,13 +103,14 @@ function refineSearchUser()
           {
             if (this.readyState == 4 && this.status == 200)
             {
-              if(document.getElementsByClassName("data") !== null)
+
+              console.log(document.getElementsByClassName("table-data").length);
+              while (document.getElementsByClassName("table-data").length !== 0)
               {
-                let numRows = document.getElementsByClassName("data").length;
-                for (let i = 0; i < numRows; i++){
-                  document.getElementsByClassName("data")[i].remove();
-                }
+                  let temp = document.getElementsByClassName("table-data")[0];
+                  temp.remove();
               }
+
               if (document.getElementById("no-results") !== null)
               {
                 let nrRow = document.getElementById("no-results-row");
@@ -124,7 +120,6 @@ function refineSearchUser()
               var checkinHistoryUser = JSON.parse(this.responseText);
               if (checkinHistoryUser.length <= 0)
               {
-                console.log(checkinHistoryUser);
 
                 if (document.getElementById("no-results") !== null){
                   let nrRow = document.getElementById("no-results-row");
@@ -135,7 +130,7 @@ function refineSearchUser()
                 tr.setAttribute("id", "no-results-row");
                 let td = document.createElement("td");
                 td.setAttribute("id", "no-results");
-                let noResults = document.createTextNode("No results found. Please Change Toggles");
+                let noResults = document.createTextNode("No results found. Please change filters");
                 td.appendChild(noResults);
                 td.setAttribute("colspan", "5");
                 tr.appendChild(td);
@@ -143,49 +138,55 @@ function refineSearchUser()
                 return;
               }
 
-              console.log(checkinHistoryUser[0]);
-              address += checkinHistoryUser[0].street_number + " " + checkinHistoryUser[0].street_name + ", " + checkinHistoryUser[0].suburb + ", " + checkinHistoryUser[0].state + ", " + checkinHistoryUser[0].postcode;
-              convertedDate = checkinHistoryUser[0].checkindate.toString();
+              var numberofRows = checkinHistoryUser.length;
+              var addresses = [];
+              var convertedDates = [];
 
-              for (let i=0; i < checkinHistoryUser.length; i++){
+              for (let i = 0; i < numberofRows; i++)
+              {
+                addresses.push(checkinHistoryUser[i].street_number + " " + checkinHistoryUser[i].street_name + ", " + checkinHistoryUser[i].suburb + ", " + checkinHistoryUser[i].state + ", " + checkinHistoryUser[i].postcode);
+                convertedDates.push(checkinHistoryUser[i].checkindate.toString());
+                convertedDates[i] = convertedDates[i].slice(0, -14);
+              }
+
+              for (let i=0; i < checkinHistoryUser.length; i++)
+              {
                 let tr = document.createElement("tr");
-                tr.setAttribute("class", "data");
-
+                tr.setAttribute("class", "table-data");
                 for (let j = 0; j < 5; j++)
                 {
                   let td = document.createElement("td");
                   if (j === 0)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[0].venue_name);
+                    let data = document.createTextNode(checkinHistoryUser[i].venue_name);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 1)
                   {
-                    let data = document.createTextNode(address);
+                    let data = document.createTextNode(addresses[i]);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 2)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[0].contact_number);
+                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 3)
                   {
-                    convertedDate = convertedDate.slice(0, -14);
-                    let data = document.createTextNode(convertedDate);
+                    let data = document.createTextNode(convertedDates[i]);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 4)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[0].checkintime);
+                    let data = document.createTextNode(checkinHistoryUser[i].checkintime);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
