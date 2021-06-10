@@ -128,6 +128,44 @@ router.post('/checkuser', function(req, res, next) {
 
 router.get('/checkInsUser', function(req, res, next)
 {
+    var vnameBool = true;
+    var streetNumberBool = true;
+    var streetNameBool = true;
+    var suburbBool = true;
+    var postcodeBool = true;
+    var stateBool = true;
+    var checkinDateBool = true;
+    var startTimeBool = true;
+    var endTimeBool = true;
+
+    if (req.query.vname === undefined){
+        vnameBool = false;
+    }
+    if (req.query.stNum === undefined){
+        streetNumberBool = false;
+    }
+    if (req.query.stName === undefined){
+        streetNameBool = false;
+    }
+    if (req.query.suburb === undefined){
+        suburbBool = false;
+    }
+    if (req.query.postcode === undefined){
+        postcodeBool = false;
+    }
+    if (req.query.state === undefined){
+        stateBool = false;
+    }
+    if (req.query.date === undefined){
+        checkinDateBool = false;
+    }
+    if (req.query.sTime === undefined){
+        startTimeBool = false;
+    }
+    if (req.query.eTime === undefined){
+        endTimeBool = false;
+    }
+
     req.pool.getConnection(function (err, connection)
     {
         if (err)
@@ -137,20 +175,18 @@ router.get('/checkInsUser', function(req, res, next)
         }
 
 
-        if (req.query.vname.length > 0 && req.query.stNum.length > 0 && req.query.stName.length > 0 && req.query.suburb.length > 0 && req.query.postcode.length > 0 && req.query.state.length > 0 && req.query.date.length > 0 && req.query.sTime.length > 0 && req.query.eTime.length > 0)
+        if (vnameBool === true && streetNumberBool === true && streetNameBool === true && suburbBool === true && postcodeBool === true && stateBool === true && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
         {
             console.log("scenario 1");
-            let vname = req.query.vname;
-            let streetNumber = req.query.stNum;
-            let streetName = req.query.stName;
-            let suburb = req.query.suburb;
-            let postcode = req.query.postcode;
-            let state = req.query.state;
-            let checkinDate = req.query.date;
-            let startTime = req.query.sTime;
-            startTime += ":00";
-            let endTime = req.query.eTime;
-            endTime += ":00";
+            vname = req.query.vname;
+            streetNumber = req.query.stNum;
+            streetName = req.query.stName;
+            suburb = req.query.suburb;
+            postcode = req.query.postcode;
+            state = req.query.state;
+            checkinDate = req.query.date;
+            startTime = req.query.sTime + ":00";
+            endTime = req.query.eTime + ":00";
 
             let userObject = req.session.user;
             let userID = userObject.userID;
@@ -180,10 +216,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length > 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 2");
             let vname = req.query.vname;
@@ -209,10 +249,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length > 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length > 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 3");
             let vname = req.query.vname;
@@ -240,10 +284,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length > 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length > 0 && req.query.sTime.length > 0 && req.query.eTime.length > 0)
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
         {
             console.log("scenario 4");
             let vname = req.query.vname;
@@ -276,9 +324,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length > 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 5");
             let checkinDate = req.query.date;
@@ -304,10 +357,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length <= 0 && req.query.stNum.length > 0 && req.query.stName.length > 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+        if (vnameBool === false && streetNumberBool === true && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 6");
             let streetNumber = req.query.stNum;
@@ -335,9 +392,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length > 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 7");
             let streetName = req.query.stName;
@@ -363,9 +425,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length > 0 && req.query.suburb.length > 0 && req.query.postcode.length <= 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === true && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 8");
             let streetName = req.query.stName;
@@ -393,10 +460,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length > 0 && req.query.suburb.length <= 0 && req.query.postcode.length > 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 9");
             let streetName = req.query.stName;
@@ -424,9 +495,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length > 0 && req.query.state.length <= 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 10");
             let postcode = req.query.postcode;
@@ -452,9 +528,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length > 0 && req.query.date.length <= 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 11");
             let state = req.query.state;
@@ -480,10 +561,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length <= 0 && req.query.state.length > 0 && req.query.date.length > 0 && req.query.sTime.length <= 0 && req.query.eTime.length <= 0)
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 12");
             let state = req.query.state;
@@ -511,10 +596,14 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
 
-        if (req.query.vname.length <= 0 && req.query.stNum.length <= 0 && req.query.stName.length <= 0 && req.query.suburb.length <= 0 && req.query.postcode.length > 0 && req.query.state.length <= 0 && req.query.date.length > 0 && req.query.sTime.length > 0 && req.query.eTime.length > 0)
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
         {
             let postcode = req.query.postcode;
             let checkinDate = req.query.date;
@@ -546,12 +635,12 @@ router.get('/checkInsUser', function(req, res, next)
                     res.sendStatus(500);
                     return;
                 }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
             });
         }
-
-        console.log(rows);
-        res.json(rows);
-        res.end();
     });
 });
 
