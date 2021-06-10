@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <body id="body" onload="checkAdmin()" style="display:none;">
     <header>Manage Hotspots</header>
     <div class= "dashboard"></div>
@@ -90,7 +91,7 @@
         <div class="button-div-user">
             <div></div>
             <div>
-                <button onclick="refineSearchUser()">Refine Search</button>
+                <button onclick="refineHotspots()">Refine Search</button>
             </div>
             <div class="address-toggle-button">
                 <button id="toggle-button" onclick="showHideToggles()">Search by Address</button>
@@ -103,12 +104,9 @@
                     <th>Venue Address</th>
                     <th>Venue Phone No.</th>
                     <th>Start Date</th>
-                    <th>End Date</th>
                     <th>Delete Hotspot</th>
                 </thead>
-                <tbody>
-
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
     </div>

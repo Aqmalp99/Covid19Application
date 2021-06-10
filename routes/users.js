@@ -771,6 +771,375 @@ router.get('/checkInsUser', function(req, res, next)
         }
     });
 });
+
+router.get('/manageHotspots', function(req, res, next)
+{
+    var vnameBool = true;
+    var streetNumberBool = true;
+    var streetNameBool = true;
+    var suburbBool = true;
+    var postcodeBool = true;
+    var stateBool = true;
+    var startDateBool = true;
+
+    if (req.query.vname === undefined){
+        vnameBool = false;
+    }
+    if (req.query.stNum === undefined){
+        streetNumberBool = false;
+    }
+    if (req.query.stName === undefined){
+        streetNameBool = false;
+    }
+    if (req.query.suburb === undefined){
+        suburbBool = false;
+    }
+    if (req.query.postcode === undefined){
+        postcodeBool = false;
+    }
+    if (req.query.state === undefined){
+        stateBool = false;
+    }
+    if (req.query.date === undefined){
+        startDateBool = false;
+    }
+
+    req.pool.getConnection(function (err, connection)
+    {
+        if (err)
+        {
+            res.sendStatus(500);
+            return;
+        }
+
+
+        if (vnameBool === true && streetNumberBool === true && streetNameBool === true && suburbBool === true && postcodeBool === true && stateBool === true && startDateBool === true)
+        {
+            console.log("scenario 1");
+            vname = req.query.vname;
+            streetNumber = req.query.stNum;
+            streetName = req.query.stName;
+            suburb = req.query.suburb;
+            postcode = req.query.postcode;
+            state = req.query.state;
+            startDate = req.query.date;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.venue_name = ?
+                    AND venue.street_number = ?
+                    AND venue.street_name = ?
+                    AND venue.suburb = ?
+                    AND venue.state = ?
+                    AND venue.postcode = ?
+                    AND hotspots.start_date = ?)`;
+
+
+            connection.query(query,[vname, streetNumber, streetName, suburb, state, postcode, startDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 2");
+            let vname = req.query.vname;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.venue_name = ?)`;
+
+
+            connection.query(query,[vname], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === true)
+        {
+            console.log("scenario 3");
+            let vname = req.query.vname;
+            let startDate = req.query.date;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.venue_name = ?
+                    AND hotspots.start_date = ?)`;
+
+
+            connection.query(query,[vname, startDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === true)
+        {
+            console.log("scenario 4");
+            let startDate = req.query.date;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (hotspots.start_date = ?)`;
+
+
+            connection.query(query,[startDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === true && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 6");
+            let streetNumber = req.query.stNum;
+            let streetName = req.query.stName;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.street_number = ?
+                    AND venue.street_name = ?)`;
+
+
+            connection.query(query,[userID, streetNumber, streetName], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 7");
+            let streetName = req.query.stName;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.street_name = ?)`;
+
+
+            connection.query(query,[streetName], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === true && postcodeBool === false && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 8");
+            let streetName = req.query.stName;
+            let suburb = req.query.suburb;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.street_name = ?
+                    AND venue.suburb = ?)`;
+
+
+            connection.query(query,[streetName, suburb], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === true && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 9");
+            let streetName = req.query.stName;
+            let postcode = req.query.postcode;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.street_name = ?
+                    AND venue.postcode = ?)`;
+
+            connection.query(query,[streetName, postcode], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === true && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 10");
+            let postcode = req.query.postcode;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.postcode = ?)`;
+
+
+            connection.query(query,[postcode], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && startDateBool === false)
+        {
+            console.log("scenario 11");
+            let state = req.query.state;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.state = ?)`;
+
+
+            connection.query(query,[state], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && startDateBool === true)
+        {
+            console.log("scenario 12");
+            let state = req.query.state;
+            let startDate = req.query.date;
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+                    FROM venue
+                    INNER JOIN hotspots
+                    ON venue.venueID = hotspots.venueID
+                    WHERE (venue.state = ?
+                    AND hotspots.start_date = ?)`;
+
+
+            connection.query(query,[state, startDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+    });
+});
+
+
+
+
+
+
+
+
 router.post('/addVenue', function(req, res, next) {
   req.pool.getConnection(function(err,connection)
   {
