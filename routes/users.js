@@ -386,11 +386,7 @@ router.post('/addVenue', function(req, res, next) {
             res.end();
 
       });
-
-
   });
-
-
   });
 
   router.post('/hotspots', function(req, res, next) {
@@ -424,13 +420,139 @@ router.post('/addVenue', function(req, res, next) {
           res.json(rows);
 
       });
-
-
+  });
   });
 
+  router.post('/checkAdmin', function(req, res, next) {
 
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var user=req.session.user;
+        var userID=user[0].userID;
+
+
+      var query=`SELECT userID, given_name,isVenueManager
+                                FROM users WHERE userID = ? AND isHealthOfficial=1;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.json(rows);
+
+            // res.end();
+
+      });
+  });
+  });
+  router.post('/checkVenman', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var user=req.session.user;
+        var userID=user[0].userID;
+
+
+      var query=`SELECT userID, given_name,isVenueManager
+                                FROM users WHERE userID = ? AND isVenueManager=1;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.json(rows);
+
+            // res.end();
+
+      });
+  });
   });
 
+router.get('/userInfo', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var user=req.session.user;
+        var userID=user[0].userID;
+
+
+      var query=`SELECT userID,given_name,surname,street_number,street_name,surburb,state,postcode,contact_number, date_of_birth, email
+                                FROM users WHERE userID = ?;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.json(rows);
+
+            // res.end();
+
+      });
+  });
+  });
 
 
 

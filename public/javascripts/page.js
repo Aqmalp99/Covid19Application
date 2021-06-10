@@ -474,4 +474,82 @@ function mapGeo(address, i) {
             });
 }
 
+function checkAdmin(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("body").style.display = "block";
+
+        }
+        else if (this.readyState == 4 && this.status >= 400) {
+            window.location.replace('/homeUser.html');
+            alert("You do not have admin access!");
+        }
+    };
+
+    xmlhttp.open("POST","/users/checkAdmin", true);
+    xmlhttp.send();
+
+}
+
+function checkVenman(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("body").style.display = "block";
+
+        }
+        else if (this.readyState == 4 && this.status >= 400) {
+            window.location.replace('/homeUser.html');
+            alert("You do not have venue manager access!");
+        }
+    };
+
+    xmlhttp.open("POST","/users/checkVenman", true);
+    xmlhttp.send();
+
+}
+
+ function getUserInfo(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        var userinfo=JSON.parse(this.responseText);
+        console.log(userinfo);
+        document.getElementById("gname").value = userinfo[0].given_name;
+        document.getElementById("lname").value = userinfo[0].surname;
+        // document.getElementById("dob").value = userinfo[0].date_of_birth;
+        document.getElementById("connumber").value = userinfo[0].contact_number;
+        document.getElementById("email").value = userinfo[0].email;
+        document.getElementById("streetnum").value = userinfo[0].street_number;
+        document.getElementById("streetname").value = userinfo[0].street_name;
+        document.getElementById("surburb").value = userinfo[0].surburb;
+        document.getElementById("state").value = userinfo[0].state;
+        document.getElementById("postcode").value = userinfo[0].postcode;
+        document.getElementById("gname").value = userinfo[0].given_name;
+
+
+
+        }
+        else if (this.readyState == 4 && this.status >= 400) {
+            window.location.replace('/homeUser.html');
+            alert("You do not have venue manager access!");
+        }
+    };
+
+    xmlhttp.open("GET","/users/userInfo", true);
+    xmlhttp.send();
+
+}
+
+
 
