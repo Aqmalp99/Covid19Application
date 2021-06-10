@@ -31,23 +31,29 @@ CREATE TABLE venue (
 	PRIMARY KEY (venueID),
 	FOREIGN KEY (venue_manager) REFERENCES users(userID)
 );
-UPDATE venue
-SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
-WHERE venue_manager=?;
+-- UPDATE venue
+-- SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
+-- WHERE venue_manager=?;
+INSERT INTO venue (venue_manager,street_number,street_name,suburb,state,postcode)
+VALUES (26,"12","anzac highway","everard park","SA","5035");
 
 
 CREATE TABLE hotspots (
     hotspotID INT NOT NULL AUTO_INCREMENT,
 	venueID INT,
+	hoID INT,
 	start_date DATE,
-	end_date DATE,
 	start_time TIME,
-	end_time TIME,
 	PRIMARY KEY (hotspotID),
+	FOREIGN KEY (hoID) REFERENCES users(userID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
-INSERT INTO ()
-
+-- INSERT INTO hotspots (venueID,hoID,start_date,start_time)
+-- VALUES (?,  ?, ?,?);
+SELECT venue.venueID,street_number,street_name,suburb,state,postcode
+FROM venue
+INNER JOIN hotspots
+ON venue.venueID=hotspots.venueID;
 -- CREATE TABLE venue_managers (
 --     venue_manager_ID INT NOT NULL AUTO_INCREMENT,
 --     userID int,

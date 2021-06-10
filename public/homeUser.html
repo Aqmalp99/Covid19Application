@@ -42,9 +42,10 @@
             <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
             <script>
             mapboxgl.accessToken = 'pk.eyJ1IjoiYXFtYWxwIiwiYSI6ImNrcHA1Y2VuZzAwNGIycG1vdnF3OXpwODgifQ.ZeE-1i6huxUHpYEtlhs_IQ';
-            var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
-            var address = ["Adelaide", "Victoria"];
+            var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+            updatemap();
+            // var address = ["Adelaide", "Victoria"];
             var coordinates = Array();
             var map = new mapboxgl.Map({
                 container: 'map',
@@ -52,11 +53,11 @@
                 center: [138.5999, -34.9274],
                 zoom: 10
                 });
-            var i=0;
-        for(;address[i];){
-            mapGeo(address[i],i);
-            i++;
-        }
+        //     var i=0;
+        // for(;address[i];){
+        //     mapGeo(address[i],i);
+        //     i++;
+        // }
 
 
             </script>
@@ -89,6 +90,7 @@
             </div>
         </div>
     </div>
+
 </body>
 <script type = "text/javascript">
     $(function (){

@@ -21,7 +21,7 @@
             <label >First Name:</label>
         </div>
         <div>
-            <label class="input-description">Last Name:</label>
+            <label>Last Name:</label>
         </div>
         <div>
             <input id="first_name" class="input" type="text" placeholder="First Name">
@@ -56,29 +56,35 @@
         </div>
         <div><label for="streetname">Street Name:</label></div>
         <div>
-            <input  id="streetnum" type="text" placeholder="10">
+            <input  id="streetnum" type="text" placeholder="Street Number">
         </div>
         <div>
-            <input  id="streetname" type="text" placeholder="Pelagic Street">
+            <input  id="streetname" type="text" placeholder="Street Name">
         </div>
         <div>
             <label for="suburb">Suburb:</label>
         </div>
 
         <div class="span-2-columns">
-            <input  id="suburb" type="text" placeholder="Seaford Meadows">
+            <input  id="suburb" type="text" placeholder="Suburb">
         </div>
         <div><label for="postcode">Post code:</label></div>
         <div>
-            <label for="state">State:</label>
+            <label for="vstate">State:</label>
         </div>
         <div>
-            <input  id="postcode" type="text" placeholder="5169">
+            <input  id="postcode" type="text" placeholder="Postcode">
         </div>
-
-        <div>
-            <input  id="state" type="text" placeholder="SA">
-        </div>
+        <div class="state_input_span">
+                        <select name="state" id="state" required>
+                        <option value="" disabled selected hidden>State</option>
+                        <option value="SA">SA</option>
+                        <option value="VIC">VIC</option>
+                        <option value="NSW">NSW</option>
+                        <option value="QLD">QLD</option>
+                        <option value="WA">WA</option>
+                        <option value="TAS">TAS</option>
+                      </select></div>
 
         <div>
             <label >Password:</label>
@@ -87,16 +93,16 @@
             <label >Re-enter Password:</label>
         </div>
         <div>
-            <input id="signup_password" type="text" placeholder="Please enter your password"><br><br>
+            <input id="signup_password" type="password" placeholder="Please enter your password"><br><br>
         </div>
         <div>
-            <input id="repeat_password" class="input" type="text" placeholder="Please re-enter your password"><br><br>
+            <input id="repeat_password" class="input" type="password" placeholder="Please re-enter your password"><br><br>
         </div>
         <label class="tANDc_label">
                 <input class="checkbox" type="checkbox" id="terms_cond"><a href="https://www.apple.com/au/legal/internet-services/terms/site.html">Agree to Terms & Conditions</a>
         </label>
         <div class="span-2-columns">
-            <button class="button-signupHO" onclick="signup()">Sign up</button>
+            <button class="button-signupHO" onclick="signupAdmin()">Sign up</button>
         </div>
     </section>
     </div>

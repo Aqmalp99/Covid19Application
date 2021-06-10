@@ -182,6 +182,63 @@ router.post('/signup', function(req, res, next) {
 
 
   });
+router.post('/signupAdmin', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var first_name=req.body.first_name;
+      var last_name=req.body.last_name;
+      var dob=req.body.dob;
+      var phone_num=req.body.phone_num;
+      var email=req.body.email;
+      var streetnum=req.body.streetnum;
+      var streetname=req.body.streetname;
+      var suburb=req.body.suburb;
+      var postcode=req.body.postcode;
+      var state=req.body.state;
+      var password=req.body.password;
+      var HO=1;
+      var venman=0;
+      // if(venman==1)
+      // {
+      //   checkVen=1;
+      // }
+
+      var query=`INSERT INTO users
+                 (given_name,surname,street_number,street_name,surburb,state,postcode,
+                 contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,SHA2(?,256),?,?,0);`;
+
+      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password,venman,HO],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.end();
+
+      });
+
+
+  });
+
+
+  });
 
 
 router.use(function(req, res, next) {
@@ -280,6 +337,91 @@ router.post('/addVenue', function(req, res, next) {
           // res.json(rows);
 
             res.end();
+
+      });
+
+
+  });
+
+
+  });
+
+
+  router.post('/createhotspot', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var venueID=req.body.venueid;
+      var startDate=req.body.startDate;
+      var startTime=req.body.startTime;
+
+      var user=req.session.user;
+      if(user[0].isHealthOfficial==1){
+        var userID=user[0].userID;
+      }
+
+      var query=`INSERT INTO hotspots (venueID,hoID,start_date,start_time)
+                  VALUES (?,?,?,?);`;
+      connection.query(query,[venueID,userID,startDate,startTime],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.end();
+
+      });
+
+
+  });
+
+
+  });
+
+  router.post('/hotspots', function(req, res, next) {
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+
+      var query=`SELECT venue.venueID,street_number,street_name,suburb,state,postcode
+                  FROM venue
+                  INNER JOIN hotspots
+                  ON venue.venueID=hotspots.venueID;`;
+      connection.query(query,function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // console.log(rows);
+          res.json(rows);
 
       });
 

@@ -1,3 +1,4 @@
+
 function myFunction() {
 
   if (confirm("Please confirm for LOGOUT!")) {
@@ -153,6 +154,49 @@ function signup() {
 
         }
 
+function signupAdmin()
+{
+
+            var terms_cond = document.getElementById("terms_cond");
+            if(terms_cond.checked==false)
+            {
+                alert("Please agree to the Terms & Conditions!");
+                return;
+            }
+
+
+            var first_name = document.getElementById("first_name").value;
+            var last_name = document.getElementById("last_name").value;
+            var dob=document.getElementById("dob").value;
+            var phone_num=document.getElementById("ph").value;
+            var email=document.getElementById("email").value;
+            var streetnum=document.getElementById("streetnum").value;
+            var streetname=document.getElementById("streetname").value;
+            var suburb=document.getElementById("suburb").value;
+            var postcode=document.getElementById("postcode").value;
+            var state=document.getElementById("state").value;
+            var password=document.getElementById("signup_password").value;
+            var repeat_password=document.getElementById("repeat_password").value;
+
+
+            if(!(password===repeat_password))
+            {
+                alert("Passwords do not match");
+                return;
+            }
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("You have successfully signed up a new Health Offical");
+                }
+            };
+            xhttp.open("POST", "/users/signupAdmin", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password }));
+
+        }
 
 function loginforSignup(){
 
@@ -274,20 +318,20 @@ function submitVenueInfo()
 }
 
 
-function get_coordinates() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+// function get_coordinates() {
+//     var xmlhttp = new XMLHttpRequest();
+//     xmlhttp.onreadystatechange = function() {
+//                     if (this.readyState == 4 && this.status == 200) {
 
-                        } else
-                        {
-                            console.log("not working");
-                        }
-                    };
+//                         } else
+//                         {
+//                             console.log("not working");
+//                         }
+//                     };
 
-    xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/Adelaide.json?access_token=pk.eyJ1IjoiYTE3OTcxNjMiLCJhIjoiY2twbnp4eWZlNDc4czJybGFidGhxaGR3cCJ9.OkcuJRBHebRqUA-INN110g", true);
-    xmlhttp.send();
-}
+//     xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/Adelaide.json?access_token=pk.eyJ1IjoiYTE3OTcxNjMiLCJhIjoiY2twbnp4eWZlNDc4czJybGFidGhxaGR3cCJ9.OkcuJRBHebRqUA-INN110g", true);
+//     xmlhttp.send();
+// }
 
 function onSignIn(googleUser) {
 
@@ -344,6 +388,67 @@ function onSignIn(googleUser) {
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(user));
 
+}
+
+function createHotspot()
+{
+    let hotspot = {
+             venueid : document.getElementById("venueid").value,
+             startDate :document.getElementById("startdate").value,
+             startTime: document.getElementById("starttime").value
+        };
+    var xmlhttp = new XMLHttpRequest();
+
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Hotspot created");
+        }
+        else
+        {
+            // window.location.replace('/homeHealth.html');
+
+        }
+    };
+
+    // Open connection to server & send the post data using a POST request
+    // We will cover POST requests in more detail in week 8
+    xmlhttp.open("POST", "/users/createhotspot", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify(hotspot));
+
+
+
+
+}
+
+function updatemap()
+{
+    var xmlhttp = new XMLHttpRequest();
+
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var map=JSON.parse(this.responseText);
+            var temp="";
+            var i=0;
+            for(;map[i];)
+            {
+                temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
+                mapGeo(temp, i);
+                i++;
+            }
+        }
+
+    };
+
+
+    xmlhttp.open("POST", "/users/hotspots", true);
+    xmlhttp.send();
 }
 
 function mapGeo(address, i) {
