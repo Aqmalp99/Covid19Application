@@ -243,7 +243,7 @@ router.post('/signupAdmin', function(req, res, next) {
 
 router.use(function(req, res, next) {
     if('user' in req.session){
-      // console.log(req.session.user);
+    //   console.log(req.session.user);
         next();
     } else {
         res.sendStatus(401);
@@ -265,6 +265,11 @@ router.get('/checkInsUser', function(req, res, next)
     var checkinDateBool = true;
     var startTimeBool = true;
     var endTimeBool = true;
+
+    var userObject = req.session.user;
+    console.log(userObject);
+    var userID = userObject[0].userID;
+    console.log(userID);
 
     if (req.query.vname === undefined){
         vnameBool = false;
@@ -316,8 +321,6 @@ router.get('/checkInsUser', function(req, res, next)
             let startTime = req.query.sTime + ":00";
             let endTime = req.query.eTime + ":00";
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -355,9 +358,7 @@ router.get('/checkInsUser', function(req, res, next)
         {
             console.log("scenario 2");
             let vname = req.query.vname;
-
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+            console.log(vname);
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -390,8 +391,6 @@ router.get('/checkInsUser', function(req, res, next)
             let vname = req.query.vname;
             let checkinDate = req.query.date;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, checkins.checkindate
                     FROM users
@@ -429,8 +428,7 @@ router.get('/checkInsUser', function(req, res, next)
             let endTime = req.query.eTime;
             endTime += ":00";
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -464,8 +462,7 @@ router.get('/checkInsUser', function(req, res, next)
             console.log("scenario 5");
             let checkinDate = req.query.date;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -498,8 +495,7 @@ router.get('/checkInsUser', function(req, res, next)
             let streetNumber = req.query.stNum;
             let streetName = req.query.stName;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -532,8 +528,6 @@ router.get('/checkInsUser', function(req, res, next)
             console.log("scenario 7");
             let streetName = req.query.stName;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -566,8 +560,7 @@ router.get('/checkInsUser', function(req, res, next)
             let streetName = req.query.stName;
             let suburb = req.query.suburb;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -601,8 +594,6 @@ router.get('/checkInsUser', function(req, res, next)
             let streetName = req.query.stName;
             let postcode = req.query.postcode;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -635,8 +626,6 @@ router.get('/checkInsUser', function(req, res, next)
             console.log("scenario 10");
             let postcode = req.query.postcode;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -668,8 +657,6 @@ router.get('/checkInsUser', function(req, res, next)
             console.log("scenario 11");
             let state = req.query.state;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -702,8 +689,6 @@ router.get('/checkInsUser', function(req, res, next)
             let state = req.query.state;
             let checkinDate = req.query.date;
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
@@ -740,8 +725,7 @@ router.get('/checkInsUser', function(req, res, next)
             let endTime = req.query.eTime;
             endTime += ":00";
 
-            let userObject = req.session.user;
-            let userID = userObject.userID;
+
 
             let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, checkins.checkindate, checkins.checkintime
                     FROM users
