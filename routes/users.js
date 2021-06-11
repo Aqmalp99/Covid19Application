@@ -100,7 +100,7 @@ router.post('/login', function(req, res, next) {
                     return;
                   }
                   if(rows.length > 0){
-                      req.session.user = rows[0];
+                      req.session.user = rows;
                       res.json(rows);
 
                   } else {
@@ -1568,9 +1568,7 @@ router.get('/userInfo', function(req, res, next) {
 
 
       var user=req.session.user;
-      console.log(user);
-        var userID=user.userID;
-  console.log(userID);
+        var userID=user[0].userID;
 
       var query=`SELECT userID,given_name,surname,street_number,street_name,surburb,state,postcode,contact_number, date_of_birth, email
                                 FROM users WHERE userID = ?;`;
