@@ -6,12 +6,9 @@
     <title>Venue Check-in History</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
-<<<<<<< HEAD
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-=======
     <script src="javascripts/page.js"></script>
 
->>>>>>> 45294b0d94a31470a17d79205a60936858a444b7
 </head>
 
 <body id="body" onload="checkVenman()" style="display:none;">
@@ -20,43 +17,43 @@
     <div class="content-venue">
         <section class="toggles-venue">
             <div>
-                <label>Given Name: </label>
+                <label for="fname">Given Name: </label>
             </div>
             <div>
-                <input type="search" placeholder="Given Name..." name="fname">
+                <input type="search" placeholder="Given Name..." id="fname">
             </div>
             <div></div>
             <div>
-                <label>Date of Check-In: </label>
+                <label for="date">Date of Check-In: </label>
             </div>
             <div>
-                <input type="date" name="date">
+                <input type="date" id="date">
             </div>
             <div>
                 <label for="sname">Surname: </label>
             </div>
             <div>
-                <input type="search" name="sname" placeholder="Surname...">
+                <input type="search" id="sname" placeholder="Surname...">
             </div>
             <div></div>
             <div>
-                <label>Start of Timeframe: </label>
+                <label for="startTime">Start of Timeframe: </label>
             </div>
             <div>
-                <input type="time" name="startTime">
+                <input type="time" id="startTime">
             </div>
             <div></div>
             <div></div>
             <div></div>
             <div>
-                <label>End of Timeframe: </label>
+                <label for="endTime">End of Timeframe: </label>
             </div>
             <div>
-                <input type="time" name="endTime">
+                <input type="time" id="endTime">
             </div>
         </section>
         <div class="button-div-venue">
-            <button class="button-venue" name="refine-button" onclick="">Refine Search</button>
+            <button class="button-venue" name="refine-button" onclick="refineSearchVenue()">Refine Search</button>
         </div>
         <section class="table-venue">
             <table>
@@ -67,117 +64,7 @@
                     <th>Check-in Date</th>
                     <th>Check-in Time</th>
                 </thead>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
-                </tr>
-                <tr>
-                    <td>Anthony</td>
-                    <td>McDonald-Tipungwuti</td>
-                    <td>0468585053</td>
-                    <td>12/05/2021</td>
-                    <td>2:55pm</td>
+                <tbody></tbody>
                 </tr>
             </table>
         </section>

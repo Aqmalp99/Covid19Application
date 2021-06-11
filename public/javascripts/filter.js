@@ -89,7 +89,7 @@ function refineSearchUser()
       tr.setAttribute("id", "no-results-row");
       let td = document.createElement("td");
       td.setAttribute("id", "no-results");
-      let noResults = document.createTextNode("No results found. Please Change Toggles");
+      let noResults = document.createTextNode("No results found. Please change filters");
       td.appendChild(noResults);
       td.setAttribute("colspan", "5");
       tr.appendChild(td);
@@ -202,6 +202,156 @@ function refineSearchUser()
 }
 
 //filter checkin history results - venue
+function refineSearchVenue()
+{
+
+    var firstName = document.getElementById("fname").value;
+    var checkinDate = document.getElementById("date").value;
+    var surname = document.getElementById("sname").value;
+    var startTime = document.getElementById("startTime").value;
+    var endTime = document.getElementById("endTime").value;
+
+    var table = document.getElementsByTagName("tbody")[0];
+    var queryString = "";
+
+    if (firstName.length > 0 && checkinDate.length > 0 && startTime.length > 0 && endTime.length > 0 && surname.length > 0)
+    {
+      queryString = `users/checkinsVenue?fname=${firstName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&sname=${surname}`;
+    }
+
+    else if (firstName.length > 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
+    {
+      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}&date=${checkinDate}`;
+    }
+
+    else if (firstName.length > 0 && checkinDate.length <= 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
+    {
+      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}`;
+    }
+    else if (firstName.length <= 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length <= 0)
+    {
+      queryString = `users/checkinsVenue?date=${checkinDate}`;
+    }
+    else
+    {
+      if (document.getElementById("no-results") !== null)
+      {
+        let nrRow = document.getElementById("no-results-row");
+        nrRow.remove();
+      }
+
+      let tr = document.createElement("tr");
+      tr.setAttribute("id", "no-results-row");
+      let td = document.createElement("td");
+      td.setAttribute("id", "no-results");
+      let noResults = document.createTextNode("No results found. Please change filters");
+      td.appendChild(noResults);
+      td.setAttribute("colspan", "5");
+      tr.appendChild(td);
+      table.appendChild(tr);
+      return;
+    }
+
+    var xhttp = new XMLHttpRequest;
+
+    xhttp.onreadystatechange = function()
+          {
+            if (this.readyState == 4 && this.status == 200)
+            {
+              while (document.getElementsByClassName("table-data").length !== 0)
+              {
+                  let temp = document.getElementsByClassName("table-data")[0];
+                  temp.remove();
+              }
+
+              if (document.getElementById("no-results") !== null)
+              {
+                let nrRow = document.getElementById("no-results-row");
+                nrRow.remove();
+              }
+
+              var checkinHistoryVenue = JSON.parse(this.responseText);
+              if (checkinHistoryVenue.length <= 0)
+              {
+
+                if (document.getElementById("no-results") !== null){
+                  let nrRow = document.getElementById("no-results-row");
+                  nrRow.remove();
+                }
+
+                let tr = document.createElement("tr");
+                tr.setAttribute("id", "no-results-row");
+                let td = document.createElement("td");
+                td.setAttribute("id", "no-results");
+                let noResults = document.createTextNode("No results found. Please change filters");
+                td.appendChild(noResults);
+                td.setAttribute("colspan", "5");
+                tr.appendChild(td);
+                table.appendChild(tr);
+                return;
+              }
+
+              var numberofRows = checkinHistoryVenue.length;
+              var addresses = [];
+              var convertedDates = [];
+
+              for (let i = 0; i < numberofRows; i++)
+              {
+                convertedDates.push(checkinHistoryVenue[i].checkindate.toString());
+                convertedDates[i] = convertedDates[i].slice(0, -14);
+              }
+
+              for (let i=0; i < numberofRows; i++)
+              {
+                let tr = document.createElement("tr");
+                tr.setAttribute("class", "table-data");
+                for (let j = 0; j < 5; j++)
+                {
+                  let td = document.createElement("td");
+                  if (j === 0)
+                  {
+                    let data = document.createTextNode(checkinHistoryVenue[i].given_name);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 1)
+                  {
+                    let data = document.createTextNode(checkinHistoryVenue[i].surname[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 2)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 3)
+                  {
+                    let data = document.createTextNode(convertedDates[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 4)
+                  {
+                    let data = document.createTextNode(checkinHistoryVenue[i].checkintime);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+                }
+
+                table.appendChild(tr);
+              }
+            }
+          };
+
+          xhttp.open("GET", queryString,  true);
+          xhttp.send();
+}
 
 //filter hotspots
 function refineHotspots()
@@ -383,6 +533,7 @@ function refineHotspots()
                   else if (j === 4)
                   {
                     let button = document.createElement("button");
+                    button.onclick = "deleteHotspot()";
                     let data = document.createTextNode("Delete");
                     button.appendChild(data);
                     td.appendChild(button);
@@ -398,17 +549,6 @@ function refineHotspots()
           xhttp.open("GET", queryString,  true);
           xhttp.send();
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //hide toggles
 function showHideToggles(){
@@ -429,6 +569,7 @@ function showHideToggles(){
   }
 }
 
+
 function showHideTogglesAdmin(){
   var addressToggles = document.getElementsByClassName("hidden")[0];
   var toggles = document.getElementsByClassName("not-hidden")[0];
@@ -447,4 +588,30 @@ function showHideTogglesAdmin(){
   }
 }
 
+
+//deleting a hotspot
+function deleteHotspot()
+{
+  var confirmDelete = confirm("Are you sure you want to delete?");
+  if (confirmDelete === true)
+  {
+    var xhttp = new XMLHttpRequest;
+
+    xhttp.onreadystatechange = function()
+    {
+          {
+            if (this.readyState == 4 && this.status == 200)
+            {
+              console.log("YO");
+            }
+          }
+    };
+
+    xhttp.open("POST")
+
+  }
+  else {
+    return false;
+  }
+}
 
