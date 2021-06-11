@@ -525,8 +525,9 @@ router.get('/userInfo', function(req, res, next) {
 
 
       var user=req.session.user;
-        var userID=user[0].userID;
-
+      console.log(user);
+        var userID=user.userID;
+  console.log(userID);
 
       var query=`SELECT userID,given_name,surname,street_number,street_name,surburb,state,postcode,contact_number, date_of_birth, email
                                 FROM users WHERE userID = ?;`;

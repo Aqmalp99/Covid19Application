@@ -532,17 +532,13 @@ function checkVenman(){
         document.getElementById("email").value = userinfo[0].email;
         document.getElementById("streetnum").value = userinfo[0].street_number;
         document.getElementById("streetname").value = userinfo[0].street_name;
-        document.getElementById("surburb").value = userinfo[0].surburb;
+        document.getElementById("suburb").value = userinfo[0].surburb;
         document.getElementById("state").value = userinfo[0].state;
         document.getElementById("postcode").value = userinfo[0].postcode;
         document.getElementById("gname").value = userinfo[0].given_name;
 
 
 
-        }
-        else if (this.readyState == 4 && this.status >= 400) {
-            window.location.replace('/homeUser.html');
-            alert("You do not have venue manager access!");
         }
     };
 
