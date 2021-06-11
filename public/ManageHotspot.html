@@ -5,11 +5,12 @@
     <title>Manage Hotspots</title>
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
-    <script src="javascripts/page.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <body id="body" onload="checkAdmin()" style="display:none;">
     <header>Manage Hotspots</header>
+    <div class= "dashboard"></div>
     <div class="content-manage">
         <div class="hidden">
             <section class="address-toggles">
@@ -90,7 +91,7 @@
         <div class="button-div-user">
             <div></div>
             <div>
-                <button onclick="refineSearchUser()">Refine Search</button>
+                <button onclick="refineHotspots()">Refine Search</button>
             </div>
             <div class="address-toggle-button">
                 <button id="toggle-button" onclick="showHideToggles()">Search by Address</button>
@@ -103,135 +104,18 @@
                     <th>Venue Address</th>
                     <th>Venue Phone No.</th>
                     <th>Start Date</th>
-                    <th>End Date</th>
                     <th>Delete Hotspot</th>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>Yiros</td>
-                        <td>132 Hindley Street, Adelaide, SA, 5000</td>
-                        <td>8333 3333</td>
-                        <td>11/05/2021</td>
-                        <td>21/05/2021</td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
     </div>
     <script src="javascripts/filter.js"></script>
+    <script type = "text/javascript">
+        $(function (){
+            $(".dashboard").load("dashboardTemplate.html");
+        });
+    </script>
 </body>
 
 </html>
