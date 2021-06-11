@@ -7,7 +7,7 @@
 
 body
 {
-    background: url(images/bg.jpg) no-repeat fixed; 
+    background: url(images/bg.jpg) no-repeat fixed;
     background-size: cover;
 }
 
@@ -21,7 +21,7 @@ header
     padding: 0.5%;
     /* background-image: url(images/bg.png);
     background-color: rgb(85, 99, 129);
-    background-blend-mode: multiply; */    
+    background-blend-mode: multiply; */
 }
 
 footer
@@ -43,7 +43,7 @@ footer
 
 label
 {
-    font-weight: bold;  
+    font-weight: bold;
     font-size: 2.9vh;
 }
 
@@ -89,13 +89,17 @@ button
 }
 
 /* Start of login specific CSS */
+
+
 .login_container
 {
     padding: 8px;
     max-width: 60%; /* Was 50 before */
     display: flex;
     background-color: white;
+
     margin-top: 8.5vh;
+
     box-shadow: 0 20px 20px 0 rgb(0 0 0 /30%);
     border: 2px solid #888;
 
@@ -107,7 +111,7 @@ position: absolute;
 left: 59.5vw;
 transform: translate(-50%);
 border: 2px solid rgb(121, 135, 148);
-height: 65.5vh;
+height: 54.5vh;
 }
 .vertical_line_text {
 position: absolute;
@@ -204,7 +208,7 @@ h1
     font-size: 2.9vh;
 }
 
-.signup_labels 
+.signup_labels
 {
     margin-left: 0;
 }

@@ -8,19 +8,19 @@
     <script src="javascripts/page.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
-	<title>Home-User</title>
+	<title>User</title>
     <style>
 
-    #map {
+    /*#map {*/
 
-        position:absolute;
-        top: 17vh;
-        left: 12.5vw;
-        height: 65%;
-        width: 65%;
-        border: 2px solid rgb(49, 68, 85);
+    /*    position:absolute;*/
+    /*    top: 17vh;*/
+    /*    left: 12.5vw;*/
+    /*    height: 65%;*/
+    /*    width: 65%;*/
+    /*    border: 2px solid rgb(49, 68, 85);*/
 
-    }
+    /*}*/
 
     </style>
 </head>
@@ -33,7 +33,7 @@
         <div class= "dashboard">
         </div>
         <div class = "container">
-
+            <div class = "map_container">
                 <div id="map"></div>
                 <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
             <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
@@ -57,30 +57,47 @@
 
 
             </script>
+            <div class = "button_container">
+                    <div class=" display_setting user_buttons">
+                        <input class=" button_ checkin_address">
+                        <button onclick="get_coordinates()" class="button_ checkin_button">CHECK IN</button>
+                    </div>
+                </div>
+            </div>
 
 
-
-            <div class = "faq">
+             <div class = "faq">
                 <div class="faq_heading">
                     <h>FAQS</h>
                 </div>
                 <div class="faq_container">
 				    <ul class="faq_list">
 					    <li class="faq_list_button">
-              		    	<button  onclick="get_coordinates()" class="faq_button faq_list_1_button">
-
+              		    	<button  class="faq_button faq_list_1_button" >
+                                <a class="text_format" href="https://www.health.gov.au/node/18602/coronavirus-covid-19-advice-for-older-people-and-carers" target="_blank">Who is most at risk?</a>
               		    	</button>
             	    	</li>
             	    	<li class="faq_list_button">
               		    	<button  class="faq_button faq_list_2_button">
+                            <a class="text_format" href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html" target="_blank">What are the symptoms?</a>
 
               		    	</button>
             	    	</li>
             	    	<li class="faq_list_button">
               			    <button  class="faq_button faq_list_3_button">
-
+                            <a class="text_format" href="https://www.who.int/news-room/q-a-detail/coronavirus-disease-covid-19-how-is-it-transmitted" target="_blank">How does COVID-19 spread?</a>
               		    	</button>
             		    </li>
+            		    <li class="faq_list_button">
+              		    	<button  class="faq_button faq_list_4_button">
+                            <a class="text_format" href="https://www.sahealth.sa.gov.au/wps/wcm/connect/public+content/sa+health+internet/conditions/infectious+diseases/covid-19/testing+and+tracing/testing+for+covid-19" target="_blank">Who should be tested?</a>
+              		    	</button>
+              		    </li>
+              		    <li class="faq_list_button">
+              		    	<button  class="faq_button faq_list_5_button">
+                            <a class="text_format" href="https://www.health.gov.au/initiatives-and-programs/covid-19-vaccines?gclid=Cj0KCQjw8IaGBhCHARIsAGIRRYqf3oR3gwwX7ak-8dBjmD3tttSHPbVceKU7J16_lHiF763VbbE8uEkaAqzfEALw_wcB&gclsrc=aw.ds" target="_blank">Is there a COVID-19 vaccine available?</a>
+          		    	</button>
+              		    </li>
                 	</ul>
                 </div>
             </div>
