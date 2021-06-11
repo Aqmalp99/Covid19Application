@@ -63,7 +63,8 @@
 }
 
 .dash_button:hover {
-  background-color: #4040a8;
+  background-color: #032c62;
+  transition:0.3s;
 }
 
 .dashboard_list_text
