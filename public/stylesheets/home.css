@@ -96,19 +96,9 @@ body
       font-size: 3vmin;
 }
 
-.manage_hotspots
-{
 
-    background-color: rgb(49, 68, 85);
-    color: white;
-}
 
-.signup_admin
-{
 
-    background-color: rgb(49, 68, 85);
-    color: white;
-}
 
 .send_alert
 {
@@ -144,7 +134,7 @@ body
     flex: 1 0 auto;
     position: relative;
     overflow:auto;
-     box-shadow: 0 20px 20px 0 rgb(0 0 0 / 20%);
+    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 20%);
 }
 
 .faq_heading
@@ -208,4 +198,74 @@ transition:0.5s;
 .faq_button:hover .text_format
 {
     color:#4242a1;
+}
+
+
+/*--------------------home admin buttons----------------------*/
+
+.admin_button_container
+{
+    margin:80% 5% 0%;
+
+
+
+}
+.signup_admins
+{
+    margin-top:20%;
+    background-color: rgb(49, 68, 85);
+    color: white;
+    width: 25vmin;
+    font-size: 2.5vmin;
+
+}
+.manage_users
+{
+    margin-top:20%;
+    background-color: rgb(49, 68, 85);
+    color: white;
+    width: 25vmin;
+    font-size: 2.5vmin;
+}
+.manage_venue
+{
+    margin-top:20%;
+    background-color: rgb(49, 68, 85);
+    color: white;
+    width: 25vmin;
+    font-size: 2.5vmin;
+}
+.manage_venue_manager
+{
+    background-color: rgb(49, 68, 85);
+    color: white;
+}
+.manage_hotspots
+{
+
+    background-color: rgb(49, 68, 85);
+    color: white;
+}
+
+.create_hotspots
+{
+
+    background-color: rgb(49, 68, 85);
+    color: white;
+}
+
+.checkin_history
+{
+     background-color: rgb(49, 68, 85);
+    color: white;
+}
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+  /* For tablets: */
+
+.dashboard
+{
+    display:none;
+}
 }
