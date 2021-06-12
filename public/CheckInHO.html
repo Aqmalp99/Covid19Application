@@ -6,14 +6,12 @@
     <title>Check In History (Admin)</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
-<<<<<<< HEAD
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-=======
     <script src="javascripts/page.js"></script>
 
->>>>>>> 45294b0d94a31470a17d79205a60936858a444b7
 </head>
-<body id="body" onload="checkAdmin()" style="display:none;">
+<!--onload="checkAdmin()"-->
+<body id="body"  style="display:block;">
     <header>Check-In History</header>
     <div class= "dashboard"></div>
     <div class="content-admin">
@@ -74,23 +72,23 @@
                     <label>Search by given name, surname, or both:</label>
                 </div>
                 <div>
-                    <input type="text" placeholder="Given Name">
+                    <input id="fname-admin" type="text" placeholder="Given Name">
                 </div>
                 <div>
-                    <input type="text" placeholder="Last Name">
+                    <input id="sname-admin" type="text" placeholder="Last Name">
                 </div>
                 <div class="span-2-columns">
                     <label>Search by Venue Name:</label>
                 </div>
                 <div class="span-2-columns">
-                    <input type="text" placeholder="Venue Name...">
+                    <input id="vname-admin" type="text" placeholder="Venue Name...">
                 </div>
                 <div>
                     <label>Enter date:</label>
                 </div>
                 <div></div>
                 <div>
-                    <input type="date">
+                    <input id="date-admin" type="date">
                 </div>
                 <div></div>
                 <div>
@@ -98,7 +96,7 @@
                 </div>
                 <div></div>
                 <div>
-                    <input type="time">
+                    <input id="sTime-admin" type="time">
                 </div>
                 <div></div>
                 <div>
@@ -106,7 +104,7 @@
                 </div>
                 <div></div>
                 <div>
-                    <input type="time">
+                    <input id="eTime-admin" type="time">
                 </div>
                 <div></div>
                 <div class="button-admin-div">
@@ -117,6 +115,19 @@
                 </div>
             </section>
         </div>
+    </div>
+    <div class="table-admin" style="display: none;">
+        <table>
+            <thead>
+                <th>User ID</th>
+                <th>Contact No.</th>
+                <th>Venue ID</th>
+                <th>Venue Contact No.</th>
+                <th>Check-in Date</th>
+                <th>Check-in Time</th>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
     <script src="javascripts/filter.js"></script>
     <script type = "text/javascript">
