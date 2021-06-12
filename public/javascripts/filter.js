@@ -886,4 +886,3 @@ function deleteHotspot(event)
     return false;
   }
 }
-

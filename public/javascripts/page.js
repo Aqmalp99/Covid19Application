@@ -677,6 +677,32 @@ function checkInUser(){
 
 }
 
+function showMap(){
+  document.getElementsByClassName("content-user")[0].style.display = "none";
+  document.getElementsByClassName("map-container-user")[0].style.display = "block";
+  document.getElementsByClassName("table-button-div")[0].style.display = "block";
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXFtYWxwIiwiYSI6ImNrcHA1Y2VuZzAwNGIycG1vdnF3OXpwODgifQ.ZeE-1i6huxUHpYEtlhs_IQ';
+
+                var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+                var coordinates = Array();
+                var map = new mapboxgl.Map({
+                    container: 'map-user',
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [138.5999, -34.9274],
+                    zoom: 10
+                    });
+                    map.on('load', function() {
+                    map.resize();
+                });
+                 checkInsMap();
+}
+
+function showTable(){
+  document.getElementsByClassName("content-user")[0].style.display = "block";
+  document.getElementsByClassName("map-container-user")[0].style.display = "none";
+  document.getElementsByClassName("table-button-div")[0].style.display = "none";
+}
 
 
 

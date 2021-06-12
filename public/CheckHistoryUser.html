@@ -6,13 +6,18 @@
     <title>Check-in History</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="javascripts/page.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
 </head>
-<body id="body" onload="checklogin()" style="display:none;">
+<!---->
+<!---->
+<body id="body"  onload="checklogin()" style="display:none;">
     <header>Check-In History</header>
     <div class= "dashboard"></div>
-    <div class="content-user">
+    <div class="content-user" style="display:block;">
         <div class="hidden">
             <section class="address-toggles">
                 <div>
@@ -91,7 +96,7 @@
         </div>
         <div class="button-div-user">
             <div class="map-toggle-button">
-                <button>View Check-ins on Map</button>
+                <button onclick="showMap()">View All Check-ins on Map</button>
             </div>
             <div>
                 <button onclick="refineSearchUser()">Refine Search</button>
@@ -113,12 +118,38 @@
             </table>
         </section>
     </div>
+    <div class="map-container-user" style="display:none;">
+        <div id="map-user"></div>
+            <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+            <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+            <script>
+                mapboxgl.accessToken = 'pk.eyJ1IjoiYXFtYWxwIiwiYSI6ImNrcHA1Y2VuZzAwNGIycG1vdnF3OXpwODgifQ.ZeE-1i6huxUHpYEtlhs_IQ';
+
+                var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+                var coordinates = Array();
+                var map = new mapboxgl.Map({
+                    container: 'map-user',
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [138.5999, -34.9274],
+                    zoom: 10
+                    });
+                    map.on('load', function() {
+                    map.resize();
+                });
+                 checkInsMap();
+            </script>
+    </div>
+    <div class="table-button-div" style="display:none;">
+            <button id="table-button" onclick="showTable()">View Check-in Table</button>
+    </div>
     <script src="javascripts/filter.js"></script>
     <script type = "text/javascript">
         $(function (){
             $(".dashboard").load("dashboardTemplate.html");
         });
     </script>
+    <script src="javascripts/page.js"></script>
 </body>
 
 </html>
