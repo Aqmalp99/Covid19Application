@@ -551,19 +551,38 @@ function checkVenman(){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         var userinfo=JSON.parse(this.responseText);
+        if(userinfo[0].date_of_birth!==null){
         var dob=userinfo[0].date_of_birth.toString();
         dob=dob.slice(0,-14);
-        document.getElementById("gname").value = userinfo[0].given_name;
-        document.getElementById("lname").value = userinfo[0].surname;
         document.getElementById("dob").value = dob;
-        document.getElementById("connumber").value = userinfo[0].contact_number;
-        document.getElementById("email").value = userinfo[0].email;
-        document.getElementById("streetnum").value = userinfo[0].street_number;
-        document.getElementById("streetname").value = userinfo[0].street_name;
-        document.getElementById("suburb").value = userinfo[0].surburb;
-        document.getElementById("state").value = userinfo[0].state;
-        document.getElementById("postcode").value = userinfo[0].postcode;
+        }
+        if(userinfo[0].given_name!==null){
         document.getElementById("gname").value = userinfo[0].given_name;
+        }
+        if(userinfo[0].surname!==null){
+        document.getElementById("lname").value = userinfo[0].surname;
+        }
+        if(userinfo[0].contact_number!==null){
+        document.getElementById("connumber").value = userinfo[0].contact_number;
+        }
+        if(userinfo[0].email!==null){
+        document.getElementById("email").value = userinfo[0].email;
+        }
+        if(userinfo[0].street_number!==null){
+        document.getElementById("streetnum").value = userinfo[0].street_number;
+        }
+        if(userinfo[0].street_name!==null){
+        document.getElementById("streetname").value = userinfo[0].street_name;
+        }
+        if(userinfo[0].surburb!==null){
+        document.getElementById("suburb").value = userinfo[0].surburb;
+        }
+        if(userinfo[0].state!==null){
+        document.getElementById("state").value = userinfo[0].state;
+        }
+        if(userinfo[0].postcode!==null){
+        document.getElementById("postcode").value = userinfo[0].postcode;
+        }
 
 
 
@@ -677,6 +696,69 @@ function checkInUser(){
 
 }
 
+function deleteUser() {
+
+  if (confirm("Please confirm to delete User!")) {
+    // txt = "You pressed OK!";
+    confirmDeleteUser();
+  }
+
+}
+
+function deleteVenue() {
+
+  if (confirm("Please confirm to delete Venue!")) {
+    // txt = "You pressed OK!";
+    confirmDeleteVenue();
+  }
+
+}
+
+function confirmDeleteUser()
+{
+    let userID =document.getElementById("search_user").value;
+
+    var xmlhttp = new XMLHttpRequest();
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("User Deleted");
+            document.getElementById("search_user").value=null;
+        }
+
+    };
+
+
+    xmlhttp.open("POST", "/users/deleteUser", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify({userID}));
+}
+
+function confirmDeleteVenue()
+{
+    let venueID =document.getElementById("search_venue").value;
+
+    var xmlhttp = new XMLHttpRequest();
+
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Venue Deleted");
+            document.getElementById("search_venue").value=null;
+        }
+
+    };
+
+
+    xmlhttp.open("POST", "/users/deleteVenue", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify({venueID}));
+}
+
 function showMap(){
   document.getElementsByClassName("content-user")[0].style.display = "none";
   document.getElementsByClassName("map-container-user")[0].style.display = "block";
@@ -703,6 +785,7 @@ function showTable(){
   document.getElementsByClassName("map-container-user")[0].style.display = "none";
   document.getElementsByClassName("table-button-div")[0].style.display = "none";
 }
+
 
 
 
