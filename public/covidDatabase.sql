@@ -27,16 +27,10 @@ CREATE TABLE venue (
 	suburb varchar(30),
 	state varchar(20),
     postcode varchar(15),
-	contact_number varchar(20),
+	phone_number varchar(20),
 	PRIMARY KEY (venueID),
 	FOREIGN KEY (venue_manager) REFERENCES users(userID)
 );
--- UPDATE venue
--- SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
--- WHERE venue_manager=?;
-INSERT INTO venue (venue_manager,street_number,street_name,suburb,state,postcode)
-VALUES (26,"12","anzac highway","everard park","SA","5035");
-
 
 CREATE TABLE hotspots (
     hotspotID INT NOT NULL AUTO_INCREMENT,
@@ -48,12 +42,40 @@ CREATE TABLE hotspots (
 	FOREIGN KEY (hoID) REFERENCES users(userID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
+
+
+
+CREATE TABLE checkins (
+    checkinID int NOT NULL AUTO_INCREMENT,
+    checkindate DATE,
+    checkintime TIME,
+    userID int,
+    venueID int,
+    PRIMARY KEY (checkinID),
+    FOREIGN KEY (userID) REFERENCES users(userID),
+    FOREIGN KEY (venueID) REFERENCES venue(venueID)
+);
+-- UPDATE venue
+-- SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
+-- WHERE venue_manager=?;
+INSERT INTO venue (venue_manager,street_number,street_name,suburb,state,postcode)
+VALUES (26,"12","anzac highway","everard park","SA","5035");
+
+
+
 -- INSERT INTO hotspots (venueID,hoID,start_date,start_time)
 -- VALUES (?,  ?, ?,?);
 SELECT venue.venueID,street_number,street_name,suburb,state,postcode
 FROM venue
 INNER JOIN hotspots
 ON venue.venueID=hotspots.venueID;
+
+
+SELECT DISTINCT venue.venueID, street_number, street_name,suburb,state,state,postcode
+FROM venue
+INNER JOIN checkins
+ON venue.venueID=checkins.venueID
+AND userID=23;
 -- CREATE TABLE venue_managers (
 --     venue_manager_ID INT NOT NULL AUTO_INCREMENT,
 --     userID int,
@@ -69,13 +91,7 @@ ON venue.venueID=hotspots.venueID;
 -- 	FOREIGN KEY (userID) REFERENCES users(userID)
 -- );
 
-CREATE TABLE checkins (
-    checkinID int NOT NULL AUTO_INCREMENT,
-    checkindate DATE,
-    checkintime TIME,
-    userID int,
-    venueID int,
-    PRIMARY KEY (checkinID),
-    FOREIGN KEY (userID) REFERENCES users(userID),
-    FOREIGN KEY (venueID) REFERENCES venue(venueID)
-);
+
+
+-- INSERT INTO checkins (checkindate,checkintime,userID,venueID)
+-- VALUES (?,?,?,?);

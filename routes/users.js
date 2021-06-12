@@ -1154,7 +1154,7 @@ router.get('/checkinsVenue', function(req, res, next)
         {
             console.log("scenario 1");
             let firstName = req.query.fname;
-            let surname = req.query.fname;
+            let surname = req.query.sname;
             let checkinDate = req.query.date;
             let startTime = req.query.sTime + ":00";
             let endTime = req.query.eTime + ":00";
@@ -1167,8 +1167,6 @@ router.get('/checkinsVenue', function(req, res, next)
                     ON users.userID = venue.userID
                     INNER JOIN checkins
                     ON venue.venueID = checkins.venueID
-                    INNER JOIN venue
-                    ON checkins.venueID = venue.venueID
                     WHERE (venue.userID = ?
                     AND users.given_name = ?
                     AND users.surname = ?
@@ -1195,7 +1193,7 @@ router.get('/checkinsVenue', function(req, res, next)
         {
             console.log("scenario 2");
             let firstName = req.query.fname;
-            let surname = req.query.fname;
+            let surname = req.query.sname;
             let checkinDate = req.query.date;
 
             let venueID = req.session.userID;
@@ -1231,7 +1229,7 @@ router.get('/checkinsVenue', function(req, res, next)
         {
             console.log("scenario 3");
             let firstName = req.query.fname;
-            let surname = req.query.fname;
+            let surname = req.query.sname;
 
             let venueID = req.session.userID;
 
@@ -1295,6 +1293,560 @@ router.get('/checkinsVenue', function(req, res, next)
 
     });
 });
+
+
+//checkins - admin
+
+router.get('/checkinsAdmin', function(req, res, next)
+{
+    var firstNameBool = true;
+    var surnameBool = true;
+
+    var vnameBool = true;
+    var streetNumberBool = true;
+    var streetNameBool = true;
+    var suburbBool = true;
+    var postcodeBool = true;
+    var stateBool = true;
+
+    var checkinDateBool = true;
+    var startTimeBool = true;
+    var endTimeBool = true;
+
+    if (req.query.fname === undefined){
+        firstNameBool = false;
+    }
+    if (req.query.sname === undefined){
+        surnameBool = false;
+    }
+    if (req.query.vname === undefined){
+        vnameBool = false;
+    }
+    if (req.query.stNum === undefined){
+        streetNumberBool = false;
+    }
+    if (req.query.stName === undefined){
+        streetNameBool = false;
+    }
+    if (req.query.suburb === undefined){
+        suburbBool = false;
+    }
+    if (req.query.postcode === undefined){
+        postcodeBool = false;
+    }
+    if (req.query.state === undefined){
+        stateBool = false;
+    }
+    if (req.query.date === undefined){
+        checkinDateBool = false;
+    }
+    if (req.query.sTime === undefined){
+        startTimeBool = false;
+    }
+    if (req.query.eTime === undefined){
+        endTimeBool = false;
+    }
+
+    req.pool.getConnection(function (err, connection)
+    {
+        if (err)
+        {
+            res.sendStatus(500);
+            return;
+        }
+
+
+        if (firstNameBool === true && surnameBool === true && vnameBool === true && streetNumberBool === true && streetNameBool === true && suburbBool === true && postcodeBool === true && stateBool === true && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
+        {
+            console.log("scenario 1");
+            let firstName = req.query.fname;
+            let surname = req.query.sname;
+            let venueName = req.query.vname;
+            let streetNumber = req.query.stNum;
+            let streetName = req.query.stName;
+            let suburb = req.query.suburb;
+            let postcode = req.query.postcode;
+            let state = req.query.state;
+            let checkinDate = req.query.date;
+            let startTime = req.query.sTime + ":00";
+            let endTime = req.query.eTime + ":00";
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (users.given_name = ?
+                    AND users.surname = ?
+                    AND venue.venueName = ?
+                    AND venue.streetNumber = ?
+                    AND venue.streetName = ?
+                    AND venue.suburb = ?
+                    AND venue.state = ?
+                    AND venue.postcode = ?
+                    AND checkins.checkindate = ?
+                    AND checkins.checkintime BETWEEN ? AND ?)`;
+
+
+            connection.query(query,[firstName, surname, streetNumber, streetName, suburb, postcode, state, checkinDate, startTime, endTime], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === true && surnameBool === true && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 2");
+            let firstName = req.query.fname;
+            let surname = req.query.fname;
+            let checkinDate = req.query.date;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (users.given_name = ?
+                    AND users.surname = ?
+                    AND checkins.checkindate = ?)`;
+
+
+            connection.query(query,[firstName, surname, checkinDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === true && surnameBool === true && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 3");
+            let firstName = req.query.fname;
+            let surname = req.query.fname;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (users.given_name = ?
+                    AND users.surname = ?)`;
+
+
+            connection.query(query,[firstName, surname], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 4");
+            let checkinDate = req.query.date;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (checkins.checkindate = ?)`;
+
+
+            connection.query(query,[checkinDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 2");
+            let vname = req.query.vname;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.venueName = ?)`;
+
+
+            connection.query(query,[vname], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 3");
+            let vname = req.query.vname;
+            let checkinDate = req.query.date;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.venueName = ?
+                    AND checkins.checkindate = ?)`;
+
+
+            connection.query(query,[vname, checkinDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === true && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
+        {
+            console.log("scenario 4");
+            let vname = req.query.vname;
+            let checkinDate = req.query.date;
+            let startTime = req.query.sTime;
+            startTime += ":00";
+            let endTime = req.query.eTime;
+            endTime += ":00";
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.venueName = ?
+                    AND checkins.checkindate = ?
+                    AND checkins.checkintime BETWEEN ? AND ?)`;
+
+
+            connection.query(query,[vname, checkinDate, startTime, endTime], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === true && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 6");
+            let streetNumber = req.query.stNum;
+            let streetName = req.query.stName;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.streetNumber = ?
+                    AND venue.streetName = ?)`;
+
+            connection.query(query,[streetNumber, streetName], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 7");
+            let streetName = req.query.stName;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.streetName = ?)`;
+
+
+            connection.query(query,[streetName], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === true && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 8");
+            let streetName = req.query.stName;
+            let suburb = req.query.suburb;
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.streetName = ?
+                    AND venue.suburb = ?)`;
+
+
+            connection.query(query,[streetName, suburb], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === true && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 9");
+            let streetName = req.query.stName;
+            let postcode = req.query.postcode;
+
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.streetName = ?
+                    AND venue.postcode = ?)`;
+
+
+            connection.query(query,[streetName, postcode], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 10");
+            let postcode = req.query.postcode;
+
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.postcode = ?)`;
+
+
+            connection.query(query,[postcode], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 11");
+            let state = req.query.state;
+
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.state = ?)`;
+
+
+            connection.query(query,[state], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === true && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 12");
+            let state = req.query.state;
+            let checkinDate = req.query.date;
+
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.state = ?
+                    AND checkins.checkindate = ?)`;
+
+
+            connection.query(query,[state, checkinDate], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+        if (firstNameBool === false && surnameBool === false && vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === true && stateBool === false && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
+        {
+            let postcode = req.query.postcode;
+            let checkinDate = req.query.date;
+            let startTime = req.query.sTime;
+            startTime += ":00";
+            let endTime = req.query.eTime;
+            endTime += ":00";
+
+
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+                    FROM users
+                    INNER JOIN venue
+                    ON users.userID = venue.venue_manager
+                    INNER JOIN checkins
+                    ON venue.venueID = checkins.venueID
+                    WHERE (venue.postcode = ?
+                    AND checkins.checkindate = ?
+                    AND checkins.checkintime BETWEEN ? AND ?)`;
+
+
+            connection.query(query,[postcode, checkinDate, startTime, endTime], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+        }
+
+    });
+});
+
 
 
 router.post('/addVenue', function(req, res, next) {
@@ -1362,11 +1914,65 @@ router.post('/addVenue', function(req, res, next) {
 
       var user=req.session.user;
       var userID=user[0].userID;
+      console.log(userID);
 
       var query=`UPDATE venue
-                SET venue_name = ?, capacity= ?, street_number=? , street_name=? , suburb=? , state=? , postcode=?, contact_number=?
+                SET venue_name = ?, capacity= ?, street_number=? , street_name=? , suburb=? , state=? , postcode=?, phone_number=?
                 WHERE venue_manager=?;`;
       connection.query(query,[venueName,capacity,streetnum,streetname,suburb,state,postcode,contactNum,userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.end();
+
+      });
+
+
+  });
+
+
+  });
+
+  router.post('/updateUser', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var firstName=req.body.givenName;
+      var surname=req.body.surname;
+      var dob=req.body.dob;
+      var contactNo=req.body.contactNo;
+      var email=req.body.email;
+      var streetnum=req.body.streetnum;
+      var streetname=req.body.streetname;
+      var suburb=req.body.suburb;
+      var postcode=req.body.postcode;
+      var state=req.body.state;
+
+      var user=req.session.user;
+      var userID=user[0].userID;
+
+      var query=`UPDATE users
+                SET given_name = ?, surname= ?, street_number=? , street_name=? , surburb=? , state=? , postcode=?, contact_number=?,
+                date_of_birth=?, email=?
+                WHERE userID=?;`;
+      connection.query(query,[firstName,surname,streetnum,streetname,suburb,state,postcode,contactNo,dob,email,userID],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -1597,5 +2203,243 @@ router.get('/userInfo', function(req, res, next) {
   });
 
 
+router.post('/deleteHotspot', function(req,res,next)
+{
+    req.pool.getConnection(function(err,connection)
+  {
+       if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+        var hotspotID = req.body.text;
+        hotspotID = parseInt(hotspotID);
+        var query = `DELETE FROM hotspots WHERE hotspotID = ?`;
+
+        connection.query(query,[hotspotID],function(err,rows,fields)
+      {
+        connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.sendStatus(200);
+      });
+  });
+});
+
+
+  router.post('/checkIN', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var user=req.session.user;
+        var userID=user[0].userID;
+      var venueID=req.body.venueCheckin;
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      var today1 = new Date();
+      var time = today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds();
+
+      var query=`INSERT INTO checkins (checkindate,checkintime,userID,venueID)
+                VALUES (?,?,?,?);`;
+
+      connection.query(query,[date,time,userID,venueID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.sendStatus(200);
+
+      });
+
+
+  });
+
+
+  });
+
+  router.get('/venueInfo', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var user=req.session.user;
+        var userID=user[0].userID;
+
+      var query=`SELECT venue_name,capacity,street_number,street_name,suburb,state,postcode,phone_number
+                                FROM venue WHERE venue_manager = ?;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.json(rows);
+
+            // res.end();
+
+      });
+  });
+  });
+
+  router.post('/userCheckins', function(req, res, next) {
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+        var user=req.session.user;
+        var userID=user[0].userID;
+
+
+      var query=`SELECT DISTINCT venue.venueID, street_number, street_name,suburb,state,state,postcode
+                FROM venue
+                INNER JOIN checkins
+                ON venue.venueID=checkins.venueID
+                AND userID=?;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // console.log(rows);
+          res.json(rows);
+
+      });
+  });
+  });
+
+router.post('/deleteUser', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var userId=req.body.userID;
+
+      var query=`DELETE FROM users
+                 WHERE userID=?`;
+
+      connection.query(query,[userId],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.sendStatus(200);
+
+      });
+
+
+  });
+
+
+  });
+
+router.post('/deleteVenue', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var venueId=req.body.venueID;
+
+      var query=`DELETE FROM venue
+                 WHERE venueID=?`;
+
+      connection.query(query,[venueId],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.sendStatus(200);
+
+      });
+
+
+  });
+
+
+  });
 
 module.exports = router;

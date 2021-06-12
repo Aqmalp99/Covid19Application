@@ -11,7 +11,7 @@
 
 
 </head>
-<body id="body"  onload="checkVenman()" style="display:none;">
+<body id="body"  onload="checkVenman();getVenueInfo();" style="display:none;">
      <div class= "dashboard">
         </div>
     <header>Edit Venue Information</header>
@@ -21,7 +21,7 @@
             <label for="vname">Venue Name:</label>
         </div>
         <div class="span-2-columns">
-            <input id="vname" class="input" type="text" placeholder="Venue Name">
+            <input id="vname" class="input" type="text" placeholder="Venue Name" required>
         </div>
 
         <div >
@@ -29,12 +29,12 @@
         </div>
         <div><label for="vcapacity">Venue Capacity:</label></div>
         <div>
-            <input id="vcontactnum" class="input" type="text" placeholder="08xxxxxxxx">
+            <input id="vcontactnum" class="input" type="text" placeholder="08xxxxxxxx" required>
         </div>
 
         <div >
 
-            <input id="vcapacity" class="input" type="text" placeholder="Capacity">
+            <input id="vcapacity" class="input" type="text" placeholder="Capacity" required >
         </div>
 
         <div >
@@ -42,24 +42,24 @@
         </div>
         <div><label for="vstreetname">Street Name:</label></div>
         <div>
-            <input  id="vstreetnum" type="text" placeholder="Street No.">
+            <input  id="vstreetnum" type="text" placeholder="Street No." required>
         </div>
         <div>
-            <input  id="vstreetname" type="text" placeholder="Street Name">
+            <input  id="vstreetname" type="text" placeholder="Street Name" required>
         </div>
         <div>
             <label for="vsuburb">Suburb:</label>
         </div>
 
         <div class="span-2-columns">
-            <input  id="vsuburb" type="text" placeholder="Suburb">
+            <input  id="vsuburb" type="text" placeholder="Suburb" required>
         </div>
         <div><label for="vpostcode">Post code:</label></div>
         <div>
             <label for="vstate">State:</label>
         </div>
         <div>
-            <input  id="vpostcode" type="text" placeholder="Postcode">
+            <input  id="vpostcode" type="text" placeholder="Postcode" required>
         </div>
 
         <div class="state_input_span">
