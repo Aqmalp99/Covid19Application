@@ -1,13 +1,10 @@
 body {
-    background: url(images/bg2_sml.jpg) no-repeat center center fixed;  /* changing for bg image (vinay)*/
+    /*background: url(images/bg2_sml.jpg) no-repeat center center fixed;   changing for bg image (vinay)*/
+    background: url(images/bg2_sml.jpg) no-repeat fixed;
+    background-size: cover;
 
-
-  background-size: cover;
-  background-size: cover;
-  background-size: cover;
-  background-size: cover;
 }
-git ad
+
 header {
     background-color: rgba(163, 183, 198, 0.3);
     margin: 0 0 4vh 0;
@@ -612,6 +609,89 @@ td button {
     cursor: pointer;
 }
 
+/* Manage stuff for health offical tings */
+.manage_section {
+    max-width: 50vw;
+    margin: 20vh 25vw 20vh 25vw;
+    box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
+}
 
+
+.search_section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto auto auto auto;
+    grid-row-gap: 15%;
+    background-color: rgba(163, 183, 198, 0.6);
+    padding: 4% 4% 4% 4%;
+    box-sizing: border-box;
+    color: #5d5e68;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-size: 1.5vw;
+    font-weight: normal;
+    margin: 0 0 0 0 ;
+
+}
+
+ .search_span
+ {
+    width: 100%;
+    grid-column: 2 / span 3;
+    margin: 0 0 0 0;
+ }
+
+.search_section input {
+    width: 100%;
+    float: right;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-style: italic;
+    font-size: 1.5vw;
+    color: #5d5e68;
+    box-sizing: border-box;
+}
+
+.delete_button{
+    width: 100%;
+    display: block;
+    margin: auto;
+    /*border-radius: 1em;*/
+    background-color: rgb(49, 68, 85);
+    font-family: "mr-eaves-modern", sans-serif;
+    color: white;
+    font-size: 1.5vw;
+    cursor: pointer;
+    grid-column: 2 / span 2;
+}
+
+.delete_button button{
+    width: 100%;
+    display: block;
+    margin: auto;
+    padding: 1% 4% 1% 4%;
+    border: 0.5px solid #5d5e68;
+    /*border-radius: 1em;*/
+    background-color: rgb(49, 68, 85);
+    font-family: "mr-eaves-modern", sans-serif;
+    color: white;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+
+.back_to_home_button{
+    width: 4%;
+    display: block;
+    padding: 0.2%;
+    border: 0.5px solid #5d5e68;
+    /*border-radius: 1em;*/
+    background-color: rgb(49, 68, 85);
+    font-family: "mr-eaves-modern", sans-serif;
+    color: white;
+    font-size: 1.5vw;
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+    right: 25%;
+}
 
 
