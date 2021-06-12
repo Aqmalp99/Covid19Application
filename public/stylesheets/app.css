@@ -2,6 +2,7 @@ body {
     /*background: url(images/bg2_sml.jpg) no-repeat center center fixed;   changing for bg image (vinay)*/
     background: url(images/bg2_sml.jpg) no-repeat fixed;
     background-size: cover;
+    margin: 0;
 
 }
 
