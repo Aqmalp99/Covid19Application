@@ -2025,11 +2025,65 @@ router.post('/addVenue', function(req, res, next) {
 
       var user=req.session.user;
       var userID=user[0].userID;
+      console.log(userID);
 
       var query=`UPDATE venue
-                SET venue_name = ?, capacity= ?, street_number=? , street_name=? , suburb=? , state=? , postcode=?, contact_number=?
+                SET venue_name = ?, capacity= ?, street_number=? , street_name=? , suburb=? , state=? , postcode=?, phone_number=?
                 WHERE venue_manager=?;`;
       connection.query(query,[venueName,capacity,streetnum,streetname,suburb,state,postcode,contactNum,userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.end();
+
+      });
+
+
+  });
+
+
+  });
+
+  router.post('/updateUser', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var firstName=req.body.givenName;
+      var surname=req.body.surname;
+      var dob=req.body.dob;
+      var contactNo=req.body.contactNo;
+      var email=req.body.email;
+      var streetnum=req.body.streetnum;
+      var streetname=req.body.streetname;
+      var suburb=req.body.suburb;
+      var postcode=req.body.postcode;
+      var state=req.body.state;
+
+      var user=req.session.user;
+      var userID=user[0].userID;
+
+      var query=`UPDATE users
+                SET given_name = ?, surname= ?, street_number=? , street_name=? , surburb=? , state=? , postcode=?, contact_number=?,
+                date_of_birth=?, email=?
+                WHERE userID=?;`;
+      connection.query(query,[firstName,surname,streetnum,streetname,suburb,state,postcode,contactNo,dob,email,userID],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -2295,6 +2349,796 @@ router.post('/deleteHotspot', function(req,res,next)
       });
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  router.post('/checkIN', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var user=req.session.user;
+        var userID=user[0].userID;
+      var venueID=req.body.venueCheckin;
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      var today1 = new Date();
+      var time = today1.getHours() + ":" + today1.getMinutes() + ":" + today1.getSeconds();
+
+      var query=`INSERT INTO checkins (checkindate,checkintime,userID,venueID)
+                VALUES (?,?,?,?);`;
+
+      connection.query(query,[date,time,userID,venueID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+          // res.json(rows);
+
+            res.sendStatus(200);
+
+      });
+
+
+  });
+
+
+  });
+
+  router.get('/venueInfo', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var user=req.session.user;
+        var userID=user[0].userID;
+
+      var query=`SELECT venue_name,capacity,street_number,street_name,suburb,state,postcode,phone_number
+                                FROM venue WHERE venue_manager = ?;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+          if(rows.length===0)
+            {
+                res.sendStatus(401);
+                return;
+            }
+
+            res.json(rows);
+
+            // res.end();
+
+      });
+  });
+  });
+
+  router.post('/userCheckins', function(req, res, next) {
+  req.pool.getConnection(function(err,connection)
+  {
+
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+        var user=req.session.user;
+        var userID=user[0].userID;
+
+
+      var query=`SELECT DISTINCT venue.venueID, street_number, street_name,suburb,state,state,postcode
+                FROM venue
+                INNER JOIN checkins
+                ON venue.venueID=checkins.venueID
+                AND userID=?;`;
+      connection.query(query,[userID],function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // console.log(rows);
+          res.json(rows);
+
+      });
+  });
+  });
+
+
+
 
 
 module.exports = router;
