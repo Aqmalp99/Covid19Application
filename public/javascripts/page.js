@@ -304,7 +304,7 @@ function submitVenueInfo()
         }
         else
         {
-            window.location.replace('/homeUser.html');
+            window.location.replace('/homeManager.html');
             alert("Your Venue Information Has Been Updated!");
         }
     };
@@ -337,10 +337,10 @@ function onSignIn(googleUser) {
 
     // Read the token data on the client side
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
     // Prepare to send the TOKEN to the server for validation
     // var id_token = { token: googleUser.getAuthResponse().id_token };
@@ -451,6 +451,33 @@ function updatemap()
     xmlhttp.send();
 }
 
+function checkInsMap()
+{
+    var xmlhttp = new XMLHttpRequest();
+
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var map=JSON.parse(this.responseText);
+            var temp="";
+            var i=0;
+            for(;map[i];)
+            {
+                temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
+                mapGeo(temp, i);
+                i++;
+            }
+        }
+
+    };
+
+
+    xmlhttp.open("POST", "/users/userCheckins", true);
+    xmlhttp.send();
+}
+
 function mapGeo(address, i) {
 
         mapboxClient.geocoding
@@ -524,10 +551,11 @@ function checkVenman(){
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
         var userinfo=JSON.parse(this.responseText);
-        console.log(userinfo);
+        var dob=userinfo[0].date_of_birth.toString();
+        dob=dob.slice(0,-14);
         document.getElementById("gname").value = userinfo[0].given_name;
         document.getElementById("lname").value = userinfo[0].surname;
-        // document.getElementById("dob").value = userinfo[0].date_of_birth;
+        document.getElementById("dob").value = dob;
         document.getElementById("connumber").value = userinfo[0].contact_number;
         document.getElementById("email").value = userinfo[0].email;
         document.getElementById("streetnum").value = userinfo[0].street_number;
@@ -546,6 +574,110 @@ function checkVenman(){
     xmlhttp.send();
 
 }
+
+function getVenueInfo(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        var venueInfo=JSON.parse(this.responseText);
+
+        if(venueInfo[0].venue_name!==null){
+        document.getElementById("vname").value = venueInfo[0].venue_name;
+        }
+        if(venueInfo[0].capacity!==null){
+        document.getElementById("vcapacity").value = venueInfo[0].capacity;
+        }
+        if(venueInfo[0].street_number!==null){
+        document.getElementById("vstreetnum").value = venueInfo[0].street_number;
+        }
+        if(venueInfo[0].street_name!==null){
+        document.getElementById("vstreetname").value = venueInfo[0].street_name;
+        }
+        if(venueInfo[0].suburb!==null){
+        document.getElementById("vsuburb").value = venueInfo[0].suburb;
+        }
+        if(venueInfo[0].state!==null){
+        document.getElementById("state").value = venueInfo[0].state;
+        }
+        if(venueInfo[0].postcode!==null){
+        document.getElementById("vpostcode").value = venueInfo[0].postcode;
+        }
+        if(venueInfo[0].phone_number!==null){
+        document.getElementById("vcontactnum").value = venueInfo[0].phone_number;
+        }
+
+
+
+        }
+    };
+
+    xmlhttp.open("GET","/users/venueInfo", true);
+    xmlhttp.send();
+
+}
+
+function editUserInfo(){
+     // Create AJAX Request
+     let userInfo = {
+             givenName : document.getElementById("gname").value,
+             surname : document.getElementById("lname").value,
+             dob :document.getElementById("dob").value,
+             contactNo: document.getElementById("connumber").value,
+             email: document.getElementById("email").value,
+             streetnum: document.getElementById("streetnum").value,
+             streetname: document.getElementById("streetname").value,
+             suburb: document.getElementById("suburb").value,
+             postcode: document.getElementById("postcode").value,
+             state: document.getElementById("state").value
+        };
+    var xmlhttp = new XMLHttpRequest();
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+        }
+        else
+        {
+            window.location.replace('/homeUser.html');
+            alert("Your Personal Information Has Been Updated!");
+        }
+    };
+
+    // Open connection to server & send the post data using a POST request
+    // We will cover POST requests in more detail in week 8
+    xmlhttp.open("POST", "/users/updateUser", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify(userInfo));
+
+}
+
+
+function checkInUser(){
+
+    var venueCheckin=document.getElementById("venueID").value;
+
+    var xmlhttp = new XMLHttpRequest();
+
+
+    // Define function to run on response
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("you have successfully checked in!");
+        }
+    };
+
+    xmlhttp.open("POST","/users/checkIN", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(JSON.stringify({venueCheckin}));
+
+}
+
+
 
 
 
