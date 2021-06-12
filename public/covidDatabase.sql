@@ -27,7 +27,7 @@ CREATE TABLE venue (
 	suburb varchar(30),
 	state varchar(20),
     postcode varchar(15),
-	contact_number varchar(20),
+	phone_number varchar(20),
 	PRIMARY KEY (venueID),
 	FOREIGN KEY (venue_manager) REFERENCES users(userID)
 );
@@ -54,6 +54,13 @@ SELECT venue.venueID,street_number,street_name,suburb,state,postcode
 FROM venue
 INNER JOIN hotspots
 ON venue.venueID=hotspots.venueID;
+
+
+SELECT DISTINCT venue.venueID, street_number, street_name,suburb,state,state,postcode
+FROM venue
+INNER JOIN checkins
+ON venue.venueID=checkins.venueID
+AND userID=23;
 -- CREATE TABLE venue_managers (
 --     venue_manager_ID INT NOT NULL AUTO_INCREMENT,
 --     userID int,
@@ -79,3 +86,6 @@ CREATE TABLE checkins (
     FOREIGN KEY (userID) REFERENCES users(userID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
+
+INSERT INTO checkins (checkindate,checkintime,userID,venueID)
+VALUES (?,?,?,?);
