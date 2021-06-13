@@ -727,7 +727,7 @@ td button {
 }
 
 .back_to_home_button{
-    width: 4%;
+    width: 18vmin;
     display: block;
     padding: 0.2%;
     border: 0.5px solid #5d5e68;
@@ -737,9 +737,10 @@ td button {
     color: white;
     font-size: 1.5vw;
     cursor: pointer;
-    position: absolute;
-    top: 25%;
-    right: 25%;
+    position: fixed;
+    top: 26%;
+    right: 25.5%;
+    z-index:50;
 }
 
 
