@@ -295,6 +295,14 @@ select
 
 }
 
+.email_notis
+{
+    display: block;
+    margin: 0 0 0 0;
+    width: 100%;
+    grid-column: 1 / span 2;
+}
+
 .submit_button
 {
     width: 100%;
@@ -308,6 +316,11 @@ select
     font-size: 2.9vh;
     margin: 0 0 0 0;
 
+}
+
+.checkbox
+{
+    margin-right: 0.3vw;
 }
 
 a
