@@ -278,9 +278,9 @@ function submitVenueInfo()
 {
      // Create AJAX Request
      let venueInfo = {
-             venueName : document.getElementById("vname").value,
-             contactNum :document.getElementById("vcontactnum").value,
-             capacity: parseInt(document.getElementById("vcapacity").value),
+             venueName: document.getElementById("vname").value,
+             contactNum: document.getElementById("vcontactnum").value,
+             capacity: document.getElementById("vcapacity").value,
              streetnum: document.getElementById("vstreetnum").value,
              streetname: document.getElementById("vstreetname").value,
              suburb: document.getElementById("vsuburb").value,
@@ -290,23 +290,14 @@ function submitVenueInfo()
     var xmlhttp = new XMLHttpRequest();
 
 
-            // if(venueName===undefined || contactNum=="" || capacity=="" || streetnum=="" || streetname=="" || suburb=="" || postcode=="" || state=="")
-            // {
-            //     alert("please enter all fields");
-            //     return;
-            // }
-
 
     // Define function to run on response
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-
-        }
-        else
-        {
-            window.location.replace('/homeManager.html');
+             window.location.replace('/homeManager.html');
             alert("Your Venue Information Has Been Updated!");
         }
+
     };
 
     // Open connection to server & send the post data using a POST request
@@ -316,22 +307,6 @@ function submitVenueInfo()
     xmlhttp.send(JSON.stringify(venueInfo));
 
 }
-
-
-// function get_coordinates() {
-//     var xmlhttp = new XMLHttpRequest();
-//     xmlhttp.onreadystatechange = function() {
-//                     if (this.readyState == 4 && this.status == 200) {
-
-//                         } else
-//                         {
-//                             console.log("not working");
-//                         }
-//                     };
-
-//     xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/Adelaide.json?access_token=pk.eyJ1IjoiYTE3OTcxNjMiLCJhIjoiY2twbnp4eWZlNDc4czJybGFidGhxaGR3cCJ9.OkcuJRBHebRqUA-INN110g", true);
-//     xmlhttp.send();
-// }
 
 function onSignIn(googleUser) {
 
@@ -405,6 +380,7 @@ function createHotspot()
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert("Hotspot created");
+            emailIfHotspot();
         }
         else
         {
@@ -419,11 +395,12 @@ function createHotspot()
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(JSON.stringify(hotspot));
 
-
-
-
 }
 
+function emailIfHotspot()
+{
+    var xmlhttp = new XMLHttpRequest();
+}
 function updatemap()
 {
     var xmlhttp = new XMLHttpRequest();
@@ -778,4 +755,49 @@ function showTable(){
 
 
 
+
+// ----------------Redirecting DashBoard buttons------------------
+
+//USER HOME
+
+function goto_user_home(){
+    window.location.replace('/homeUser.html');
+}
+
+function goto_user_history(){
+    window.location.replace('/CheckHistoryUser.html');
+}
+
+function goto_user_profile(){
+    window.location.replace('/userInfo.html');
+}
+
+// MANAGER HOME
+function goto_manager_home(){
+    window.location.replace('/homeManaher.html');
+}
+
+function goto_manager_profile(){
+    window.location.replace('/userInfoManager.html');
+}
+
+
+function goto_manager_history(){
+    window.location.replace('/CheckHistoryVenue.html');
+}
+
+
+//HEALTH HOME
+
+function goto_health_home(){
+    window.location.replace('/homeHealth.html');
+}
+
+function goto_health_profile(){
+    window.location.replace('/userInfoAdmin.html');
+}
+
+function goto_health_history(){
+    window.location.replace('/CheckInHO.html');
+}
 

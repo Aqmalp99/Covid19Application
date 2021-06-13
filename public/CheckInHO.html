@@ -10,8 +10,7 @@
     <script src="javascripts/page.js"></script>
 
 </head>
-<!--onload="checkAdmin()"-->
-<body id="body"  style="display:block;">
+<body id="body" onload="checkAdmin()" style="display:none;">
     <header>Check-In History</header>
     <div class= "dashboard"></div>
     <div class="content-admin">
@@ -108,7 +107,7 @@
                 </div>
                 <div></div>
                 <div class="button-admin-div">
-                    <button class="button-admin">Get Check-in History</button>
+                    <button class="button-admin" onclick="refineSearchAdmin()">Get Check-in History</button>
                 </div>
                 <div class="address-toggle-button-admin">
                     <button id="toggle-button-admin" onclick="showHideTogglesAdmin()">Search by Address</button>
@@ -129,10 +128,11 @@
             <tbody></tbody>
         </table>
     </div>
+    <div class="search-again" style="display:none;" onclick="backToSearch()"><button>Go back to Search</button></div>
     <script src="javascripts/filter.js"></script>
     <script type = "text/javascript">
         $(function (){
-            $(".dashboard").load("dashboardTemplate.html");
+            $(".dashboard").load("dashboardTemplateHealth.html");
         });
     </script>
 </body>

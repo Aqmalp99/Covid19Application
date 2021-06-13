@@ -89,9 +89,15 @@ body
 .button_
 {
     margin: auto;
+
     padding: 2%;
     font-size: 3vmin;
     border: none;
+
+
+/*       font-size: 3vmin;
+      height:6vmin; */
+
 }
 
 .send_alert
