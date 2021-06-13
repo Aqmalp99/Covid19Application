@@ -57,12 +57,40 @@ CREATE TABLE checkins (
     FOREIGN KEY (userID) REFERENCES users(userID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
--- UPDATE venue
--- SET venue_name = ?, capacity= ?, street_number=?,street_name=?,suburb=?,state=?,postcode=?,contact_number=?
--- WHERE venue_manager=?;
-INSERT INTO venue (venue_manager,street_number,street_name,suburb,state,postcode)
-VALUES (26,"12","anzac highway","everard park","SA","5035");
 
+INSERT INTO users
+(given_name,surname,street_number,street_name,surburb,state,postcode,
+contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+VALUES ("john","depp","64","mooringe ave","north plympton","SA","5037","0433337771","2000-12-19","john.smith@gmail.com",SHA2("pass",256),1,1,0,1);
+INSERT INTO users
+(given_name,surname,street_number,street_name,surburb,state,postcode,
+contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+VALUES ("smith","anthony","48","elston street","brooklyn park","SA","5032","0411773388","1999-03-15","smith.anthony@gmail.com",SHA2("password",256),1,0,0,0);
+INSERT INTO users
+(given_name,surname,street_number,street_name,surburb,state,postcode,
+contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+VALUES ("Peter","anthony","10","cudmore terrace","marleston","SA","5033","0485942019","1980-05-12","peter.anthony@gmail.com",SHA2("password",256),0,0,0,1);
+INSERT INTO users
+(given_name,surname,street_number,street_name,surburb,state,postcode,
+contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+VALUES ("wiseley","lee","36","ashford road","keswick","SA","5035","0444444450","1994-06-11","wiseley@gmail.com",SHA2("password",256),1,0,0,1);
+INSERT INTO users
+(given_name,surname,street_number,street_name,surburb,state,postcode,
+contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+VALUES ("person","noname","10","ashford road","keswick","SA","5035","0473728219","1996-06-11","person@gmail.com",SHA2("password",256),1,0,0,1);
+
+
+-- INSERT INTO venue (venue_manager,street_number,street_name,suburb,state,postcode)
+-- VALUES (26,"12","anzac highway","everard park","SA","5035");
+
+-- INSERT INTO venue (venue_manager)
+-- VALUES (3);
+-- INSERT INTO venue (venue_manager)
+-- VALUES (4);
+-- INSERT INTO venue (venue_manager)
+-- VALUES (6);
+-- INSERT INTO venue (venue_manager)
+-- VALUES (7);
 
 
 -- INSERT INTO hotspots (venueID,hoID,start_date,start_time)
