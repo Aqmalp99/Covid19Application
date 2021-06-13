@@ -1,4 +1,124 @@
+//FILTER.JS//
+//THIS JAVASCRIPT FILE CONTAINS FUNCTIONS THAT RELATE TO VIEWING CHECKIN HISTORY AND FILTERING RESULTS IN THEIR RESPECTIVE TABLES
+
+
+//prints all checkins for the user in descending order from checkin date
+function printAllCheckins(){
+  var table = document.getElementsByTagName("tbody")[0];
+  var xhttp = new XMLHttpRequest;
+
+    xhttp.onreadystatechange = function()
+          {
+            if (this.readyState == 4 && this.status == 200)
+            {
+
+              console.log(document.getElementsByClassName("table-data").length);
+              while (document.getElementsByClassName("table-data").length !== 0)
+              {
+                  let temp = document.getElementsByClassName("table-data")[0];
+                  temp.remove();
+              }
+
+              if (document.getElementById("no-results") !== null)
+              {
+                let nrRow = document.getElementById("no-results-row");
+                nrRow.remove();
+              }
+
+              var checkinHistoryUser = JSON.parse(this.responseText);
+              if (checkinHistoryUser.length <= 0)
+              {
+
+                if (document.getElementById("no-results") !== null){
+                  let nrRow = document.getElementById("no-results-row");
+                  nrRow.remove();
+                }
+
+                let tr = document.createElement("tr");
+                tr.setAttribute("id", "no-results-row");
+                let td = document.createElement("td");
+                td.setAttribute("id", "no-results");
+                let noResults = document.createTextNode("You have no recent checkins.");
+                td.appendChild(noResults);
+                td.setAttribute("colspan", "5");
+                tr.appendChild(td);
+                table.appendChild(tr);
+                return;
+              }
+
+              var numberofRows = checkinHistoryUser.length;
+              var addresses = [];
+              var convertedDates = [];
+
+              for (let i = 0; i < numberofRows; i++)
+              {
+                addresses.push(checkinHistoryUser[i].street_number + " " + checkinHistoryUser[i].street_name + ", " + checkinHistoryUser[i].suburb + ", " + checkinHistoryUser[i].state + ", " + checkinHistoryUser[i].postcode);
+                convertedDates.push(checkinHistoryUser[i].checkindate.toString());
+                convertedDates[i] = convertedDates[i].slice(0, -14);
+              }
+
+              for (let i=checkinHistoryUser.length - 1; i > -1; i--)
+              {
+                let tr = document.createElement("tr");
+                tr.setAttribute("class", "table-data");
+                for (let j = 0; j < 5; j++)
+                {
+                  let td = document.createElement("td");
+                  if (j === 0)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[i].venue_name);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 1)
+                  {
+                    let data = document.createTextNode(addresses[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 2)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 3)
+                  {
+                    let data = document.createTextNode(convertedDates[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 4)
+                  {
+                    let data = document.createTextNode(checkinHistoryUser[i].checkintime);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+                }
+
+                table.appendChild(tr);
+              }
+            }
+          };
+
+          xhttp.open("GET", 'users/displayAllCheckins',  true);
+          xhttp.send();
+}
+
+
+
+
+
+
+
+
 //filter checkin history results - user
+//gets inputs from document, sends to server and prints out results in table
+
 function refineSearchUser()
 {
 
@@ -78,12 +198,18 @@ function refineSearchUser()
     {
       queryString = `users/checkInsUser?date=${date}&sTime=${startTime}&eTime=${endTime}&postcode=${postcode}`;
     }
-    else {
+    else
+    {
+        while (document.getElementsByClassName("table-data").length !== 0)
+        {
+              let temp = document.getElementsByClassName("table-data")[0];
+              temp.remove();
+        }
+        if (document.getElementById("no-results") !== null){
+          let nrRow = document.getElementById("no-results-row");
+          nrRow.remove();
+        }
 
-      if (document.getElementById("no-results") !== null){
-        let nrRow = document.getElementById("no-results-row");
-        nrRow.remove();
-      }
 
       let tr = document.createElement("tr");
       tr.setAttribute("id", "no-results-row");
@@ -202,6 +328,9 @@ function refineSearchUser()
 }
 
 
+//venueID not stored in session, so needs to be retrieved from database
+//refining search for venues split into 2 functions, 1 to get venue ID and the other to get results from server and display in table
+
 function getVenueID(){
   var xhttp = new XMLHttpRequest();
 
@@ -220,6 +349,7 @@ function getVenueID(){
 
 
 //filter checkin history results - venue
+//part 2 of the refining search process for a venue. takes in the venueID retrieved from the previous function.
 function refineSearchVenue(venueID)
 {
 
@@ -372,6 +502,8 @@ function refineSearchVenue(venueID)
 }
 
 //filter checkins - admin
+//Gets parameters from input fields and sends this to server to retrieve results from database. Prints in a table and hides the input form.
+//if statements to accomodate different scenarios so the user does not need to use all input fields.
 function refineSearchAdmin()
 {
 
@@ -604,7 +736,18 @@ function refineSearchAdmin()
           xhttp.send();
 }
 
+//Presents a button to conduct another search for viewing checkin history as an admin. Shows and hides according to page content.
+function backToSearch(){
+  document.getElementsByClassName("table-admin")[0].style.display = "none";
+  document.getElementsByClassName("search-again")[0].style.display = "none";
+  document.getElementsByClassName("content-admin")[0].style.display = "block";
+}
+
+
+
 //filter hotspots
+//Triggered by clicking the 'refine search' button
+//takes in parameters from inputs to retrieve data from database. Prints out the results in the table.
 function refineHotspots()
 {
 
@@ -813,7 +956,7 @@ function refineHotspots()
           xhttp.send();
 }
 
-//hide toggles
+//hide toggles present on load of the page, and shows more toggles for looking up address information
 function showHideToggles(){
   var addressToggles = document.getElementsByClassName("hidden")[0];
   var toggles = document.getElementsByClassName("not-hidden")[0];
@@ -833,6 +976,7 @@ function showHideToggles(){
 }
 
 
+//Same as above but for the admin page.
 function showHideTogglesAdmin(){
   var addressToggles = document.getElementsByClassName("hidden")[0];
   var toggles = document.getElementsByClassName("not-hidden")[0];
@@ -852,7 +996,9 @@ function showHideTogglesAdmin(){
 }
 
 
-//deleting a hotspot
+//deleting a hotspot. takes in the onclick event to access the button element.
+//This function uses the parent nodes of this button to link button click event to the corresponding row.
+//posts row to server for deletion using hotspot ID.
 function deleteHotspot(event)
 {
   var confirmDelete = confirm("Are you sure you want to delete?");
@@ -908,10 +1054,4 @@ function deleteHotspot(event)
   else {
     return false;
   }
-}
-
-function backToSearch(){
-  document.getElementsByClassName("table-admin")[0].style.display = "none";
-  document.getElementsByClassName("search-again")[0].style.display = "none";
-  document.getElementsByClassName("content-admin")[0].style.display = "block";
 }
