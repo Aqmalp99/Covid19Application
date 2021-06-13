@@ -119,12 +119,14 @@ body
     color: white;
     width: 20vmin;
     font-size: 3vmin;
+    margin-right: 21vh;
 }
 .checkin_address
 {
 
-    width: 34vw;
+    width: 20vw;
     font-size: 3vh;
+    margin-right: -24vh;
 
 }
 
@@ -259,17 +261,18 @@ transition:0.25s;
 {
     background-color: rgb(49, 68, 85);
     color: white;
+    margin-right: 32vh;
 }
 .manage_hotspots
 {
-    margin-right: 2vh;
+    margin-right: -8vh;
     background-color: rgb(49, 68, 85);
     color: white;
 }
 
 .create_hotspots
 {
-    margin-left: 2vh;
+    margin-left: 10vh;
     background-color: rgb(49, 68, 85);
     color: white;
 }
@@ -278,6 +281,11 @@ transition:0.25s;
 {
      background-color: rgb(49, 68, 85);
     color: white;
+}
+
+.above_map_headings
+{
+    margin: -2% 0 0 17.5%;
 }
 
 
