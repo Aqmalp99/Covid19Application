@@ -142,7 +142,7 @@ body
     position: relative;
     overflow:auto;
     box-shadow: 0 20px 20px 0 rgb(0 0 0 / 20%);
-    background:rgba(49, 68, 85, 0.9);
+
 }
 
 
@@ -158,6 +158,10 @@ body
     color: white;
 }
 
+.faq_bg
+{
+    background:rgba(49, 68, 85, 0.9);
+}
 .faq_list
 {
     margin-top: 5px;
@@ -165,7 +169,7 @@ body
     margin-left:5px;
     padding: 0;
     list-style: none;
-    background:rgba(49, 68, 85, 0.9);
+
 }
 
 .faq_list_button
