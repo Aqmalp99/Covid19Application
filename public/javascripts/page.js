@@ -774,7 +774,7 @@ function goto_user_profile(){
 
 // MANAGER HOME
 function goto_manager_home(){
-    window.location.replace('/homeManaher.html');
+    window.location.replace('/homeManager.html');
 }
 
 function goto_manager_profile(){
@@ -785,6 +785,11 @@ function goto_manager_profile(){
 function goto_manager_history(){
     window.location.replace('/CheckHistoryVenue.html');
 }
+
+function goto_manager_venue_info(){
+    window.location.replace('/venueInfo.html');
+}
+
 
 
 //HEALTH HOME
@@ -799,5 +804,13 @@ function goto_health_profile(){
 
 function goto_health_history(){
     window.location.replace('/CheckInHO.html');
+}
+
+function goto_health_manage_hotspot(){
+    window.location.replace('/ManageHotspot.html');
+}
+
+function goto_health_create_hotspot(){
+    window.location.replace('/createHotspot.html');
 }
 

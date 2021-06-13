@@ -1,3 +1,4 @@
+
 CREATE TABLE users (
     userID int NOT NULL AUTO_INCREMENT,
     given_name varchar(30),
