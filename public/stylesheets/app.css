@@ -544,7 +544,8 @@ td button {
     padding-top: 5%;
     padding-left: 11%;
     padding-right: 11%;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
+    margin: 2% auto 4% auto;
 }
 
 .toggles-userinfo label {
@@ -644,15 +645,15 @@ td button {
     display: grid;
     width: 100%;
     grid-template-columns: 16vw 16vw;
-    grid-template-rows: 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh 4.6vh;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto;
     grid-column-gap: 1.5vw;
-    grid-row-gap: 2vh;
+    grid-row-gap: 1.9vh;
     background-color: rgba(163, 183, 198, 0.6);
     box-sizing: border-box;
     padding-top: 5%;
     padding-left: 9%;
     padding-right: 9%;
-    padding-bottom: 5%;
+    padding-bottom: 2.5%;
 }
 
 .toggles-signupHO label {
@@ -677,7 +678,7 @@ td button {
 .content-signupHO {
     max-width: 40vw;
     max-height: 110vh;
-    margin: auto;
+    margin: 2% auto 2% auto;
     box-shadow: 0 10px 20px 0 rgb(0 0 0 / 20%), 0 10px 25px 0 rgb(0 0 0 / 19%);
 }
 
@@ -782,4 +783,32 @@ td button {
     z-index:50;
 }
 
+.email_notis
+{
+    display: block;
+    margin: 0 0 0 0;
+    width: 100%;
+    grid-column: 1 / span 2;
+}
+
+.email_notis input
+{
+    width: 3.5%;
+    height: 2vh;
+}
+
+.tANDc_label
+{
+    display: block;
+    margin: 0 0 0 0;
+    width: 100%;
+    grid-column: 1 / span 2;
+
+}
+
+#terms_cond
+{
+    width: 3.5%;
+    height: 2vh;
+}
 

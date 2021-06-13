@@ -8,7 +8,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    width: 9vmin;
+    width: 12vmin;
     z-index: 99;
     background-color: rgb(49, 68, 85);
 
@@ -23,7 +23,7 @@ padding:0;
 
 .dashboard_list
 {
-	margin-top: 200px;
+	margin-top: 150px;
     padding: 0;
     list-style: none;
 }
