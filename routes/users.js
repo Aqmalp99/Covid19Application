@@ -162,6 +162,7 @@ router.post('/signup', function(req, res, next) {
       var password=req.body.password;
       var venman=req.body.venMan;
       var HO=0;
+      var emailnoti=req.body.emailNoti;
       // if(venman==1)
       // {
       //   checkVen=1;
@@ -169,10 +170,10 @@ router.post('/signup', function(req, res, next) {
 
       var query=`INSERT INTO users
                  (given_name,surname,street_number,street_name,surburb,state,postcode,
-                 contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser)
-                 VALUES (?,?,?,?,?,?,?,?,?,?,SHA2(?,256),?,?,0);`;
+                 contact_number,date_of_birth,email,password,isVenueManager,isHealthOfficial,isUser,emailNotification)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,SHA2(?,256),?,?,0,?);`;
 
-      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password,venman,HO],function(err,rows,fields)
+      connection.query(query,[first_name,last_name,streetnum,streetname,suburb,state,postcode,phone_num,dob,email,password,venman,HO,emailnoti],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -2506,7 +2507,7 @@ router.post('/deleteVenue', function(req, res, next) {
 
 
       var query=`SELECT DISTINCT users.email,users.userID
-                FROM users WHERE isUser=0;`;
+                FROM users WHERE emailNotification=1;`;
 
       connection.query(query,function(err,rows,fields)
       {
