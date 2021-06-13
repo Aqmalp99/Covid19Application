@@ -604,6 +604,9 @@ function checkInUser()
                 if (this.readyState == 4 && this.status == 200) {
                     alert("you have successfully checked in!");
                 }
+                else if (this.readyState == 4 && this.status >= 400) {
+                        alert("Invalid VenueID");
+                }
             };
             xmlhttp.open("POST","/users/checkIN", true);
             xmlhttp.setRequestHeader("Content-type", "application/json");
