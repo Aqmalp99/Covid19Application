@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="javascripts/page.js"></script>
+
 
 
 </head>
@@ -21,7 +21,7 @@
             <label for="vname">Venue Name:</label>
         </div>
         <div class="span-2-columns">
-            <input id="vname" class="input" type="text" placeholder="Venue Name" required>
+            <input id="vname" class="input" type="text" placeholder="Venue Name">
         </div>
 
         <div >
@@ -29,12 +29,12 @@
         </div>
         <div><label for="vcapacity">Venue Capacity:</label></div>
         <div>
-            <input id="vcontactnum" class="input" type="text" placeholder="08xxxxxxxx" required>
+            <input id="vcontactnum" class="input" type="text" placeholder="08xxxxxxxx">
         </div>
 
         <div >
 
-            <input id="vcapacity" class="input" type="text" placeholder="Capacity" required >
+            <input id="vcapacity" class="input" type="number" placeholder="Capacity" >
         </div>
 
         <div >
@@ -42,28 +42,28 @@
         </div>
         <div><label for="vstreetname">Street Name:</label></div>
         <div>
-            <input  id="vstreetnum" type="text" placeholder="Street No." required>
+            <input  id="vstreetnum" type="text" placeholder="Street No.">
         </div>
         <div>
-            <input  id="vstreetname" type="text" placeholder="Street Name" required>
+            <input  id="vstreetname" type="text" placeholder="Street Name">
         </div>
         <div>
             <label for="vsuburb">Suburb:</label>
         </div>
 
         <div class="span-2-columns">
-            <input  id="vsuburb" type="text" placeholder="Suburb" required>
+            <input  id="vsuburb" type="text" placeholder="Suburb">
         </div>
         <div><label for="vpostcode">Post code:</label></div>
         <div>
-            <label for="vstate">State:</label>
+            <label for="state">State:</label>
         </div>
         <div>
-            <input  id="vpostcode" type="text" placeholder="Postcode" required>
+            <input  id="vpostcode" type="text" placeholder="Postcode">
         </div>
 
         <div class="state_input_span">
-                        <select name="state" id="state" required>
+                        <select name="state" id="state">
                         <option value="" disabled selected hidden>State</option>
                         <option value="SA">SA</option>
                         <option value="VIC">VIC</option>
@@ -89,4 +89,5 @@
     });
 
 </script>
+<script src="javascripts/page.js"></script>
 </body>
