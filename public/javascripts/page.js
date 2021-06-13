@@ -779,3 +779,48 @@ function showTable(){
 
 
 
+// ----------------Redirecting DashBoard buttons------------------
+
+//USER HOME
+
+function goto_user_home(){
+    window.location.replace('/homeUser.html');
+}
+
+function goto_user_history(){
+    window.location.replace('/CheckHistoryUser.html');
+}
+
+function goto_user_profile(){
+    window.location.replace('/userInfo.html');
+}
+
+// MANAGER HOME
+function goto_manager_home(){
+    window.location.replace('/homeManaher.html');
+}
+
+function goto_manager_profile(){
+    window.location.replace('/userInfoManager.html');
+}
+
+
+function goto_manager_history(){
+    window.location.replace('/CheckHistoryVenue.html');
+}
+
+
+//HEALTH HOME
+
+function goto_health_home(){
+    window.location.replace('/homeHealth.html');
+}
+
+function goto_health_profile(){
+    window.location.replace('/userInfoAdmin.html');
+}
+
+function goto_health_history(){
+    window.location.replace('/CheckInHO.html');
+}
+
