@@ -1864,7 +1864,8 @@ router.post('/addVenue', function(req, res, next) {
       var userID=user[0].userID;
 
 
-      var query=`INSERT INTO venue (venue_manager) VALUES (?);`;
+      var query=`INSERT INTO venue (venue_manager)
+                VALUES (?);`;
 
       connection.query(query,[userID],function(err,rows,fields)
       {
@@ -1875,9 +1876,7 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-          // console.log("nah");
-          // res.json(rows);
+
 
             res.end();
 
@@ -1903,23 +1902,22 @@ router.post('/addVenue', function(req, res, next) {
           res.sendStatus(500);
           return;
       }
-      var venueName=req.body.venueName;
-      var contactNum=req.body.contactNum;
-      var capacity=req.body.capacity;
-      var streetnum=req.body.streetnum;
-      var streetname=req.body.streetname;
-      var suburb=req.body.suburb;
-      var postcode=req.body.postcode;
-      var state=req.body.state;
+      var venueName1=req.body.venueName;
+      var vcontactNum=req.body.contactNum;
+      var vcapacity=req.body.capacity;
+      var streetNum=req.body.streetnum;
+      var streetName=req.body.streetname;
+      var vsuburb=req.body.suburb;
+      var vpostcode=req.body.postcode;
+      var vstate=req.body.state;
 
       var user=req.session.user;
       var userID=user[0].userID;
-      console.log(userID);
 
       var query=`UPDATE venue
                 SET venue_name = ?, capacity= ?, street_number=? , street_name=? , suburb=? , state=? , postcode=?, phone_number=?
                 WHERE venue_manager=?;`;
-      connection.query(query,[venueName,capacity,streetnum,streetname,suburb,state,postcode,contactNum,userID],function(err,rows,fields)
+      connection.query(query,[venueName1,vcapacity,streetNum,streetName,vsuburb,vstate,vpostcode,vcontactNum,userID],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -1928,11 +1926,8 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
 
-          // res.json(rows);
-
-            res.end();
+            res.sendStatus(200);
 
       });
 

@@ -45,6 +45,7 @@ CREATE TABLE hotspots (
 
 
 
+
 CREATE TABLE checkins (
     checkinID int NOT NULL AUTO_INCREMENT,
     checkindate DATE,
@@ -76,6 +77,14 @@ FROM venue
 INNER JOIN checkins
 ON venue.venueID=checkins.venueID
 AND userID=23;
+
+
+
+hotspot.venueID=venue.venueID
+venue.venueID=checkins.venueID
+
+
+
 -- CREATE TABLE venue_managers (
 --     venue_manager_ID INT NOT NULL AUTO_INCREMENT,
 --     userID int,
