@@ -65,15 +65,15 @@ body
 {
     display:flex;
     width:100%;
-    padding-top:20px;
-     align-items: center;
-     justify-content: center;
+    padding-top:1vh;
+    align-items: center;
+    justify-content: center;
 
 }
 
 .other_buttons
 {
-    padding-top:40px;
+    padding-top:5vh;
     width:100%;
 
 }
@@ -81,30 +81,38 @@ body
 .button_container
 {
     height:20%;
-    padding-top:10px;
+    padding-top:2vh;
     width:60%;
-
     margin: auto;
-
-
 }
 
 .button_
 {
     margin: auto;
+<<<<<<< HEAD
+=======
 
-      font-size: 3vmin;
-      height:6vmin;
+>>>>>>> 59a8cd2ffeb3a09150e75df08c5a29790e99d031
+    padding: 2%;
+    font-size: 3vmin;
+    border: none;
+
+<<<<<<< HEAD
+      /*font-size: 3vmin;*/
+      /*height:6vmin;*/
+=======
+
+/*       font-size: 3vmin;
+      height:6vmin; */
+
+>>>>>>> 59a8cd2ffeb3a09150e75df08c5a29790e99d031
 }
-
-
-
-
 
 .send_alert
 {
-    background-color: red;
+    background-color: darkred;
     color: white;
+    margin: -1vw 0 0 1vw;
 }
 .checkin_button
 {
@@ -213,20 +221,25 @@ transition:0.5s;
 }
 .signup_admins
 {
-    margin-top:20%;
+    margin-top:50%;
+    padding: 6%;
     background-color: rgb(49, 68, 85);
     color: white;
-    width: 25vmin;
-    font-size: 2.5vmin;
+    width: 32.2vmin;
+    font-size: 2.7vmin;
+    border: none;
 
 }
 .manage_users
 {
-    margin-top:20%;
+    margin-top:10%;
     background-color: rgb(49, 68, 85);
     color: white;
-    width: 25vmin;
-    font-size: 2.5vmin;
+    width: 32.2vmin;
+    font-size: 2.7vmin;
+    border: none;
+    padding: 7%;
+
 }
 .manage_venue
 {
@@ -243,14 +256,14 @@ transition:0.5s;
 }
 .manage_hotspots
 {
-
+    margin-right: 2vh;
     background-color: rgb(49, 68, 85);
     color: white;
 }
 
 .create_hotspots
 {
-
+    margin-left: 2vh;
     background-color: rgb(49, 68, 85);
     color: white;
 }
@@ -260,7 +273,7 @@ transition:0.5s;
      background-color: rgb(49, 68, 85);
     color: white;
 }
-}
+
 
 @media only screen and (max-width: 600px) and (min-width: 400px) {
   /* For tablets: */

@@ -89,7 +89,7 @@ function refineSearchUser()
       tr.setAttribute("id", "no-results-row");
       let td = document.createElement("td");
       td.setAttribute("id", "no-results");
-      let noResults = document.createTextNode("No results found. Please change filters");
+      let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
       td.appendChild(noResults);
       td.setAttribute("colspan", "5");
       tr.appendChild(td);
@@ -130,7 +130,7 @@ function refineSearchUser()
                 tr.setAttribute("id", "no-results-row");
                 let td = document.createElement("td");
                 td.setAttribute("id", "no-results");
-                let noResults = document.createTextNode("No results found. Please change filters");
+                let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
                 td.appendChild(noResults);
                 td.setAttribute("colspan", "5");
                 tr.appendChild(td);
@@ -201,8 +201,26 @@ function refineSearchUser()
           xhttp.send();
 }
 
+
+function getVenueID(){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = (function(){
+    if (this.readyState == 4 && this.status == 200){
+      var response = JSON.parse(this.responseText);
+      console.log(response);
+      var venueID = response[0].venueID;
+      refineSearchVenue(venueID);
+    }
+  });
+
+  xhttp.open("GET", "users/getVenueID", true);
+  xhttp.send();
+}
+
+
 //filter checkin history results - venue
-function refineSearchVenue()
+function refineSearchVenue(venueID)
 {
 
     var firstName = document.getElementById("fname").value;
@@ -216,21 +234,21 @@ function refineSearchVenue()
 
     if (firstName.length > 0 && checkinDate.length > 0 && startTime.length > 0 && endTime.length > 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&sname=${surname}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&sname=${surname}`;
     }
 
     else if (firstName.length > 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}&date=${checkinDate}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&sname=${surname}&date=${checkinDate}`;
     }
 
     else if (firstName.length > 0 && checkinDate.length <= 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&sname=${surname}`;
     }
     else if (firstName.length <= 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length <= 0)
     {
-      queryString = `users/checkinsVenue?date=${checkinDate}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&date=${checkinDate}`;
     }
     else
     {
@@ -244,7 +262,7 @@ function refineSearchVenue()
       tr.setAttribute("id", "no-results-row");
       let td = document.createElement("td");
       td.setAttribute("id", "no-results");
-      let noResults = document.createTextNode("No results found. Please change filters");
+      let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
       td.appendChild(noResults);
       td.setAttribute("colspan", "5");
       tr.appendChild(td);
@@ -283,7 +301,7 @@ function refineSearchVenue()
                 tr.setAttribute("id", "no-results-row");
                 let td = document.createElement("td");
                 td.setAttribute("id", "no-results");
-                let noResults = document.createTextNode("No results found. Please change filters");
+                let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
                 td.appendChild(noResults);
                 td.setAttribute("colspan", "5");
                 tr.appendChild(td);
@@ -317,14 +335,14 @@ function refineSearchVenue()
 
                   else if (j === 1)
                   {
-                    let data = document.createTextNode(checkinHistoryVenue[i].surname[i]);
+                    let data = document.createTextNode(checkinHistoryVenue[i].surname);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 2)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
+                    let data = document.createTextNode(checkinHistoryVenue[i].contact_number);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
@@ -376,6 +394,7 @@ function refineSearchAdmin()
 
     var tableBody = document.getElementsByTagName("tbody")[0];
     var queryString = "";
+    var goBackButton = document.getElementsByClassName("search-again")[0];
 
     if (venueName.length > 0 && checkinDate.length > 0 && startTime.length > 0 && endTime.length > 0 && streetNumber.length > 0 && streetName.length > 0 && suburb.length > 0 && postcode.length > 0 && state.length > 0)
     {
@@ -426,7 +445,7 @@ function refineSearchAdmin()
     {
       queryString = `users/checkinsAdmin?state=${state}`;
     }
-    else if (venueName.length <= 0 && date.length > 0 && startTime.length <= 0 && endTime.length <= 0 && streetNumber.length <= 0 && streetName.length <= 0 && suburb.length <= 0 && postcode.length <= 0 && state.length > 0)
+    else if (venueName.length <= 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && streetNumber.length <= 0 && streetName.length <= 0 && suburb.length <= 0 && postcode.length <= 0 && state.length > 0)
     {
       queryString = `users/checkinsAdmin?date=${checkinDate}&state=${state}`;
     }
@@ -449,8 +468,10 @@ function refineSearchAdmin()
         nrRow.remove();
       }
 
-      document.getElementsByClassName("content-admin").style.display = "none";
-      document.getElementsByClassName("table-admin").style.display = "block";
+      document.getElementsByClassName("content-admin")[0].style.display = "none";
+      document.getElementsByClassName("table-admin")[0].style.display = "block";
+      console.log("setting button to show");
+      goBackButton.style.display = "block";
       let tr = document.createElement("tr");
       tr.setAttribute("id", "no-results-row");
       let td = document.createElement("td");
@@ -489,8 +510,10 @@ function refineSearchAdmin()
                 //   let nrRow = document.getElementById("no-results-row");
                 //   nrRow.remove();
                 // }
-                document.getElementsByClassName("content-admin").style.display = "none";
-                document.getElementsByClassName("table-admin").style.display = "block";
+                document.getElementsByClassName("content-admin")[0].style.display = "none";
+                document.getElementsByClassName("table-admin")[0].style.display = "block";
+                console.log("setting button to show");
+                goBackButton.style.display = "block";
                 let tr = document.createElement("tr");
                 tr.setAttribute("id", "no-results-row");
                 let td = document.createElement("td");
@@ -498,8 +521,14 @@ function refineSearchAdmin()
                 let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");                td.appendChild(noResults);
                 td.setAttribute("colspan", "6");
                 tr.appendChild(td);
-                table.appendChild(tr);
+                tableBody.appendChild(tr);
                 return;
+              }
+              else{
+                document.getElementsByClassName("content-admin")[0].style.display = "none";
+                document.getElementsByClassName("table-admin")[0].style.display = "block";
+                console.log("setting button to show");
+                goBackButton.style.display = "block";
               }
 
               var numberofRows = checkinHistoryAdmin.length;
@@ -508,6 +537,7 @@ function refineSearchAdmin()
 
               for (let i = 0; i < numberofRows; i++)
               {
+                addresses.push(checkinHistoryAdmin[i].street_number + " " + checkinHistoryAdmin[i].street_name + ", " + checkinHistoryAdmin[i].suburb + ", " + checkinHistoryAdmin[i].state + ", " + checkinHistoryAdmin[i].postcode);
                 convertedDates.push(checkinHistoryAdmin[i].checkindate.toString());
                 convertedDates[i] = convertedDates[i].slice(0, -14);
               }
@@ -521,15 +551,10 @@ function refineSearchAdmin()
                   let td = document.createElement("td");
                   if (j === 0)
                   {
-                    let tooltipDiv = document.createElement("div");
-                    tooltipDiv.setAttribute("class", "tooltip");
-                    tooltipDiv.innerText = checkinHistoryAdmin[i].userID;
-                    tooltipDiv.appendChild(data);
                     let tooltipSpan = document.createElement("span");
-                    tooltipSpan.setAttribute("class", "tooltiptext");
-                    tooltipSpan.innerText = `Given Name: ${checkinHistoryAdmin[i].given_name}, Surname: ${checkinHistoryAdmin[i].surname}`;
-                    tooltipDiv.appendChild(tooltipSpan);
-                    td.appendChild(tooltipDiv);
+                    tooltipSpan.innerText = `${checkinHistoryAdmin[i].userID}`;
+                    tooltipSpan.title = `Given Name: ${checkinHistoryAdmin[i].given_name}; Surname: ${checkinHistoryAdmin[i].surname}`;
+                    td.appendChild(tooltipSpan);
                     tr.appendChild(td);
                   }
 
@@ -542,15 +567,10 @@ function refineSearchAdmin()
 
                   else if (j === 2)
                   {
-                    let tooltipDiv = document.createElement("div");
-                    tooltipDiv.setAttribute("class", "tooltip");
-                    tooltipDiv.innerText = checkinHistoryAdmin[i].venueID;
                     let tooltipSpan = document.createElement("span");
-                    tooltipSpan.setAttribute("class", "tooltiptext");
-                    tooltipSpan.innerText = `Venue Name: ${checkinHistoryAdmin[i].venue_name}, Venue Address: ${addresses[i]}`;
-                    tooltipSpan.appendChild(tooltipText);
-                    tooltipDiv.appendChild(tooltipSpan);
-                    td.appendChild(tooltipDiv);
+                    tooltipSpan.innerText = `${checkinHistoryAdmin[i].venueID}`;
+                    tooltipSpan.title = `Venue Name: ${checkinHistoryAdmin[i].venue_name}; Venue Address: ${addresses[i]}`;
+                    td.appendChild(tooltipSpan);
                     tr.appendChild(td);
                   }
 
@@ -659,14 +679,13 @@ function refineHotspots()
         let nrRow = document.getElementById("no-results-row");
         nrRow.remove();
       }
-
       let tr = document.createElement("tr");
       tr.setAttribute("id", "no-results-row");
       let td = document.createElement("td");
       td.setAttribute("id", "no-results");
-      let noResults = document.createTextNode("No results found. Please change filters");
+      let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
       td.appendChild(noResults);
-      td.setAttribute("colspan", "5");
+      td.setAttribute("colspan", "6");
       tr.appendChild(td);
       table.appendChild(tr);
       return;
@@ -678,7 +697,6 @@ function refineHotspots()
           {
             if (this.readyState == 4 && this.status == 200)
             {
-
               while (document.getElementsByClassName("table-data").length !== 0)
               {
                   let temp = document.getElementsByClassName("table-data")[0];
@@ -693,7 +711,7 @@ function refineHotspots()
 
               if (document.getElementById("reload-prompt") !== null)
               {
-                let rlRow = document.getElementById("reload-prompt");
+                let rlRow = document.getElementById("reload-prompt-row");
                 rlRow.remove();
               }
 
@@ -710,9 +728,9 @@ function refineHotspots()
                 tr.setAttribute("id", "no-results-row");
                 let td = document.createElement("td");
                 td.setAttribute("id", "no-results");
-                let noResults = document.createTextNode("No results found. Please change filters");
+                let noResults = document.createTextNode("No results found. Please be more specific and/or change filters.");
                 td.appendChild(noResults);
-                td.setAttribute("colspan", "5");
+                td.setAttribute("colspan", "6");
                 tr.appendChild(td);
                 table.appendChild(tr);
                 return;
@@ -725,8 +743,10 @@ function refineHotspots()
               for (let i = 0; i < numberofRows; i++)
               {
                 addresses.push(hotspots[i].street_number + " " + hotspots[i].street_name + ", " + hotspots[i].suburb + ", " + hotspots[i].state + ", " + hotspots[i].postcode);
-                convertedDates.push(hotspots[i].start_date.toString());
-                convertedDates[i] = convertedDates[i].slice(0, -14);
+                if (hotspots[i].start_date !== null){
+                  convertedDates.push(hotspots[i].start_date.toString());
+                  convertedDates[i] = convertedDates[i].slice(0, -14);
+                }
               }
 
               for (let i=0; i < numberofRows; i++)
@@ -774,7 +794,7 @@ function refineHotspots()
                   else if (j === 5)
                   {
                     let button = document.createElement("button");
-                    button.onclick = "deleteHotspot()";
+                    button.setAttribute("onclick", "deleteHotspot(event)");
                     button.setAttribute("id", `button${i}`);
                     let data = document.createTextNode("Delete");
                     button.appendChild(data);
@@ -785,6 +805,7 @@ function refineHotspots()
 
                 table.appendChild(tr);
               }
+              document.getElementsByClassName("search-again")[0].style.display = "block";
             }
           };
 
@@ -844,6 +865,8 @@ function deleteHotspot(event)
     var tr = button.parentNode.parentNode;
     var text = tr.cells.item(0).innerText;
 
+    var table = document.getElementsByTagName("tbody")[0];
+
     var xhttp = new XMLHttpRequest;
 
     xhttp.onreadystatechange = function()
@@ -864,12 +887,12 @@ function deleteHotspot(event)
               }
 
               let tr = document.createElement("tr");
-              tr.setAttribute("id", "reload-prompt");
+              tr.setAttribute("id", "reload-prompt-row");
               let td = document.createElement("td");
-              td.setAttribute("id", "no-results");
+              td.setAttribute("id", "reload-prompt");
               let reloadPrompt = document.createTextNode(`Hotspot with ID ${text} has been removed. Please use filters to see changes.`);
               td.appendChild(reloadPrompt);
-              td.setAttribute("colspan", "5");
+              td.setAttribute("colspan", "6");
               tr.appendChild(td);
               table.appendChild(tr);
               return;
@@ -877,12 +900,18 @@ function deleteHotspot(event)
           }
     };
 
-    xhttp.open("POST", "/deleteHotspot", true);
+    xhttp.open("POST", "users/deleteHotspot", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(text));
+    xhttp.send(JSON.stringify({text}));
 
   }
   else {
     return false;
   }
+}
+
+function backToSearch(){
+  document.getElementsByClassName("table-admin")[0].style.display = "none";
+  document.getElementsByClassName("search-again")[0].style.display = "none";
+  document.getElementsByClassName("content-admin")[0].style.display = "block";
 }

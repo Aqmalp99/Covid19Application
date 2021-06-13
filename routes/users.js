@@ -820,7 +820,7 @@ router.get('/manageHotspots', function(req, res, next)
             state = req.query.state;
             startDate = req.query.date;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -853,7 +853,7 @@ router.get('/manageHotspots', function(req, res, next)
             console.log("scenario 2");
             let vname = req.query.vname;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -881,7 +881,7 @@ router.get('/manageHotspots', function(req, res, next)
             let vname = req.query.vname;
             let startDate = req.query.date;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -909,7 +909,7 @@ router.get('/manageHotspots', function(req, res, next)
             console.log("scenario 4");
             let startDate = req.query.date;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -937,7 +937,7 @@ router.get('/manageHotspots', function(req, res, next)
             let streetNumber = req.query.stNum;
             let streetName = req.query.stName;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -945,11 +945,12 @@ router.get('/manageHotspots', function(req, res, next)
                     AND venue.street_name = ?)`;
 
 
-            connection.query(query,[userID, streetNumber, streetName], function (err, rows, fields)
+            connection.query(query,[streetNumber, streetName], function (err, rows, fields)
             {
                 connection.release();
                 if (err)
                 {
+                    console.log(err);
                     res.sendStatus(500);
                     return;
                 }
@@ -965,7 +966,7 @@ router.get('/manageHotspots', function(req, res, next)
             console.log("scenario 7");
             let streetName = req.query.stName;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -993,7 +994,7 @@ router.get('/manageHotspots', function(req, res, next)
             let streetName = req.query.stName;
             let suburb = req.query.suburb;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -1022,7 +1023,7 @@ router.get('/manageHotspots', function(req, res, next)
             let streetName = req.query.stName;
             let postcode = req.query.postcode;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -1049,7 +1050,7 @@ router.get('/manageHotspots', function(req, res, next)
             console.log("scenario 10");
             let postcode = req.query.postcode;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -1076,7 +1077,7 @@ router.get('/manageHotspots', function(req, res, next)
             console.log("scenario 11");
             let state = req.query.state;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -1104,7 +1105,7 @@ router.get('/manageHotspots', function(req, res, next)
             let state = req.query.state;
             let startDate = req.query.date;
 
-            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.contact_number, hotspots.start_date
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date, hotspots.start_time
                     FROM venue
                     INNER JOIN hotspots
                     ON venue.venueID = hotspots.venueID
@@ -1128,6 +1129,41 @@ router.get('/manageHotspots', function(req, res, next)
         }
     });
 });
+
+
+router.get('/getVenueID', function(req,res,next){
+    console.log("working");
+    req.pool.getConnection(function (err, connection)
+    {
+        if (err)
+        {
+            res.sendStatus(500);
+            return;
+        }
+
+        let object = req.session.user;
+        let venueManagerID = object[0].userID;
+        console.log(venueManagerID);
+
+        let query = `SELECT venueID FROM venue WHERE (venue_manager = ?)`
+
+        connection.query(query,[venueManagerID], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+    });
+});
+
+
 
 router.get('/checkinsVenue', function(req, res, next)
 {
@@ -1161,25 +1197,30 @@ router.get('/checkinsVenue', function(req, res, next)
             return;
         }
 
+        if (req.query.venueID == null){
+            console.log("lmao");
+            res.sendStatus(500);
+            return
+        }
+
 
         if (firstNameBool === true && surnameBool === true && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
         {
             console.log("scenario 1");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
             let checkinDate = req.query.date;
             let startTime = req.query.sTime + ":00";
             let endTime = req.query.eTime + ":00";
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                    WHERE (venue.venueID = ?
                     AND users.given_name = ?
                     AND users.surname = ?
                     AND checkins.checkindate = ?
@@ -1204,22 +1245,21 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === true && surnameBool === true && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 2");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
             let checkinDate = req.query.date;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND users.given_name = ?
-                    AND users.surname = ?
-                    AND checkins.checkindate = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND users.given_name = ?
+                        AND users.surname = ?
+                        AND checkins.checkindate = ?)`;
 
 
             connection.query(query,[venueID, firstName, surname, checkinDate], function (err, rows, fields)
@@ -1240,20 +1280,19 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === true && surnameBool === true && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 3");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND users.given_name = ?
-                    AND users.surname = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND users.given_name = ?
+                        AND users.surname = ?)`;
 
 
             connection.query(query,[venueID, firstName, surname], function (err, rows, fields)
@@ -1274,18 +1313,17 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === false && surnameBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 4");
+            let venueID = req.query.venueID;
             let checkinDate = req.query.date;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND checkins.checkindate = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND checkins.checkindate = ?)`;
 
 
             connection.query(query,[venueID, checkinDate], function (err, rows, fields)
@@ -1363,6 +1401,7 @@ router.get('/checkinsAdmin', function(req, res, next)
     {
         if (err)
         {
+            console.log(err);
             res.sendStatus(500);
             return;
         }
@@ -1383,17 +1422,17 @@ router.get('/checkinsAdmin', function(req, res, next)
             let startTime = req.query.sTime + ":00";
             let endTime = req.query.eTime + ":00";
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (users.given_name = ?
                     AND users.surname = ?
-                    AND venue.venueName = ?
-                    AND venue.streetNumber = ?
-                    AND venue.streetName = ?
+                    AND venue.venue_name = ?
+                    AND venue.street_number = ?
+                    AND venue.street_name = ?
                     AND venue.suburb = ?
                     AND venue.state = ?
                     AND venue.postcode = ?
@@ -1420,15 +1459,15 @@ router.get('/checkinsAdmin', function(req, res, next)
         {
             console.log("scenario 2");
             let firstName = req.query.fname;
-            let surname = req.query.fname;
+            let surname = req.query.sname;
             let checkinDate = req.query.date;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (users.given_name = ?
                     AND users.surname = ?
                     AND checkins.checkindate = ?)`;
@@ -1453,14 +1492,17 @@ router.get('/checkinsAdmin', function(req, res, next)
         {
             console.log("scenario 3");
             let firstName = req.query.fname;
-            let surname = req.query.fname;
+            console.log(firstName);
+            let surname = req.query.sname;
+            console.log(surname);
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (users.given_name = ?
                     AND users.surname = ?)`;
 
@@ -1470,6 +1512,7 @@ router.get('/checkinsAdmin', function(req, res, next)
                 connection.release();
                 if (err)
                 {
+                    console.log(err);
                     res.sendStatus(500);
                     return;
                 }
@@ -1485,12 +1528,12 @@ router.get('/checkinsAdmin', function(req, res, next)
             console.log("scenario 4");
             let checkinDate = req.query.date;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (checkins.checkindate = ?)`;
 
 
@@ -1514,13 +1557,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             console.log("scenario 2");
             let vname = req.query.vname;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.venueName = ?)`;
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.venue_name = ?)`;
 
 
             connection.query(query,[vname], function (err, rows, fields)
@@ -1544,13 +1587,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             let vname = req.query.vname;
             let checkinDate = req.query.date;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.venueName = ?
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.venue_name = ?
                     AND checkins.checkindate = ?)`;
 
 
@@ -1579,13 +1622,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             let endTime = req.query.eTime;
             endTime += ":00";
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.venueName = ?
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.venue_name = ?
                     AND checkins.checkindate = ?
                     AND checkins.checkintime BETWEEN ? AND ?)`;
 
@@ -1611,14 +1654,14 @@ router.get('/checkinsAdmin', function(req, res, next)
             let streetNumber = req.query.stNum;
             let streetName = req.query.stName;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.streetNumber = ?
-                    AND venue.streetName = ?)`;
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.street_number = ?
+                    AND venue.street_name = ?)`;
 
             connection.query(query,[streetNumber, streetName], function (err, rows, fields)
             {
@@ -1640,13 +1683,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             console.log("scenario 7");
             let streetName = req.query.stName;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.streetName = ?)`;
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.street_name = ?)`;
 
 
             connection.query(query,[streetName], function (err, rows, fields)
@@ -1670,13 +1713,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             let streetName = req.query.stName;
             let suburb = req.query.suburb;
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.streetName = ?
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.street_name = ?
                     AND venue.suburb = ?)`;
 
 
@@ -1702,13 +1745,13 @@ router.get('/checkinsAdmin', function(req, res, next)
             let postcode = req.query.postcode;
 
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.streetName = ?
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (venue.street_name = ?
                     AND venue.postcode = ?)`;
 
 
@@ -1733,12 +1776,12 @@ router.get('/checkinsAdmin', function(req, res, next)
             let postcode = req.query.postcode;
 
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (venue.postcode = ?)`;
 
 
@@ -1763,12 +1806,12 @@ router.get('/checkinsAdmin', function(req, res, next)
             let state = req.query.state;
 
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (venue.state = ?)`;
 
 
@@ -1794,12 +1837,12 @@ router.get('/checkinsAdmin', function(req, res, next)
             let checkinDate = req.query.date;
 
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (venue.state = ?
                     AND checkins.checkindate = ?)`;
 
@@ -1830,12 +1873,12 @@ router.get('/checkinsAdmin', function(req, res, next)
 
 
 
-            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.contact_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venueName, venue.streetNumber, venue.streetName, venue.suburb, venue.suburb, venue.state, venue.postcode
+            let query = `SELECT users.userID, users.contact_number, venue.venueID, venue.phone_number, checkins.checkindate, checkins.checkintime, users.given_name, users.surname, checkins.checkindate, checkins.checkintime, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.suburb, venue.state, venue.postcode
                     FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.venue_manager
                     INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
                     WHERE (venue.postcode = ?
                     AND checkins.checkindate = ?
                     AND checkins.checkintime BETWEEN ? AND ?)`;
@@ -2212,6 +2255,7 @@ router.get('/userInfo', function(req, res, next) {
 
 router.post('/deleteHotspot', function(req,res,next)
 {
+    console.log("Hi");
     req.pool.getConnection(function(err,connection)
   {
        if(err)

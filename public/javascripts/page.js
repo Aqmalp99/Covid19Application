@@ -786,6 +786,11 @@ function goto_manager_history(){
     window.location.replace('/CheckHistoryVenue.html');
 }
 
+function goto_manager_venue_info(){
+    window.location.replace('/venueInfo.html');
+}
+
+
 
 //HEALTH HOME
 
@@ -800,6 +805,7 @@ function goto_health_profile(){
 function goto_health_history(){
     window.location.replace('/CheckInHO.html');
 }
+
 
 function getEmails() {
 
@@ -837,5 +843,14 @@ function sendCurrentHotspots(emails)
 
         }
 
+
+
+function goto_health_manage_hotspot(){
+    window.location.replace('/ManageHotspot.html');
+}
+
+function goto_health_create_hotspot(){
+    window.location.replace('/createHotspot.html');
+}
 
 

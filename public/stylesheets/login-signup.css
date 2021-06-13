@@ -66,6 +66,19 @@ button
 
 }
 
+.g-signin2
+{
+    padding: 0px;
+    background-color: whitesmoke;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 3%;
+    cursor: pointer;
+    border: none;
+    font-size: 2.7vh;
+}
+
 .info_input
 {
     padding: 10px;
@@ -96,7 +109,7 @@ button
     padding: 8px;
     max-width: 60%; /* Was 50 before */
     display: flex;
-    background-color: white;
+    background-color: whitesmoke;
 
     margin-top: 8.5vh;
 
@@ -108,10 +121,10 @@ button
 /* Vertical line element taken from W3 schools: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_social_login */
 .vertical_line {
 position: absolute;
-left: 59.5vw;
+left: 61vw;
 transform: translate(-50%);
 border: 2px solid rgb(121, 135, 148);
-height: 54.5vh;
+height: 66vh;
 }
 .vertical_line_text {
 position: absolute;
@@ -282,6 +295,14 @@ select
 
 }
 
+.email_notis
+{
+    display: block;
+    margin: 0 0 0 0;
+    width: 100%;
+    grid-column: 1 / span 2;
+}
+
 .submit_button
 {
     width: 100%;
@@ -295,6 +316,11 @@ select
     font-size: 2.9vh;
     margin: 0 0 0 0;
 
+}
+
+.checkbox
+{
+    margin-right: 0.3vw;
 }
 
 a

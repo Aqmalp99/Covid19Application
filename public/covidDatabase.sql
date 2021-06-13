@@ -1,3 +1,4 @@
+
 CREATE TABLE users (
     userID int NOT NULL AUTO_INCREMENT,
     given_name varchar(30),
@@ -105,8 +106,11 @@ venue.venueID=checkins.venueID
 
 
 -- INSERT INTO checkins (checkindate,checkintime,userID,venueID)
+
 -- VALUES (?,?,?,?);\\
 
 SELECT DISTINCT venue.venue_name,venue.street_number,venue.street_name,venue.suburb,venue.state,
 venue.postcode,venue.phone_number
 FROM hotspots INNER JOIN venue ON hotspots.venueID = venue.venueID;
+-- VALUES (?,?,?,?);
+
