@@ -1118,6 +1118,41 @@ router.get('/manageHotspots', function(req, res, next)
     });
 });
 
+
+router.get('/getVenueID', function(req,res,next){
+    console.log("working");
+    req.pool.getConnection(function (err, connection)
+    {
+        if (err)
+        {
+            res.sendStatus(500);
+            return;
+        }
+
+        let object = req.session.user;
+        let venueManagerID = object[0].userID;
+        console.log(venueManagerID);
+
+        let query = `SELECT venueID FROM venue WHERE (venue_manager = ?)`
+
+        connection.query(query,[venueManagerID], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
+    });
+});
+
+
+
 router.get('/checkinsVenue', function(req, res, next)
 {
     var firstNameBool = true;
@@ -1150,25 +1185,30 @@ router.get('/checkinsVenue', function(req, res, next)
             return;
         }
 
+        if (req.query.venueID == null){
+            console.log("lmao");
+            res.sendStatus(500);
+            return
+        }
+
 
         if (firstNameBool === true && surnameBool === true && checkinDateBool === true && startTimeBool === true && endTimeBool === true)
         {
             console.log("scenario 1");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
             let checkinDate = req.query.date;
             let startTime = req.query.sTime + ":00";
             let endTime = req.query.eTime + ":00";
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                    WHERE (venue.venueID = ?
                     AND users.given_name = ?
                     AND users.surname = ?
                     AND checkins.checkindate = ?
@@ -1193,22 +1233,21 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === true && surnameBool === true && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 2");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
             let checkinDate = req.query.date;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND users.given_name = ?
-                    AND users.surname = ?
-                    AND checkins.checkindate = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND users.given_name = ?
+                        AND users.surname = ?
+                        AND checkins.checkindate = ?)`;
 
 
             connection.query(query,[venueID, firstName, surname, checkinDate], function (err, rows, fields)
@@ -1229,20 +1268,19 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === true && surnameBool === true && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 3");
+            let venueID = req.query.venueID;
             let firstName = req.query.fname;
             let surname = req.query.sname;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND users.given_name = ?
-                    AND users.surname = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND users.given_name = ?
+                        AND users.surname = ?)`;
 
 
             connection.query(query,[venueID, firstName, surname], function (err, rows, fields)
@@ -1263,18 +1301,17 @@ router.get('/checkinsVenue', function(req, res, next)
         if (firstNameBool === false && surnameBool === false && checkinDateBool === true && startTimeBool === false && endTimeBool === false)
         {
             console.log("scenario 4");
+            let venueID = req.query.venueID;
             let checkinDate = req.query.date;
 
-            let venueID = req.session.userID;
-
             let query = `SELECT users.given_name, users.surname, users.contact_number, checkins.checkindate, checkins.checkintime
-                    FROM users
-                    INNER JOIN venue
-                    ON users.userID = venue.userID
-                    INNER JOIN checkins
-                    ON venue.venueID = checkins.venueID
-                    WHERE (venue.userID = ?
-                    AND checkins.checkindate = ?)`;
+                        FROM users
+                        INNER JOIN checkins
+                        ON users.userID = checkins.userID
+                        INNER JOIN venue
+                        ON checkins.venueID = venue.venueID
+                        WHERE (venue.venueID = ?
+                        AND checkins.checkindate = ?)`;
 
 
             connection.query(query,[venueID, checkinDate], function (err, rows, fields)

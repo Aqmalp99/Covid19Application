@@ -201,8 +201,26 @@ function refineSearchUser()
           xhttp.send();
 }
 
+
+function getVenueID(){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = (function(){
+    if (this.readyState == 4 && this.status == 200){
+      var response = JSON.parse(this.responseText);
+      console.log(response);
+      var venueID = response[0].venueID;
+      refineSearchVenue(venueID);
+    }
+  });
+
+  xhttp.open("GET", "users/getVenueID", true);
+  xhttp.send();
+}
+
+
 //filter checkin history results - venue
-function refineSearchVenue()
+function refineSearchVenue(venueID)
 {
 
     var firstName = document.getElementById("fname").value;
@@ -216,21 +234,21 @@ function refineSearchVenue()
 
     if (firstName.length > 0 && checkinDate.length > 0 && startTime.length > 0 && endTime.length > 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&sname=${surname}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&date=${checkinDate}&sTime=${startTime}&eTime=${endTime}&sname=${surname}`;
     }
 
     else if (firstName.length > 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}&date=${checkinDate}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&sname=${surname}&date=${checkinDate}`;
     }
 
     else if (firstName.length > 0 && checkinDate.length <= 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length > 0)
     {
-      queryString = `users/checkinsVenue?fname=${firstName}&sname=${surname}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&fname=${firstName}&sname=${surname}`;
     }
     else if (firstName.length <= 0 && checkinDate.length > 0 && startTime.length <= 0 && endTime.length <= 0 && surname.length <= 0)
     {
-      queryString = `users/checkinsVenue?date=${checkinDate}`;
+      queryString = `users/checkinsVenue?venueID=${venueID}&date=${checkinDate}`;
     }
     else
     {
@@ -317,14 +335,14 @@ function refineSearchVenue()
 
                   else if (j === 1)
                   {
-                    let data = document.createTextNode(checkinHistoryVenue[i].surname[i]);
+                    let data = document.createTextNode(checkinHistoryVenue[i].surname);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
 
                   else if (j === 2)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
+                    let data = document.createTextNode(checkinHistoryVenue[i].contact_number);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
