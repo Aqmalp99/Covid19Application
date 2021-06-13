@@ -9,6 +9,18 @@ const client = new OAuth2Client(CLIENT_ID);
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
+var nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'covidtracerapplication@gmail.com',
+        pass: 'thefellas1!'
+    }
+});
 
 
 
@@ -2480,5 +2492,106 @@ router.post('/deleteVenue', function(req, res, next) {
 
 
   });
+
+  router.post('/getEmail', function(req, res, next) {
+
+  req.pool.getConnection(function(err,connection)
+  {
+
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+
+
+      var query=`SELECT DISTINCT users.email,users.userID
+                FROM users WHERE isUser=0;`;
+
+      connection.query(query,function(err,rows,fields)
+      {
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          // req.session.user = first_name;
+
+            res.json(rows);
+
+
+
+      });
+
+
+  });
+
+
+  });
+
+  router.post('/emailCurrentHotspots', function(req,res,next)
+{
+      req.pool.getConnection(function(err,connection)
+    {
+      if(err)
+      {
+        console.log(err);
+          res.sendStatus(500);
+          return;
+      }
+      var emails=req.body.emails;
+
+
+     var query = `SELECT DISTINCT venue.venue_name,venue.street_number,venue.street_name,venue.suburb,venue.state,
+                    venue.postcode,venue.phone_number
+                FROM hotspots INNER JOIN venue ON hotspots.venueID = venue.venueID;`;
+
+      connection.query(query,function(err,rows,fields)
+      {
+
+          connection.release();
+          if(err)
+          {
+              console.log(err);
+              res.sendStatus(500);
+              return;
+          }
+          var j=0;
+          var email_text="";
+          for(;rows[j];){
+          email_text = email_text+`<li>${rows[j].venue_name}: ${rows[j].street_number}, ${rows[j].street_name}
+                            ${rows[j].suburb}, ${rows[j].state} ${rows[j].postcode}
+                            and phone number is: ${rows[j].phone_number}</li>`;
+                            j++;
+          }
+          var i=0;
+        for(;emails[i];){
+            const mailOptions = {
+      from: 'covidtracerapplication@gmail.com', // sender address
+      to: emails[i].email, // list of receivers
+      subject: "Current Hotspots", // Subject line
+      html: `<p>Current Hotspots</p>
+             <ul>${email_text}</ul>
+             <p>From the Fellas org.</p>
+             <p>Please do not reply, this email is not monitored, its a robot actually</p>` // plain text body
+      };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error.message);
+        }
+        console.log('success');
+    });
+    i++;
+        }
+
+    res.send();
+});
+          res.end();
+      });
+  });
+
 
 module.exports = router;
