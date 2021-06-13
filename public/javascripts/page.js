@@ -774,7 +774,7 @@ function goto_user_profile(){
 
 // MANAGER HOME
 function goto_manager_home(){
-    window.location.replace('/homeManaher.html');
+    window.location.replace('/homeManager.html');
 }
 
 function goto_manager_profile(){
@@ -800,4 +800,42 @@ function goto_health_profile(){
 function goto_health_history(){
     window.location.replace('/CheckInHO.html');
 }
+
+function getEmails() {
+
+
+
+            var xmlhttp = new XMLHttpRequest();
+
+             xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var emails=JSON.parse(this.responseText);
+                    sendCurrentHotspots(emails);
+                }
+
+            };
+
+            xmlhttp.open("POST", "/users/getEmail", true);
+            xmlhttp.send();
+
+        }
+
+function sendCurrentHotspots(emails)
+{
+  var xmlhttp = new XMLHttpRequest();
+
+             xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("Alerts have been sent!")
+                }
+
+            };
+
+            xmlhttp.open("POST", "/users/emailCurrentHotspots", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify({emails}));
+
+        }
+
+
 

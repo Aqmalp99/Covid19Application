@@ -32,6 +32,8 @@ CREATE TABLE venue (
 	FOREIGN KEY (venue_manager) REFERENCES users(userID)
 );
 
+ALTER TABLE venue AUTO_INCREMENT=1000;
+
 CREATE TABLE hotspots (
     hotspotID INT NOT NULL AUTO_INCREMENT,
 	venueID INT,
@@ -103,4 +105,8 @@ venue.venueID=checkins.venueID
 
 
 -- INSERT INTO checkins (checkindate,checkintime,userID,venueID)
--- VALUES (?,?,?,?);
+-- VALUES (?,?,?,?);\\
+
+SELECT DISTINCT venue.venue_name,venue.street_number,venue.street_name,venue.suburb,venue.state,
+venue.postcode,venue.phone_number
+FROM hotspots INNER JOIN venue ON hotspots.venueID = venue.venueID;
