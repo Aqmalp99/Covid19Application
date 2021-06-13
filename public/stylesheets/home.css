@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: mr-eaves-modern, sans-serif;
 }
 body
 {
@@ -9,7 +10,9 @@ body
 .main
 {
 	  height: 100vh;
-	  background:#E0E0E0;
+	  /*background:#E0E0E0;*/
+	  background: url(images/bg.jpg) no-repeat fixed;
+      background-size: cover;
 }
 .covid_heading
 {
@@ -21,12 +24,10 @@ body
     color: white;
     margin: 0%;
     font-family: sans-serif;
-    text-align: center;
+    text-indent: 34.5vw;
     font-weight: bold;
     padding: 5px;
 }
-
-
 
 
 .container
@@ -58,7 +59,7 @@ body
     height:70%;
     width:70%;
 
-    margin: auto;
+    margin: auto auto auto 17.5%;
     border:2px solid rgb(49, 68, 85);
 }
 .display_setting
@@ -141,25 +142,30 @@ body
     position: relative;
     overflow:auto;
     box-shadow: 0 20px 20px 0 rgb(0 0 0 / 20%);
+    background:rgba(49, 68, 85, 0.9);
 }
+
+
 
 .faq_heading
 {
-    margin: 100px 10px 0px;
+    margin: 55px 10px 0px;
     text-align:center;
     font-size:4vmin;
     border-left:4px solid red;
     padding: 0;
     list-style: none;
+    color: white;
 }
 
 .faq_list
 {
-    margin-top: 10px;
+    margin-top: 5px;
     margin-right:5px;
     margin-left:5px;
     padding: 0;
     list-style: none;
+    background:rgba(49, 68, 85, 0.9);
 }
 
 .faq_list_button
@@ -167,33 +173,32 @@ body
   	width: 100%;
 	  margin-top: 20px;
     padding: 0;
+    background: rgba(49, 68, 85, 0.9);
 }
 
 
 
 .faq_button
 {
-    background: rgb(200, 200, 200);
     width: 100%;
     height:100px;
-
     display:block;
     border: none;
-
+    background: rgba(49, 68, 85, 0.9);
 }
 
 .faq_button:hover
 {
-background-color: #faa811;
-transition:0.5s;
+background-color: #7790b6;
+transition:0.25s;
 }
 
 
 .text_format
 {
     text-decoration: none;
-    color:black;
-    font-size:2vmin;
+    color:white;
+    font-size:3.5vmin;
     font-weight:bold;
      width:100%;
       height:100%;

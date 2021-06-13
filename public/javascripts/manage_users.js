@@ -18,6 +18,12 @@
 //     document.getElementsByClassName("manage_user")[0].style.display="none";
 //     document.getElementsByClassName("manage_venue")[0].style.display="block";
 // }
+
+function get_signup_admins()
+{
+    window.location.replace("signupAdmins.html");
+}
+
 function go_to_manage()
 {
     window.location.replace("manage.html");
