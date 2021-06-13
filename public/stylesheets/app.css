@@ -2,6 +2,7 @@ body {
     /*background: url(images/bg2_sml.jpg) no-repeat center center fixed;   changing for bg image (vinay)*/
     background: url(images/bg2_sml.jpg) no-repeat fixed;
     background-size: cover;
+    margin: 0;
 
 }
 
@@ -761,9 +762,9 @@ td button {
 }
 
 .back_to_home_button{
-    width: 4%;
+    width: 15%;
     display: block;
-    padding: 0.2%;
+    padding: 0.3%;
     border: 0.5px solid #5d5e68;
     /*border-radius: 1em;*/
     background-color: rgb(49, 68, 85);
