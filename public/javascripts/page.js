@@ -1,16 +1,16 @@
-
-function myFunction() {
+//log out function
+function logOut() {
 
   if (confirm("Please confirm for LOGOUT!")) {
-    // txt = "You pressed OK!";
     logout();
   }
 
 }
 
+//login function
 function login(){
 
-    var logintype="user";
+    var logintype="user"; //type of login the user chose
 
     if(document.getElementById('radiovenue').checked)
         {
@@ -35,6 +35,8 @@ function login(){
             var name=JSON.parse(this.responseText);
 
             alert("Welcome "+name[0].given_name);
+
+            //redirects depending on login type
             if(logintype=="user"){
             window.location.replace('/homeUser.html');
             }
@@ -60,6 +62,7 @@ function login(){
 
 }
 
+//check that a login is valid
 function checklogin(){
 
     var xmlhttp = new XMLHttpRequest();
@@ -67,7 +70,7 @@ function checklogin(){
     // Define function to run on response
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("body").style.display = "block";
+        document.getElementById("body").style.display = "block"; //show web page if login is valid
 
         }
         else if (this.readyState == 4 && this.status >= 400) {
@@ -81,6 +84,7 @@ function checklogin(){
 
 }
 
+//logout function
 function logout(){
 
     var xmlhttp = new XMLHttpRequest();
@@ -89,28 +93,25 @@ function logout(){
         }
         else
         {
-            window.location.replace('/index.html');
+            window.location.replace('/index.html'); //redirect when logged out
         }
-
-
-
-
 
     xmlhttp.open("POST", "/users/logout", true);
     xmlhttp.send();
 
 }
 
+//signup for users and venue managers
 function signup() {
 
             var terms_cond = document.getElementById("terms_cond");
-            if(terms_cond.checked==false)
+            if(terms_cond.checked==false) //make sure user agrees to terms and conditions
             {
                 alert("Please agree to the Terms & Conditions!");
                 return;
             }
 
-
+            //get all information from input fields
             var first_name = document.getElementById("first_name").value;
             var last_name = document.getElementById("last_name").value;
             var dob=document.getElementById("dob").value;
@@ -124,6 +125,9 @@ function signup() {
             var password=document.getElementById("signup_password").value;
             var repeat_password=document.getElementById("repeat_password").value;
             var venMan=document.getElementById("sign_up_as_vm");
+            var emailNoti=document.getElementById("emailNoti");
+
+            //check if venue manager or normal user
             if(venMan.checked==false)
             {
                 venMan=0;
@@ -133,38 +137,53 @@ function signup() {
                 venMan=1;
             }
 
+            //check if user/venue manager wants email notifications
+            if(emailNoti.checked==false)
+            {
+                emailNoti=0;
+            }
+            else
+            {
+                emailNoti=1;
+            }
 
+            //check to make sure all fields are entered
+            if(password=="" || first_name=="" ||last_name==""|| dob=="" ||phone_num==""|| email==""|| streetnum==""|| streetname==""|| suburb=="" || postcode==""|| state=="" )
+            {
+
+                alert("Please Enter All Fields!");
+                return;
+            }
+
+            //check for passwords to be matched
             if(!(password===repeat_password))
             {
                 alert("Passwords do not match");
                 return;
             }
 
-
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-
                     loginforSignup();
                 }
             };
             xhttp.open("POST", "/users/signup", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password,venMan }));
+            xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password,venMan,emailNoti }));
 
         }
 
+//signup for admins or health officials
 function signupAdmin()
 {
-
             var terms_cond = document.getElementById("terms_cond");
             if(terms_cond.checked==false)
             {
                 alert("Please agree to the Terms & Conditions!");
                 return;
             }
-
-
+            //get all information from input fields
             var first_name = document.getElementById("first_name").value;
             var last_name = document.getElementById("last_name").value;
             var dob=document.getElementById("dob").value;
@@ -178,13 +197,19 @@ function signupAdmin()
             var password=document.getElementById("signup_password").value;
             var repeat_password=document.getElementById("repeat_password").value;
 
+            //check to make sure all fields are entered
+            if(password=="" || first_name=="" ||last_name==""|| dob=="" ||phone_num==""|| email==""|| streetnum==""|| streetname==""|| suburb=="" || postcode==""|| state=="" )
+            {
+                alert("Please Enter All Fields!");
+                return;
+            }
 
+            //make sure passwords match
             if(!(password===repeat_password))
             {
                 alert("Passwords do not match");
                 return;
             }
-
 
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -195,13 +220,13 @@ function signupAdmin()
             xhttp.open("POST", "/users/signupAdmin", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify({ first_name,last_name,dob,phone_num,email,streetnum,streetname,suburb,postcode,state,password }));
-
         }
 
-function loginforSignup(){
-
-
-    var venMan=document.getElementById("sign_up_as_vm");
+//login functions for users that just signed up
+function loginforSignup()
+{
+            //check whether logging in as a user or venue manager
+            var venMan=document.getElementById("sign_up_as_vm");
             if(venMan.checked==false)
             {
                 venMan=0;
@@ -210,546 +235,447 @@ function loginforSignup(){
             {
                 venMan=1;
             }
+            //user information
+            let user = {
+                user: document.getElementById('signup_email').value,
+                pass: document.getElementById('signup_password').value,
+                type: venMan
+            };
 
-    let user = {
-        user: document.getElementById('signup_email').value,
-        pass: document.getElementById('signup_password').value,
-        type: venMan
-    };
+            // Create AJAX Request
+            var xmlhttp = new XMLHttpRequest();
 
-    // Create AJAX Request
-    var xmlhttp = new XMLHttpRequest();
+            // Define function to run on response
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var name=JSON.parse(this.responseText);
+                    alert("Welcome "+name[0].given_name);
 
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var name=JSON.parse(this.responseText);
-
-            alert("Welcome "+name[0].given_name);
-            if(name[0].isVenueManager==1 && venMan==1)
-            {
-                addVenue();
-                window.location.replace('/homeManager.html');
-            }
-            else if(name[0].isHealthOfficial==1)
-            {
-                window.location.replace('/homeHealth.html');
-            }
-            else{
-            window.location.replace('/homeUser.html');
-            }
-        } else if (this.readyState == 4 && this.status >= 400) {
-            alert("Login failed");
-        }
-    };
-
-    // Open connection to server & send the post data using a POST request
-    // We will cover POST requests in more detail in week 8
-    xmlhttp.open("POST", "/users/login", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify(user));
+                    //redirects for login type
+                    if(name[0].isVenueManager==1 && venMan==1)
+                    {
+                        addVenue();
+                        window.location.replace('/homeManager.html');
+                    }
+                    else if(name[0].isHealthOfficial==1)
+                    {
+                        window.location.replace('/homeHealth.html');
+                    }
+                    else{
+                    window.location.replace('/homeUser.html');
+                    }
+                } else if (this.readyState == 4 && this.status >= 400) {
+                    alert("Login failed");
+                }
+            };
+            xmlhttp.open("POST", "/users/login", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(user));
 
 }
 
-
+//add a new venue to the system
 function addVenue()
 {
-     // Create AJAX Request
-    var xmlhttp = new XMLHttpRequest();
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-
-        }
-    };
-
-    // Open connection to server & send the post data using a POST request
-    // We will cover POST requests in more detail in week 8
-    xmlhttp.open("POST", "/users/addVenue", true);
-    xmlhttp.send();
-
-
-
+             // Create AJAX Request
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                }
+            };
+            xmlhttp.open("POST", "/users/addVenue", true);
+            xmlhttp.send();
 }
 
+//edit venue information
 function submitVenueInfo()
 {
-     // Create AJAX Request
-     let venueInfo = {
-             venueName: document.getElementById("vname").value,
-             contactNum: document.getElementById("vcontactnum").value,
-             capacity: document.getElementById("vcapacity").value,
-             streetnum: document.getElementById("vstreetnum").value,
-             streetname: document.getElementById("vstreetname").value,
-             suburb: document.getElementById("vsuburb").value,
-             postcode: document.getElementById("vpostcode").value,
-             state: document.getElementById("state").value
-        };
-    var xmlhttp = new XMLHttpRequest();
+             // new venue information
+             let venueInfo = {
+                     venueName: document.getElementById("vname").value,
+                     contactNum: document.getElementById("vcontactnum").value,
+                     capacity: document.getElementById("vcapacity").value,
+                     streetnum: document.getElementById("vstreetnum").value,
+                     streetname: document.getElementById("vstreetname").value,
+                     suburb: document.getElementById("vsuburb").value,
+                     postcode: document.getElementById("vpostcode").value,
+                     state: document.getElementById("state").value };
 
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-             window.location.replace('/homeManager.html');
-            alert("Your Venue Information Has Been Updated!");
-        }
-
-    };
-
-    // Open connection to server & send the post data using a POST request
-    // We will cover POST requests in more detail in week 8
-    xmlhttp.open("POST", "/users/updateVenue", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify(venueInfo));
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //redirect user to the home manager page
+                     window.location.replace('/homeManager.html');
+                    alert("Your Venue Information Has Been Updated!");
+                }
+            };
+            xmlhttp.open("POST", "/users/updateVenue", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(venueInfo));
 
 }
 
-function onSignIn(googleUser) {
-
-    // Read the token data on the client side
-    var profile = googleUser.getBasicProfile();
-    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    // console.log('Name: ' + profile.getName());
-    // console.log('Image URL: ' + profile.getImageUrl());
-    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-    // Prepare to send the TOKEN to the server for validation
-    // var id_token = { token: googleUser.getAuthResponse().id_token };
-
-    var logintype="user";
-
-    if(document.getElementById('radiovenue').checked)
-        {
-            logintype="venuemanager";
-        }
-    else if (document.getElementById('radioho').checked)
-    {
-        logintype="healthofficial";
-    }
-    let user = {
-        token: googleUser.getAuthResponse().id_token,
-        type: logintype
-    };
-    // Create AJAX Request
-    var xmlhttp = new XMLHttpRequest();
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var userObject=JSON.parse(this.responseText);
-            alert("Welcome "+userObject[0].given_name);
-            if(userObject[0].isVenueManager==1 && logintype=="venuemanager")
+//google sign in
+function onSignIn(googleUser)
+{
+            var logintype="user"; //login type
+            if(document.getElementById('radiovenue').checked)
             {
-                window.location.replace('/homeManager.html');
+                logintype="venuemanager";
             }
-            else if(userObject[0].isHealthOfficial==1 && logintype=="healthofficial")
+            else if (document.getElementById('radioho').checked)
             {
-                window.location.replace('/homeHealth.html');
+                logintype="healthofficial";
             }
-            else{
-            window.location.replace('/homeUser.html');
-            }
-        } else if (this.readyState == 4 && this.status >= 400) {
-            alert("Login failed");
-        }
-    };
 
-    // Open connection to server & send the token using a POST request
-    xmlhttp.open("POST", "/users/login", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify(user));
+            //store user info
+            let user = {
+                token: googleUser.getAuthResponse().id_token,
+                type: logintype
+            };
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    var userObject=JSON.parse(this.responseText);
+                    alert("Welcome "+userObject[0].given_name);
+                    //redirect depending on login in type
+                    if(userObject[0].isVenueManager==1 && logintype=="venuemanager")
+                    {
+                        window.location.replace('/homeManager.html');
+                    }
+                    else if(userObject[0].isHealthOfficial==1 && logintype=="healthofficial")
+                    {
+                        window.location.replace('/homeHealth.html');
+                    }
+                    else{
+                    window.location.replace('/homeUser.html');
+                    }
+                } else if (this.readyState == 4 && this.status >= 400) {
+                    alert("Login failed");
+                }
+            };
+            xmlhttp.open("POST", "/users/login", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(user));
 
 }
 
+//create a new hotspot to add to the database
 function createHotspot()
 {
-    let hotspot = {
-             venueid : document.getElementById("venueid").value,
-             startDate :document.getElementById("startdate").value,
-             startTime: document.getElementById("starttime").value
-        };
-    var xmlhttp = new XMLHttpRequest();
+            //hotspot information
+            let hotspot = {
+                     venueid : document.getElementById("venueid").value,
+                     startDate :document.getElementById("startdate").value,
+                     startTime: document.getElementById("starttime").value };
 
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Hotspot created");
-            emailIfHotspot();
-        }
-        else
-        {
-            // window.location.replace('/homeHealth.html');
-
-        }
-    };
-
-    // Open connection to server & send the post data using a POST request
-    // We will cover POST requests in more detail in week 8
-    xmlhttp.open("POST", "/users/createhotspot", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify(hotspot));
-
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("Hotspot created");
+                }
+            };
+            xmlhttp.open("POST", "/users/createhotspot", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(hotspot));
 }
 
-function emailIfHotspot()
-{
-    var xmlhttp = new XMLHttpRequest();
-}
+//update the home screen map
 function updatemap()
 {
-    var xmlhttp = new XMLHttpRequest();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var map=JSON.parse(this.responseText); //stores addresses
+                    var temp="";
+                    var i=0;
+                    for(;map[i];)
+                    {
+                        temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
+                        mapGeo(temp, i); //adds markers onto map
+                        i++;
+                    }
+                }
 
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var map=JSON.parse(this.responseText);
-            var temp="";
-            var i=0;
-            for(;map[i];)
-            {
-                temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
-                mapGeo(temp, i);
-                i++;
-            }
+            };
+            xmlhttp.open("POST", "/users/hotspots", true);
+            xmlhttp.send();
         }
 
-    };
-
-
-    xmlhttp.open("POST", "/users/hotspots", true);
-    xmlhttp.send();
-}
-
+//checkin markers for maps
 function checkInsMap()
 {
-    var xmlhttp = new XMLHttpRequest();
-
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var map=JSON.parse(this.responseText);
-            var temp="";
-            var i=0;
-            for(;map[i];)
-            {
-                temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
-                mapGeo(temp, i);
-                i++;
-            }
-        }
-
-    };
-
-
-    xmlhttp.open("POST", "/users/userCheckins", true);
-    xmlhttp.send();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var map=JSON.parse(this.responseText); //stores addresses
+                    var temp="";
+                    var i=0;
+                    for(;map[i];)
+                    {
+                        temp=map[i].street_number+", "+map[i].street_name+", "+map[i].suburb+", "+map[i].state+", "+map[i].postcode;
+                        mapGeo(temp, i); // adds markers to maps
+                        i++;
+                    }
+                }
+            };
+            xmlhttp.open("POST", "/users/userCheckins", true);
+            xmlhttp.send();
 }
 
+//function for adding markers to the maps
 function mapGeo(address, i) {
 
-        mapboxClient.geocoding
+            mapboxClient.geocoding
+            .forwardGeocode({
+                    query: address,
+                    autocomplete: false,
+                    limit: 1 })
+            .send()
+            .then(function (response) {
+                if (response && response.body && response.body.features && response.body.features.length)
+                {
+                    var feature = response.body.features[0];
+                    coordinates[i] = response.body.features[0].center;
+                    new mapboxgl.Marker().setLngLat(coordinates[i]).addTo(map);
+                    }
+                });
+}
 
-        .forwardGeocode({
-                query: address,
-                autocomplete: false,
-                limit: 1 })
-
-        .send()
-        .then(function (response) {
-            if (response && response.body && response.body.features && response.body.features.length)
-            {
-                var feature = response.body.features[0];
-                coordinates[i] = response.body.features[0].center;
-                console.log(coordinates);
-
-                new mapboxgl.Marker().setLngLat(coordinates[i]).addTo(map);
+// check if a req.session is an admin login
+function checkAdmin()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("body").style.display = "block";
 
                 }
-            });
+                else if (this.readyState == 4 && this.status >= 400) {
+                    window.location.replace('/homeUser.html');
+                    alert("You do not have admin access!");
+                }
+            };
+
+            xmlhttp.open("POST","/users/checkAdmin", true);
+            xmlhttp.send();
 }
 
-function checkAdmin(){
-
-    var xmlhttp = new XMLHttpRequest();
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("body").style.display = "block";
-
-        }
-        else if (this.readyState == 4 && this.status >= 400) {
-            window.location.replace('/homeUser.html');
-            alert("You do not have admin access!");
-        }
-    };
-
-    xmlhttp.open("POST","/users/checkAdmin", true);
-    xmlhttp.send();
-
-}
-
-function checkVenman(){
-
-    var xmlhttp = new XMLHttpRequest();
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("body").style.display = "block";
-
-        }
-        else if (this.readyState == 4 && this.status >= 400) {
-            window.location.replace('/homeUser.html');
-            alert("You do not have venue manager access!");
-        }
-    };
-
-    xmlhttp.open("POST","/users/checkVenman", true);
-    xmlhttp.send();
+// check if a req.session is an venue manager login
+function checkVenman()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("body").style.display = "block";
+                }
+                else if (this.readyState == 4 && this.status >= 400) {
+                    window.location.replace('/homeUser.html');
+                    alert("You do not have venue manager access!");
+                }
+            };
+            xmlhttp.open("POST","/users/checkVenman", true);
+            xmlhttp.send();
 
 }
 
- function getUserInfo(){
+//get user info to fill into userInfo html page
+function getUserInfo()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var userinfo=JSON.parse(this.responseText);
+                    if(userinfo[0].date_of_birth!==null){
+                    var dob=userinfo[0].date_of_birth.toString();
+                    dob=dob.slice(0,-14);
+                    document.getElementById("dob").value = dob;
+                    }
+                    if(userinfo[0].given_name!==null){
+                    document.getElementById("gname").value = userinfo[0].given_name;
+                    }
+                    if(userinfo[0].surname!==null){
+                    document.getElementById("lname").value = userinfo[0].surname;
+                    }
+                    if(userinfo[0].contact_number!==null){
+                    document.getElementById("connumber").value = userinfo[0].contact_number;
+                    }
+                    if(userinfo[0].email!==null){
+                    document.getElementById("email").value = userinfo[0].email;
+                    }
+                    if(userinfo[0].street_number!==null){
+                    document.getElementById("streetnum").value = userinfo[0].street_number;
+                    }
+                    if(userinfo[0].street_name!==null){
+                    document.getElementById("streetname").value = userinfo[0].street_name;
+                    }
+                    if(userinfo[0].surburb!==null){
+                    document.getElementById("suburb").value = userinfo[0].surburb;
+                    }
+                    if(userinfo[0].state!==null){
+                    document.getElementById("state").value = userinfo[0].state;
+                    }
+                    if(userinfo[0].postcode!==null){
+                    document.getElementById("postcode").value = userinfo[0].postcode;
+                    }
+                }
+            };
+            xmlhttp.open("GET","/users/userInfo", true);
+            xmlhttp.send();
+}
 
-    var xmlhttp = new XMLHttpRequest();
+//get venue info to fill into userInfo html page
+function getVenueInfo()
+{
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                var venueInfo=JSON.parse(this.responseText);
 
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        var userinfo=JSON.parse(this.responseText);
-        if(userinfo[0].date_of_birth!==null){
-        var dob=userinfo[0].date_of_birth.toString();
-        dob=dob.slice(0,-14);
-        document.getElementById("dob").value = dob;
-        }
-        if(userinfo[0].given_name!==null){
-        document.getElementById("gname").value = userinfo[0].given_name;
-        }
-        if(userinfo[0].surname!==null){
-        document.getElementById("lname").value = userinfo[0].surname;
-        }
-        if(userinfo[0].contact_number!==null){
-        document.getElementById("connumber").value = userinfo[0].contact_number;
-        }
-        if(userinfo[0].email!==null){
-        document.getElementById("email").value = userinfo[0].email;
-        }
-        if(userinfo[0].street_number!==null){
-        document.getElementById("streetnum").value = userinfo[0].street_number;
-        }
-        if(userinfo[0].street_name!==null){
-        document.getElementById("streetname").value = userinfo[0].street_name;
-        }
-        if(userinfo[0].surburb!==null){
-        document.getElementById("suburb").value = userinfo[0].surburb;
-        }
-        if(userinfo[0].state!==null){
-        document.getElementById("state").value = userinfo[0].state;
-        }
-        if(userinfo[0].postcode!==null){
-        document.getElementById("postcode").value = userinfo[0].postcode;
-        }
-
-
-
-        }
-    };
-
-    xmlhttp.open("GET","/users/userInfo", true);
-    xmlhttp.send();
+                if(venueInfo[0].venue_name!==null){
+                document.getElementById("vname").value = venueInfo[0].venue_name;
+                }
+                if(venueInfo[0].capacity!==null){
+                document.getElementById("vcapacity").value = venueInfo[0].capacity;
+                }
+                if(venueInfo[0].street_number!==null){
+                document.getElementById("vstreetnum").value = venueInfo[0].street_number;
+                }
+                if(venueInfo[0].street_name!==null){
+                document.getElementById("vstreetname").value = venueInfo[0].street_name;
+                }
+                if(venueInfo[0].suburb!==null){
+                document.getElementById("vsuburb").value = venueInfo[0].suburb;
+                }
+                if(venueInfo[0].state!==null){
+                document.getElementById("state").value = venueInfo[0].state;
+                }
+                if(venueInfo[0].postcode!==null){
+                document.getElementById("vpostcode").value = venueInfo[0].postcode;
+                }
+                if(venueInfo[0].phone_number!==null){
+                document.getElementById("vcontactnum").value = venueInfo[0].phone_number;
+                }
+                }
+            };
+            xmlhttp.open("GET","/users/venueInfo", true);
+            xmlhttp.send();
 
 }
 
-function getVenueInfo(){
+//editing user information
+function editUserInfo()
+{
+             let userInfo = {
+                     givenName : document.getElementById("gname").value,
+                     surname : document.getElementById("lname").value,
+                     dob :document.getElementById("dob").value,
+                     contactNo: document.getElementById("connumber").value,
+                     email: document.getElementById("email").value,
+                     streetnum: document.getElementById("streetnum").value,
+                     streetname: document.getElementById("streetname").value,
+                     suburb: document.getElementById("suburb").value,
+                     postcode: document.getElementById("postcode").value,
+                     state: document.getElementById("state").value
+                };
 
-    var xmlhttp = new XMLHttpRequest();
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        var venueInfo=JSON.parse(this.responseText);
-
-        if(venueInfo[0].venue_name!==null){
-        document.getElementById("vname").value = venueInfo[0].venue_name;
-        }
-        if(venueInfo[0].capacity!==null){
-        document.getElementById("vcapacity").value = venueInfo[0].capacity;
-        }
-        if(venueInfo[0].street_number!==null){
-        document.getElementById("vstreetnum").value = venueInfo[0].street_number;
-        }
-        if(venueInfo[0].street_name!==null){
-        document.getElementById("vstreetname").value = venueInfo[0].street_name;
-        }
-        if(venueInfo[0].suburb!==null){
-        document.getElementById("vsuburb").value = venueInfo[0].suburb;
-        }
-        if(venueInfo[0].state!==null){
-        document.getElementById("state").value = venueInfo[0].state;
-        }
-        if(venueInfo[0].postcode!==null){
-        document.getElementById("vpostcode").value = venueInfo[0].postcode;
-        }
-        if(venueInfo[0].phone_number!==null){
-        document.getElementById("vcontactnum").value = venueInfo[0].phone_number;
-        }
-
-
-
-        }
-    };
-
-    xmlhttp.open("GET","/users/venueInfo", true);
-    xmlhttp.send();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                window.location.replace('/homeUser.html');
+                    alert("Your Personal Information Has Been Updated!");
+                }
+            };
+            xmlhttp.open("POST", "/users/updateUser", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify(userInfo));
 
 }
 
-function editUserInfo(){
-     // Create AJAX Request
-     let userInfo = {
-             givenName : document.getElementById("gname").value,
-             surname : document.getElementById("lname").value,
-             dob :document.getElementById("dob").value,
-             contactNo: document.getElementById("connumber").value,
-             email: document.getElementById("email").value,
-             streetnum: document.getElementById("streetnum").value,
-             streetname: document.getElementById("streetname").value,
-             suburb: document.getElementById("suburb").value,
-             postcode: document.getElementById("postcode").value,
-             state: document.getElementById("state").value
-        };
-    var xmlhttp = new XMLHttpRequest();
+//adding a user check in into the database
+function checkInUser()
+{
+            var venueCheckin=document.getElementById("venueID").value;
 
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-
-        }
-        else
-        {
-            window.location.replace('/homeUser.html');
-            alert("Your Personal Information Has Been Updated!");
-        }
-    };
-
-    // Open connection to server & send the post data using a POST request
-    // We will cover POST requests in more detail in week 8
-    xmlhttp.open("POST", "/users/updateUser", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify(userInfo));
-
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("you have successfully checked in!");
+                }
+            };
+            xmlhttp.open("POST","/users/checkIN", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify({venueCheckin}));
 }
 
-
-function checkInUser(){
-
-    var venueCheckin=document.getElementById("venueID").value;
-
-    var xmlhttp = new XMLHttpRequest();
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("you have successfully checked in!");
-        }
-    };
-
-    xmlhttp.open("POST","/users/checkIN", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify({venueCheckin}));
-
+//deleting a user from the database
+function deleteUser()
+{
+            if (confirm("Please confirm to delete User!"))
+            {
+                confirmDeleteUser();
+            }
 }
 
-function deleteUser() {
-
-  if (confirm("Please confirm to delete User!")) {
-    // txt = "You pressed OK!";
-    confirmDeleteUser();
-  }
-
+//deleting a venue from the database
+function deleteVenue()
+{
+            if (confirm("Please confirm to delete Venue!"))
+            {
+                confirmDeleteVenue();
+            }
 }
 
-function deleteVenue() {
-
-  if (confirm("Please confirm to delete Venue!")) {
-    // txt = "You pressed OK!";
-    confirmDeleteVenue();
-  }
-
-}
-
+//confirm to delete a user
 function confirmDeleteUser()
 {
-    let userID =document.getElementById("search_user").value;
+            let userID =document.getElementById("search_user").value;
 
-    var xmlhttp = new XMLHttpRequest();
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("User Deleted");
-            document.getElementById("search_user").value=null;
-        }
-
-    };
-
-
-    xmlhttp.open("POST", "/users/deleteUser", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify({userID}));
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("User Deleted");
+                    document.getElementById("search_user").value=null;
+                }
+            };
+            xmlhttp.open("POST", "/users/deleteUser", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify({userID}));
 }
 
+// confirm to delete venue
 function confirmDeleteVenue()
 {
-    let venueID =document.getElementById("search_venue").value;
+            let venueID =document.getElementById("search_venue").value;
 
-    var xmlhttp = new XMLHttpRequest();
-
-
-
-    // Define function to run on response
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Venue Deleted");
-            document.getElementById("search_venue").value=null;
-        }
-
-    };
-
-
-    xmlhttp.open("POST", "/users/deleteVenue", true);
-    xmlhttp.setRequestHeader("Content-type", "application/json");
-    xmlhttp.send(JSON.stringify({venueID}));
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("Venue Deleted");
+                    document.getElementById("search_venue").value=null;
+                }
+            };
+            xmlhttp.open("POST", "/users/deleteVenue", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify({venueID}));
 }
 
 function showMap(){
-  document.getElementsByClassName("content-user")[0].style.display = "none";
-  document.getElementsByClassName("map-container-user")[0].style.display = "block";
-  document.getElementsByClassName("table-button-div")[0].style.display = "block";
-  map.resize();
-  checkInsMap();
+            document.getElementsByClassName("content-user")[0].style.display = "none";
+            document.getElementsByClassName("map-container-user")[0].style.display = "block";
+            document.getElementsByClassName("table-button-div")[0].style.display = "block";
+            map.resize();
+            checkInsMap();
 
 
 }
 
 function showTable(){
-  document.getElementsByClassName("content-user")[0].style.display = "block";
-  document.getElementsByClassName("map-container-user")[0].style.display = "none";
-  document.getElementsByClassName("table-button-div")[0].style.display = "none";
+            document.getElementsByClassName("content-user")[0].style.display = "block";
+            document.getElementsByClassName("map-container-user")[0].style.display = "none";
+            document.getElementsByClassName("table-button-div")[0].style.display = "none";
 }
 
 
@@ -806,45 +732,6 @@ function goto_health_history(){
     window.location.replace('/CheckInHO.html');
 }
 
-
-function getEmails() {
-
-
-
-            var xmlhttp = new XMLHttpRequest();
-
-             xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var emails=JSON.parse(this.responseText);
-                    sendCurrentHotspots(emails);
-                }
-
-            };
-
-            xmlhttp.open("POST", "/users/getEmail", true);
-            xmlhttp.send();
-
-        }
-
-function sendCurrentHotspots(emails)
-{
-  var xmlhttp = new XMLHttpRequest();
-
-             xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    alert("Alerts have been sent!")
-                }
-
-            };
-
-            xmlhttp.open("POST", "/users/emailCurrentHotspots", true);
-            xmlhttp.setRequestHeader("Content-type", "application/json");
-            xmlhttp.send(JSON.stringify({emails}));
-
-        }
-
-
-
 function goto_health_manage_hotspot(){
     window.location.replace('/ManageHotspot.html');
 }
@@ -852,5 +739,37 @@ function goto_health_manage_hotspot(){
 function goto_health_create_hotspot(){
     window.location.replace('/createHotspot.html');
 }
+
+//getting emails from the database
+function getEmails()
+{
+            var xmlhttp = new XMLHttpRequest();
+             xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var emails=JSON.parse(this.responseText);
+                    sendCurrentHotspots(emails);
+                }
+            };
+            xmlhttp.open("POST", "/users/getEmail", true);
+            xmlhttp.send();
+}
+
+//sending emails to users that have opted emailing
+function sendCurrentHotspots(emails)
+{
+            var xmlhttp = new XMLHttpRequest();
+
+             xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("Alerts have been sent!")
+                }
+            };
+            xmlhttp.open("POST", "/users/emailCurrentHotspots", true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send(JSON.stringify({emails}));
+}
+
+
+
 
 
