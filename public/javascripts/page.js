@@ -774,7 +774,7 @@ function goto_user_profile(){
 
 // MANAGER HOME
 function goto_manager_home(){
-    window.location.replace('/homeManaher.html');
+    window.location.replace('/homeManager.html');
 }
 
 function goto_manager_profile(){
