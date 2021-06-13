@@ -89,12 +89,23 @@ body
 .button_
 {
     margin: auto;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59a8cd2ffeb3a09150e75df08c5a29790e99d031
     padding: 2%;
     font-size: 3vmin;
     border: none;
 
+<<<<<<< HEAD
       /*font-size: 3vmin;*/
       /*height:6vmin;*/
+=======
+
+/*       font-size: 3vmin;
+      height:6vmin; */
+
+>>>>>>> 59a8cd2ffeb3a09150e75df08c5a29790e99d031
 }
 
 .send_alert
