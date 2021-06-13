@@ -255,7 +255,6 @@ router.post('/signupAdmin', function(req, res, next) {
 
 router.use(function(req, res, next) {
     if('user' in req.session){
-    //   console.log(req.session.user);
         next();
     } else {
         res.sendStatus(401);
