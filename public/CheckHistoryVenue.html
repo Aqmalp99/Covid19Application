@@ -7,7 +7,6 @@
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="javascripts/page.js"></script>
 
 </head>
 
@@ -53,7 +52,7 @@
             </div>
         </section>
         <div class="button-div-venue">
-            <button class="button-venue" name="refine-button" onclick="refineSearchVenue()">Refine Search</button>
+            <button class="button-venue" name="refine-button" onclick="getVenueID()">Refine Search</button>
         </div>
         <section class="table-venue">
             <table>
@@ -74,6 +73,8 @@
             $(".dashboard").load("dashboardTemplateManager.html");
         });
     </script>
+    <script src="javascripts/filter.js"></script>
+    <script src="javascripts/page.js"></script>
 </body>
 
 </html>
