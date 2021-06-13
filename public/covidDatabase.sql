@@ -1,4 +1,3 @@
-
 CREATE TABLE users (
     userID int NOT NULL AUTO_INCREMENT,
     given_name varchar(30),
@@ -15,6 +14,7 @@ CREATE TABLE users (
     isUser BOOL,
     isVenueManager BOOL,
     isHealthOfficial BOOL,
+    emailNotification BOOL,
     PRIMARY KEY (userID)
 );
 
@@ -45,8 +45,6 @@ CREATE TABLE hotspots (
 	FOREIGN KEY (hoID) REFERENCES users(userID),
     FOREIGN KEY (venueID) REFERENCES venue(venueID)
 );
-
-
 
 
 CREATE TABLE checkins (
