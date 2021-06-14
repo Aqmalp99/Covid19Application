@@ -77,7 +77,6 @@ router.post('/login', function(req, res, next) {
                 return;
             }
             req.session.user = rows;
-            // console.log("logged in");
             res.json(rows);
 
 
@@ -179,10 +178,6 @@ router.post('/signup', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-
-          // res.json(rows);
-
             res.end();
 
       });
@@ -236,9 +231,6 @@ router.post('/signupAdmin', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-
-          // res.json(rows);
 
             res.end();
 
@@ -1234,7 +1226,6 @@ router.get('/checkinsVenue', function(req, res, next)
         }
 
         if (req.query.venueID == null){
-            console.log("lmao");
             res.sendStatus(500);
             return
         }
@@ -2050,15 +2041,16 @@ router.post('/addVenue', function(req, res, next) {
       var suburb=req.body.suburb;
       var postcode=req.body.postcode;
       var state=req.body.state;
+      var emailNotification=req.body.emailNoti;
 
       var user=req.session.user;
       var userID=user[0].userID;
 
       var query=`UPDATE users
                 SET given_name = ?, surname= ?, street_number=? , street_name=? , surburb=? , state=? , postcode=?, contact_number=?,
-                date_of_birth=?, email=?
+                date_of_birth=?, email=?,emailNotification=?
                 WHERE userID=?;`;
-      connection.query(query,[firstName,surname,streetnum,streetname,suburb,state,postcode,contactNo,dob,email,userID],function(err,rows,fields)
+      connection.query(query,[firstName,surname,streetnum,streetname,suburb,state,postcode,contactNo,dob,email,emailNotification,userID],function(err,rows,fields)
       {
           connection.release();
           if(err)
@@ -2067,9 +2059,6 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-
-          // res.json(rows);
 
             res.end();
 
@@ -2114,9 +2103,6 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-
-          // res.json(rows);
 
             res.end();
 
@@ -2151,7 +2137,6 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // console.log(rows);
           res.json(rows);
 
       });
@@ -2187,7 +2172,6 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
           if(rows.length===0)
             {
                 res.sendStatus(401);
@@ -2195,9 +2179,6 @@ router.post('/addVenue', function(req, res, next) {
             }
 
             res.json(rows);
-
-            // res.end();
-
       });
   });
   });
@@ -2230,7 +2211,6 @@ router.post('/addVenue', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
           if(rows.length===0)
             {
                 res.sendStatus(401);
@@ -2238,9 +2218,6 @@ router.post('/addVenue', function(req, res, next) {
             }
 
             res.json(rows);
-
-            // res.end();
-
       });
   });
   });
@@ -2262,7 +2239,7 @@ router.get('/userInfo', function(req, res, next) {
       var user=req.session.user;
         var userID=user[0].userID;
 
-      var query=`SELECT userID,given_name,surname,street_number,street_name,surburb,state,postcode,contact_number, date_of_birth, email
+      var query=`SELECT userID,given_name,surname,street_number,street_name,surburb,state,postcode,contact_number, date_of_birth, email,emailNotification
                                 FROM users WHERE userID = ?;`;
       connection.query(query,[userID],function(err,rows,fields)
       {
@@ -2273,7 +2250,6 @@ router.get('/userInfo', function(req, res, next) {
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
           if(rows.length===0)
             {
                 res.sendStatus(401);
@@ -2281,9 +2257,6 @@ router.get('/userInfo', function(req, res, next) {
             }
 
             res.json(rows);
-
-            // res.end();
-
       });
   });
   });
@@ -2291,7 +2264,6 @@ router.get('/userInfo', function(req, res, next) {
 
 router.post('/deleteHotspot', function(req,res,next)
 {
-    console.log("Hi");
     req.pool.getConnection(function(err,connection)
   {
        if(err)
@@ -2358,10 +2330,6 @@ router.post('/deleteHotspot', function(req,res,next)
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
-
-          // res.json(rows);
-
             res.sendStatus(200);
 
       });
@@ -2400,7 +2368,6 @@ router.post('/deleteHotspot', function(req,res,next)
               res.sendStatus(500);
               return;
           }
-          // req.session.user = first_name;
           if(rows.length===0)
             {
                 res.sendStatus(401);
@@ -2408,9 +2375,6 @@ router.post('/deleteHotspot', function(req,res,next)
             }
 
             res.json(rows);
-
-            // res.end();
-
       });
   });
   });
@@ -2444,7 +2408,6 @@ router.post('/deleteHotspot', function(req,res,next)
               res.sendStatus(500);
               return;
           }
-          // console.log(rows);
           res.json(rows);
 
       });

@@ -520,6 +520,15 @@ function getUserInfo()
                     if(userinfo[0].postcode!==null){
                     document.getElementById("postcode").value = userinfo[0].postcode;
                     }
+                    if(userinfo[0].emailNotification!==null){
+                        if(userinfo[0].emailNotification==1){
+                            document.getElementById("emailNoti").checked =true;
+                        }
+                        else
+                        {
+                            document.getElementById("emailNoti").checked =false;
+                        }
+                    }
                 }
             };
             xmlhttp.open("GET","/users/userInfo", true);
@@ -568,6 +577,15 @@ function getVenueInfo()
 //editing user information
 function editUserInfo()
 {
+            var emailcheck=document.getElementById("emailNoti");
+            if(emailcheck.checked==true)
+            {
+                emailcheck=1;
+            }
+            if(emailcheck.checked==false)
+            {
+                emailcheck=0;
+            }
              let userInfo = {
                      givenName : document.getElementById("gname").value,
                      surname : document.getElementById("lname").value,
@@ -578,7 +596,8 @@ function editUserInfo()
                      streetname: document.getElementById("streetname").value,
                      suburb: document.getElementById("suburb").value,
                      postcode: document.getElementById("postcode").value,
-                     state: document.getElementById("state").value
+                     state: document.getElementById("state").value,
+                     emailNoti: emailcheck
                 };
 
             var xmlhttp = new XMLHttpRequest();
