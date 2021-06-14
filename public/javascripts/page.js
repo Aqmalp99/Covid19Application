@@ -318,6 +318,23 @@
 
     }
 
+
+//show venue ID
+function showVenueID(){
+    var venueidDiv = document.getElementsByClassName("manager_venueid")[0];
+    var xhttp = new XMLHttpRequest();
+    if (this.readyState == 4 && this.status == 200)
+        {
+            var venueIDRow = JSON.parse(this.responseText);
+            var venueID = venueIDRow[0].venueID;
+            venueidDiv.innerText = `Venue ID: ${venueID}`;
+        }
+
+    xhttp.open("GET", '/showVenueID', true);
+    xhttp.send();
+}
+
+
 //google sign in
     function onSignIn(googleUser)
     {

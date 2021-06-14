@@ -1234,7 +1234,7 @@ router.get('/manageHotspots', function(req, res, next)
 
 
 router.get('/getVenueID', function(req,res,next){
-    console.log("working");
+
     req.pool.getConnection(function (err, connection)
     {
         if (err)
@@ -1245,7 +1245,6 @@ router.get('/getVenueID', function(req,res,next){
 
         let object = req.session.user;
         let venueManagerID = object[0].userID;
-        console.log(venueManagerID);
 
         let query = `SELECT venueID FROM venue WHERE (venue_manager = ?)`
 
@@ -1265,6 +1264,27 @@ router.get('/getVenueID', function(req,res,next){
     });
 });
 
+
+router.get('/showVenueID', function(req,res,next){
+   req.pool.getConnection(function (err, connection)
+    {
+        var sessionObject = req.session.user;
+        var userID = sessionObject[0].userID;
+
+        var query = `SELECT venueID FROM venue WHERE (venue_manager = ?)`;
+        connection.query(query, [userID], function (err, rows, fields)
+        {
+            connection.release();
+            if (err){
+                res.sendStatus(500);
+                return;
+            }
+
+            res.json(rows);
+            res.end();
+        });
+    };
+});
 
 
 router.get('/checkinsVenue', function(req, res, next)
