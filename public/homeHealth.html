@@ -56,6 +56,7 @@
                 map.resize();
             });
              updatemap();
+
             //  document.getElementById("map").style.display = "block";
 
 
@@ -84,17 +85,14 @@
     </div>
     <script src="javascripts/manage_users.js"></script>
     <script src="javascripts/page.js"></script>
-</body>
-<script type = "text/javascript">
-    $(function (){
-       $(".dashboard").load("dashboardTemplateHealth.html");
+    <script >
+        $(function (){
+           $(".dashboard").load("dashboardTemplateHealth.html");
 
-    });
+        });
 
-</script>
-<script type = "text/javascript">
-    var interval = 0;
-    var interval_value = 0;
+    </script>
+<script >
 
     $(function() {
         $('.faq_list').hover(function() {
@@ -107,5 +105,7 @@
         });
     });
 </script>
+</body>
+
 
 </html>

@@ -1,7 +1,7 @@
 //FILTER.JS//
 //THIS JAVASCRIPT FILE CONTAINS FUNCTIONS THAT RELATE TO VIEWING CHECKIN HISTORY AND FILTERING RESULTS IN THEIR RESPECTIVE TABLES
 
-
+// the function fetch data from the sql
 //prints all checkins for the user in descending order from checkin date
 function printAllCheckins(){
   var table = document.getElementsByTagName("tbody")[0];
@@ -876,7 +876,7 @@ function displayAllHotspots(){
 //takes in parameters from inputs to retrieve data from database. Prints out the results in the table.
 function refineHotspots()
 {
-
+    // getting data and storing them in variables
     var venueName = document.getElementById("vname").value;
     var date = document.getElementById("date").value;
     var streetNumber = document.getElementById("stNum").value;
@@ -885,6 +885,8 @@ function refineHotspots()
     var postcode = document.getElementById("postcode").value;
 
     var state = document.getElementById("states").value;
+
+    // if statemnet for filter to. refine the search
     if(state == "Please Select an Option:"){
       state = "";
     }
@@ -947,6 +949,8 @@ function refineHotspots()
       queryString = `users/manageHotspots?date=${date}&state=${state}`;
     }
 
+
+    // for rest of the option setting the values to "no result"
     else {
 
       if (document.getElementById("no-results") !== null){
@@ -1087,97 +1091,99 @@ function refineHotspots()
 }
 
 //hide toggles present on load of the page, and shows more toggles for looking up address information
-function showHideToggles()
-{
-  var addressToggles = document.getElementsByClassName("hidden")[0];
-  var toggles = document.getElementsByClassName("not-hidden")[0];
+      function showHideToggles()
+      {
+        var addressToggles = document.getElementsByClassName("hidden")[0];
+        var toggles = document.getElementsByClassName("not-hidden")[0];
 
-  if (addressToggles.style.display == "none")
-  {
-      toggles.style.display = "none";
-      addressToggles.style.display = "block";
-      document.getElementById("toggle-button").innerText = "Search by Name";
-  }
-  else
-  {
-      toggles.style.display = "block";
-      addressToggles.style.display = "none";
-      document.getElementById("toggle-button").innerText = "Search by Address";
-  }
-}
+        // Hidding and displaying the options according to the input
+        if (addressToggles.style.display == "none")
+        {
+            toggles.style.display = "none";
+            addressToggles.style.display = "block";
+            document.getElementById("toggle-button").innerText = "Search by Name";
+        }
+        else
+        {
+            toggles.style.display = "block";
+            addressToggles.style.display = "none";
+            document.getElementById("toggle-button").innerText = "Search by Address";
+        }
+      }
 
 
-//Same as above but for the admin page.
-function showHideTogglesAdmin()
-{
-  var addressToggles = document.getElementsByClassName("hidden")[0];
-  var toggles = document.getElementsByClassName("not-hidden")[0];
+      //Same as above but for the admin page.
+        function showHideTogglesAdmin()
+        {
+          var addressToggles = document.getElementsByClassName("hidden")[0];
+          var toggles = document.getElementsByClassName("not-hidden")[0];
 
-  if (addressToggles.style.display == "none")
-  {
-      toggles.style.display = "none";
-      addressToggles.style.display = "block";
-      document.getElementById("toggle-button-admin").innerText = "Search by Name";
-  }
-  else
-  {
-      toggles.style.display = "block";
-      addressToggles.style.display = "none";
-      document.getElementById("toggle-button-admin").innerText = "Search by Address";
-  }
-}
+          if (addressToggles.style.display == "none")
+          {
+              toggles.style.display = "none";
+              addressToggles.style.display = "block";
+              document.getElementById("toggle-button-admin").innerText = "Search by Name";
+          }
+          else
+          {
+              toggles.style.display = "block";
+              addressToggles.style.display = "none";
+              document.getElementById("toggle-button-admin").innerText = "Search by Address";
+          }
+        }
 
 
 //deleting a hotspot. takes in the onclick event to access the button element.
 //This function uses the parent nodes of this button to link button click event to the corresponding row.
 //posts row to server for deletion using hotspot ID.
-function deleteHotspot(event)
-{
-  var confirmDelete = confirm("Are you sure you want to delete?");
+      function deleteHotspot(event)
+      {
+        var confirmDelete = confirm("Are you sure you want to delete?");
 
-  if (confirmDelete === true)
-  {
-    var idOfButton = event.target.id;
-    var button = document.getElementById(`${idOfButton}`);
-    var tr = button.parentNode.parentNode;
-    var text = tr.cells.item(0).innerText;
-
-    var table = document.getElementsByTagName("tbody")[0];
-
-    var xhttp = new XMLHttpRequest;
-
-    xhttp.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200)
+        if (confirmDelete === true)
         {
-          while (document.getElementsByClassName("table-data").length !== 0)
-          {
-              let temp = document.getElementsByClassName("table-data")[0];
-              temp.remove();
-          }
+          var idOfButton = event.target.id;                 // fetching data and dtoring them in different var
+          var button = document.getElementById(`${idOfButton}`);
+          var tr = button.parentNode.parentNode;
+          var text = tr.cells.item(0).innerText;
 
-          if (document.getElementById("reload-prompt") !== null)
-          {
-            let rlRow = document.getElementById("reload-prompt");
-            rlRow.remove();
-          }
+          var table = document.getElementsByTagName("tbody")[0];
 
-          let tr = document.createElement("tr");
-          tr.setAttribute("id", "reload-prompt-row");
-          let td = document.createElement("td");
-          td.setAttribute("id", "reload-prompt");
-          let reloadPrompt = document.createTextNode(`Hotspot with ID ${text} has been removed. Please use filters to see changes.`);
-          td.appendChild(reloadPrompt);
-          td.setAttribute("colspan", "6");
-          tr.appendChild(td);
-          table.appendChild(tr);
-          return;
+          var xhttp = new XMLHttpRequest;
+
+          xhttp.onreadystatechange = function()
+          {
+              // comparing the data and performing action according to the input
+              if (this.readyState == 4 && this.status == 200)
+              {
+                while (document.getElementsByClassName("table-data").length !== 0)
+                {
+                    let temp = document.getElementsByClassName("table-data")[0];
+                    temp.remove();
+                }
+
+                if (document.getElementById("reload-prompt") !== null)
+                {
+                  let rlRow = document.getElementById("reload-prompt");
+                  rlRow.remove();
+                }
+
+                let tr = document.createElement("tr");
+                tr.setAttribute("id", "reload-prompt-row");
+                let td = document.createElement("td");
+                td.setAttribute("id", "reload-prompt");
+                let reloadPrompt = document.createTextNode(`Hotspot with ID ${text} has been removed. Please use filters to see changes.`);
+                td.appendChild(reloadPrompt);
+                td.setAttribute("colspan", "6");
+                tr.appendChild(td);
+                table.appendChild(tr);
+                return;
+              }
+          };
+
+          xhttp.open("POST", "users/deleteHotspot", true);
+          xhttp.setRequestHeader("Content-type", "application/json");
+          xhttp.send(JSON.stringify({text}));
+
         }
-    };
-
-    xhttp.open("POST", "users/deleteHotspot", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({text}));
-
-  }
-}
+      }

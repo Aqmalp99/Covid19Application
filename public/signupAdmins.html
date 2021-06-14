@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="javascripts/page.js"></script>
-
+    <link rel = "icon" href = "stylesheets/images/covid_icon.png" type = "image/x-icon">
 </head>
 
 <body id="body" onload="checkAdmin()" style="display:none;">
@@ -70,7 +70,7 @@
         </div>
         <div><label for="postcode">Post code:</label></div>
         <div>
-            <label for="vstate">State:</label>
+            <label for="state">State:</label>
         </div>
         <div>
             <input  id="postcode" type="text" placeholder="Postcode">
@@ -98,8 +98,8 @@
         <div>
             <input id="repeat_password" class="input" type="password" placeholder="Please re-enter your password"><br><br>
         </div>
-        <label class="email_notis">
-            <input class="checkbox" type="checkbox" id="terms_cond">Receive email notifications for current hotspots
+        <label for="terms_cond_email" class="email_notis">
+            <input class="checkbox" type="checkbox" id="terms_cond_email">Receive email notifications for current hotspots
         </label>
         <label class="tANDc_label">
                 <input class="checkbox" type="checkbox" id="terms_cond"><a href="https://www.apple.com/au/legal/internet-services/terms/site.html">Agree to Terms & Conditions</a>
@@ -111,7 +111,7 @@
     </div>
 
     <script src="javascripts/page.js"></script>
-    <script type = "text/javascript">
+    <script >
     $(function (){
        $(".dashboard").load("dashboardTemplateHealth.html");
 

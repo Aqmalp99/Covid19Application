@@ -6,6 +6,7 @@
     <link href="stylesheets/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/nmy2ljm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel = "icon" href = "stylesheets/images/covid_icon.png" type = "image/x-icon">
 </head>
 
 <body id="body" onload="checkAdmin();displayAllHotspots();" style="display:none;">
@@ -100,19 +101,21 @@
         <section class="table-manage">
             <table>
                 <thead>
-                    <th>Hotspot ID</th>
-                    <th>Name of Venue</th>
-                    <th>Venue Address</th>
-                    <th>Venue Phone No.</th>
-                    <th>Start Date</th>
-                    <th>Delete Hotspot</th>
+                    <tr>
+                        <th>Hotspot ID</th>
+                        <th>Name of Venue</th>
+                        <th>Venue Address</th>
+                        <th>Venue Phone No.</th>
+                        <th>Start Date</th>
+                        <th>Delete Hotspot</th>
+                    </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </section>
     </div>
     <script src="javascripts/filter.js"></script>
-    <script type = "text/javascript">
+    <script >
         $(function (){
             $(".dashboard").load("dashboardTemplateHealth.html");
         });
