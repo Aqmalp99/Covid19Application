@@ -6,6 +6,19 @@ body {
 
 }
 
+.manager_venueid
+{
+    position:fixed;
+    top:7.5vh;
+    right:34vh;
+    color: #5d5e68;
+    font-family: "mr-eaves-modern", sans-serif;
+    font-size: 1.5vw;
+    font-weight: normal;
+    box-sizing: border-box;
+
+}
+
 header {
     background-color: rgba(163, 183, 198, 0.3);
     margin: 0 0 4vh 0;
