@@ -323,12 +323,17 @@
 function showVenueID(){
     var venueidDiv = document.getElementsByClassName("manager_venueid")[0];
     var xhttp = new XMLHttpRequest();
-    if (this.readyState == 4 && this.status == 200)
-        {
-            var venueIDRow = JSON.parse(this.responseText);
-            var venueID = venueIDRow[0].venueID;
-            venueidDiv.innerText = `Venue ID: ${venueID}`;
-        }
+    xhttp.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+            {
+                var venueIDRow = JSON.parse(this.responseText);
+                console.log(venueIDRow);
+                var venueID = venueIDRow[0].venueID;
+                console.log(venueID);
+                venueidDiv.innerText = `Venue ID: ${venueID}`;
+            }
+    };
 
     xhttp.open("GET", 'users/showVenueID', true);
     xhttp.send();
