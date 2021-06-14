@@ -111,11 +111,6 @@ function printAllCheckins(){
 
 
 
-
-
-
-
-
 //filter checkin history results - user
 //gets inputs from document, sends to server and prints out results in table
 
@@ -139,9 +134,12 @@ function refineSearchUser()
     var table = document.getElementsByTagName("tbody")[0];
     var queryString = "";
 
+    if (venueName.length <= 0 && date.length <= 0 && startTime.length <= 0 && endTime.length <= 0 && streetNumber.length <= 0 && streetName.length <= 0 && suburb.length <= 0 && postcode.length <= 0 && state.length <= 0)
+    {
+      queryString = `users/checkInsUser`;
+    }
 
-
-    if (venueName.length > 0 && date.length > 0 && startTime.length > 0 && endTime.length > 0 && streetNumber.length > 0 && streetName.length > 0 && suburb.length > 0 && postcode.length > 0 && state.length > 0)
+    else if (venueName.length > 0 && date.length > 0 && startTime.length > 0 && endTime.length > 0 && streetNumber.length > 0 && streetName.length > 0 && suburb.length > 0 && postcode.length > 0 && state.length > 0)
     {
       queryString = `users/checkInsUser?vname=${venueName}&date=${date}&sTime=${startTime}&eTime=${endTime}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
     }
@@ -298,7 +296,7 @@ function refineSearchUser()
 
                   else if (j === 2)
                   {
-                    let data = document.createTextNode(checkinHistoryUser[i].contact_number);
+                    let data = document.createTextNode(checkinHistoryUser[i].phone_number);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
@@ -743,6 +741,134 @@ function backToSearch(){
   document.getElementsByClassName("content-admin")[0].style.display = "block";
 }
 
+//display all hotspots upon load of manage hotspots page
+function displayAllHotspots(){
+    var table = document.getElementsByTagName("tbody")[0];
+
+    var xhttp = new XMLHttpRequest;
+
+    xhttp.onreadystatechange = function()
+          {
+            if (this.readyState == 4 && this.status == 200)
+            {
+              while (document.getElementsByClassName("table-data").length !== 0)
+              {
+                  let temp = document.getElementsByClassName("table-data")[0];
+                  temp.remove();
+              }
+
+              if (document.getElementById("no-results") !== null)
+              {
+                let nrRow = document.getElementById("no-results-row");
+                nrRow.remove();
+              }
+
+              if (document.getElementById("reload-prompt") !== null)
+              {
+                let rlRow = document.getElementById("reload-prompt-row");
+                rlRow.remove();
+              }
+
+
+              var hotspots = JSON.parse(this.responseText);
+
+              if (hotspots.length <= 0)
+              {
+
+                if (document.getElementById("no-results") !== null){
+                  let nrRow = document.getElementById("no-results-row");
+                  nrRow.remove();
+                }
+
+                let tr = document.createElement("tr");
+                tr.setAttribute("id", "no-results-row");
+                let td = document.createElement("td");
+                td.setAttribute("id", "no-results");
+                let noResults = document.createTextNode("There are no current active hotspots.");
+                td.appendChild(noResults);
+                td.setAttribute("colspan", "6");
+                tr.appendChild(td);
+                table.appendChild(tr);
+                return;
+              }
+
+              var numberofRows = hotspots.length;
+              var addresses = [];
+              var convertedDates = [];
+
+              for (let i = 0; i < numberofRows; i++)
+              {
+                addresses.push(hotspots[i].street_number + " " + hotspots[i].street_name + ", " + hotspots[i].suburb + ", " + hotspots[i].state + ", " + hotspots[i].postcode);
+                if (hotspots[i].start_date !== null){
+                  console.log(hotspots[i].start_date);
+                  convertedDates.push(hotspots[i].start_date.toString());
+                  convertedDates[i] = convertedDates[i].slice(0, -14);
+                }
+              }
+
+              for (let i=0; i < numberofRows; i++)
+              {
+                let tr = document.createElement("tr");
+                tr.setAttribute("class", "table-data");
+                for (let j = 0; j < 6; j++)
+                {
+                  let td = document.createElement("td");
+
+                  if (j === 0)
+                  {
+                    let data = document.createTextNode(hotspots[i].hotspotID);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+                  else if (j === 1)
+                  {
+                    let data = document.createTextNode(hotspots[i].venue_name);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 2)
+                  {
+                    let data = document.createTextNode(addresses[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 3)
+                  {
+                    let data = document.createTextNode(hotspots[i].phone_number);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 4)
+                  {
+                    let data = document.createTextNode(convertedDates[i]);
+                    td.appendChild(data);
+                    tr.appendChild(td);
+                  }
+
+                  else if (j === 5)
+                  {
+                    let button = document.createElement("button");
+                    button.setAttribute("onclick", "deleteHotspot(event)");
+                    button.setAttribute("id", `button${i}`);
+                    let data = document.createTextNode("Delete");
+                    button.appendChild(data);
+                    td.appendChild(button);
+                    tr.appendChild(td);
+                  }
+                }
+
+                table.appendChild(tr);
+              }
+            }
+          };
+
+          xhttp.open("GET", 'users/displayAllHotspots',  true);
+          xhttp.send();
+}
+
 
 
 //filter hotspots
@@ -766,7 +892,12 @@ function refineHotspots()
     var table = document.getElementsByTagName("tbody")[0];
     var queryString = "";
 
-    if (venueName.length > 0 && date.length > 0  && streetNumber.length > 0 && streetName.length > 0 && suburb.length > 0 && postcode.length > 0 && state.length > 0)
+    if (venueName.length <= 0 && date.length <= 0  && streetNumber.length <= 0 && streetName.length <= 0 && suburb.length <= 0 && postcode.length <= 0 && state.length <= 0)
+    {
+       queryString = `users/manageHotspots`;
+    }
+
+    else if (venueName.length > 0 && date.length > 0  && streetNumber.length > 0 && streetName.length > 0 && suburb.length > 0 && postcode.length > 0 && state.length > 0)
     {
       queryString = `users/manageHotspots?vname=${venueName}&date=${date}&stNum=${streetNumber}&stName=${streetName}&suburb=${suburb}&postcode=${postcode}&state=${state}`;
     }
@@ -922,7 +1053,7 @@ function refineHotspots()
 
                   else if (j === 3)
                   {
-                    let data = document.createTextNode(hotspots[i].contact_number);
+                    let data = document.createTextNode(hotspots[i].phone_number);
                     td.appendChild(data);
                     tr.appendChild(td);
                   }
@@ -948,7 +1079,6 @@ function refineHotspots()
 
                 table.appendChild(tr);
               }
-              document.getElementsByClassName("search-again")[0].style.display = "block";
             }
           };
 
@@ -957,7 +1087,8 @@ function refineHotspots()
 }
 
 //hide toggles present on load of the page, and shows more toggles for looking up address information
-function showHideToggles(){
+function showHideToggles()
+{
   var addressToggles = document.getElementsByClassName("hidden")[0];
   var toggles = document.getElementsByClassName("not-hidden")[0];
 
@@ -977,7 +1108,8 @@ function showHideToggles(){
 
 
 //Same as above but for the admin page.
-function showHideTogglesAdmin(){
+function showHideTogglesAdmin()
+{
   var addressToggles = document.getElementsByClassName("hidden")[0];
   var toggles = document.getElementsByClassName("not-hidden")[0];
 
@@ -1002,11 +1134,10 @@ function showHideTogglesAdmin(){
 function deleteHotspot(event)
 {
   var confirmDelete = confirm("Are you sure you want to delete?");
+
   if (confirmDelete === true)
   {
     var idOfButton = event.target.id;
-    console.log(idOfButton);
-
     var button = document.getElementById(`${idOfButton}`);
     var tr = button.parentNode.parentNode;
     var text = tr.cells.item(0).innerText;
@@ -1017,41 +1148,36 @@ function deleteHotspot(event)
 
     xhttp.onreadystatechange = function()
     {
+        if (this.readyState == 4 && this.status == 200)
+        {
+          while (document.getElementsByClassName("table-data").length !== 0)
           {
-            if (this.readyState == 4 && this.status == 200)
-            {
-              while (document.getElementsByClassName("table-data").length !== 0)
-              {
-                  let temp = document.getElementsByClassName("table-data")[0];
-                  temp.remove();
-              }
-
-              if (document.getElementById("reload-prompt") !== null)
-              {
-                let rlRow = document.getElementById("reload-prompt");
-                rlRow.remove();
-              }
-
-              let tr = document.createElement("tr");
-              tr.setAttribute("id", "reload-prompt-row");
-              let td = document.createElement("td");
-              td.setAttribute("id", "reload-prompt");
-              let reloadPrompt = document.createTextNode(`Hotspot with ID ${text} has been removed. Please use filters to see changes.`);
-              td.appendChild(reloadPrompt);
-              td.setAttribute("colspan", "6");
-              tr.appendChild(td);
-              table.appendChild(tr);
-              return;
-            }
+              let temp = document.getElementsByClassName("table-data")[0];
+              temp.remove();
           }
+
+          if (document.getElementById("reload-prompt") !== null)
+          {
+            let rlRow = document.getElementById("reload-prompt");
+            rlRow.remove();
+          }
+
+          let tr = document.createElement("tr");
+          tr.setAttribute("id", "reload-prompt-row");
+          let td = document.createElement("td");
+          td.setAttribute("id", "reload-prompt");
+          let reloadPrompt = document.createTextNode(`Hotspot with ID ${text} has been removed. Please use filters to see changes.`);
+          td.appendChild(reloadPrompt);
+          td.setAttribute("colspan", "6");
+          tr.appendChild(td);
+          table.appendChild(tr);
+          return;
+        }
     };
 
     xhttp.open("POST", "users/deleteHotspot", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({text}));
 
-  }
-  else {
-    return false;
   }
 }

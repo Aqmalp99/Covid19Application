@@ -288,12 +288,6 @@ router.get('/displayAllCheckins', function(req,res,next){
 });
 
 
-
-
-
-
-
-
 router.get('/checkInsUser', function(req, res, next)
 {
     var vnameBool = true;
@@ -345,6 +339,34 @@ router.get('/checkInsUser', function(req, res, next)
         {
             res.sendStatus(500);
             return;
+        }
+
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && checkinDateBool === false && startTimeBool === false && endTimeBool === false)
+        {
+            console.log("scenario 0");
+
+            let query = `SELECT venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, checkins.checkindate, checkins.checkintime
+                    FROM users
+                    INNER JOIN checkins
+                    ON users.userID = checkins.userID
+                    INNER JOIN venue
+                    ON checkins.venueID = venue.venueID
+                    WHERE (users.userID = ?)`;
+
+            connection.query(query, [userID], function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
         }
 
 
@@ -796,6 +818,33 @@ router.get('/checkInsUser', function(req, res, next)
     });
 });
 
+//sends all active hotspots
+router.get('/displayAllHotspots', function(req,res,next){
+    req.pool.getConnection(function (err, connection)
+    {
+
+         let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date
+                    FROM hotspots
+                    INNER JOIN venue
+                    ON hotspots.venueID = venue.venueID`;
+
+        connection.query(query, function (err, rows, fields)
+        {
+            connection.release();
+            if (err)
+            {
+                res.sendStatus(500);
+                return;
+            }
+
+            console.log(rows);
+            res.json(rows);
+            res.end();
+        });
+    });
+});
+
+
 router.get('/manageHotspots', function(req, res, next)
 {
     var vnameBool = true;
@@ -834,6 +883,31 @@ router.get('/manageHotspots', function(req, res, next)
         {
             res.sendStatus(500);
             return;
+        }
+
+        if (vnameBool === false && streetNumberBool === false && streetNameBool === false && suburbBool === false && postcodeBool === false && stateBool === false && startDateBool === false)
+        {
+            console.log("scenario 0");
+
+            let query = `SELECT hotspots.hotspotID, venue.venue_name, venue.street_number, venue.street_name, venue.suburb, venue.state, venue.postcode, venue.phone_number, hotspots.start_date
+                    FROM hotspots
+                    INNER JOIN venue
+                    ON hotspots.venueID = venue.venueID`;
+
+
+            connection.query(query, function (err, rows, fields)
+            {
+                connection.release();
+                if (err)
+                {
+                    res.sendStatus(500);
+                    return;
+                }
+
+                console.log(rows);
+                res.json(rows);
+                res.end();
+            });
         }
 
 
