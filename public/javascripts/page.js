@@ -330,7 +330,7 @@ function showVenueID(){
             venueidDiv.innerText = `Venue ID: ${venueID}`;
         }
 
-    xhttp.open("GET", '/showVenueID', true);
+    xhttp.open("GET", 'users/showVenueID', true);
     xhttp.send();
 }
 

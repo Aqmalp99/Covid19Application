@@ -1283,7 +1283,7 @@ router.get('/showVenueID', function(req,res,next){
             res.json(rows);
             res.end();
         });
-    };
+    });
 });
 
 
