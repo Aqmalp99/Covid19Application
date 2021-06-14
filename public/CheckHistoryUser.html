@@ -11,6 +11,7 @@
     <script src="javascripts/page.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
+    <link rel = "icon" href = "stylesheets/images/covid_icon.png" type = "image/x-icon">
 </head>
 <body id="body"  onload="checklogin();printAllCheckins();" style="display:none;">
     <header>Check-In History</header>
@@ -106,11 +107,13 @@
         <section class="table-user">
             <table>
                 <thead>
-                    <th>Name of Venue</th>
-                    <th>Venue Address</th>
-                    <th>Phone Number</th>
-                    <th>Check-in Date</th>
-                    <th>Check-in Time</th>
+                    <tr>
+                        <th>Name of Venue</th>
+                        <th>Venue Address</th>
+                        <th>Phone Number</th>
+                        <th>Check-in Date</th>
+                        <th>Check-in Time</th>
+                    </tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -138,7 +141,7 @@
             <button id="table-button" onclick="showTable()">View Check-in Table</button>
     </div>
     <script src="javascripts/filter.js"></script>
-    <script type = "text/javascript">
+    <script >
         $(function (){
             $(".dashboard").load("dashboardTemplateUser.html");
         });
