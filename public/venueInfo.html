@@ -11,16 +11,17 @@
 
 
 </head>
-<body id="body"  onload="checkVenman();getVenueInfo();" style="display:none;">
+<body id="body"  onload="checkVenman();getVenueInfo();showVenueID();" style="display:none;">
      <div class= "dashboard">
         </div>
     <header>Edit Venue Information</header>
-    <div class="manager_venueid">venue</div>
+
     <div class="content-venueinfo">
         <section class="toggles-venueinfo">
-        <div class="span-2-columns">
+        <div>
             <label for="vname">Venue Name:</label>
         </div>
+        <div class="manager_venueid"></div>
         <div class="span-2-columns">
             <input id="vname" class="input" type="text" placeholder="Venue Name">
         </div>
